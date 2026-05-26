@@ -1,13 +1,13 @@
 // packages/contracts/live/vocabulary-turn.ts
 
-import type { VocabularyItem } from "../vocabulary-item";
+import type { VocabularyExercise } from "../exercises/vocabulary-exercise";
 
 export type VocabularyTurn = {
   mode: "vocabulary";
 
-  currentTurn: {
-    studentId: string;
+  turnId: string;
 
-    item: VocabularyItem;
-  };
+  studentId: string;
+
+  exercise: VocabularyExercise;
 };

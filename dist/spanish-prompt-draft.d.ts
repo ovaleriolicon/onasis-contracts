@@ -4,5 +4,5 @@ export type SpanishPromptDraft = {
     polarity: Scene["polarity"];
     subject: string;
     verb: string;
-    englishSentence: string;
+    correctSentence: string;
 };

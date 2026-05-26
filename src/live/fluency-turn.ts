@@ -1,21 +1,9 @@
-// packages/contracts/live/fluency-turn.ts
-
-import type { Scene } from "../scene";
+import type { FluencyExercise } from "../exercises/fluency-exercise";
 
 export type FluencyTurn = {
-  mode: "fluency";
+  turnId: string;
 
-  currentTurn: {
-    studentId: string;
+  studentId: string;
 
-    question: {
-      id: string;
-
-      prompt: string;
-
-      answer: string;
-
-      scene: Scene;
-    };
-  };
+  exercise: FluencyExercise;
 };
