@@ -62,7 +62,7 @@ export type NounEntry = {
   };
 
   pedagogy?: {
-    unlockAtModule?: number;
+    unlockedAtVocabularyLevel: number;
   };
 };
 
@@ -113,7 +113,7 @@ export type AdjectiveEntry = {
 
   translation?: string;
 
-  unlockAtModule?: number;
+  unlockedAtVocabularyLevel: number;
 
   semantics: {
     type?: "state" | "quality";
