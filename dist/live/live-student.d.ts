@@ -1,5 +1,6 @@
 export type LiveStudent = {
     id: string;
     name: string;
-    currentModule: number;
+    vocabularyLevel: number;
+    structureLevel: number;
 };

@@ -3,5 +3,7 @@ export type LiveStudent = {
   
     name: string;
   
-    currentModule: number;
+    vocabularyLevel: number;
+    
+    structureLevel: number;
   };
