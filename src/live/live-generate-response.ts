@@ -1,9 +1,7 @@
 // packages/contracts/live/live-generate-response.ts
 
-import type { FluencyTurn } from "./fluency-turn";
+import type { CurrentTurn } from "./current-turn";
 
-import type { VocabularyTurn } from "./vocabulary-turn";
-
-export type LiveGenerateResponse =
-  | FluencyTurn
-  | VocabularyTurn;
+export type LiveGenerateResponse = {
+  currentTurn: CurrentTurn;
+};

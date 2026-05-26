@@ -1,6 +1,6 @@
 // packages/contracts/live/vocabulary-turn.ts
 
-import type { VocabularyExercise } from "../exercises/vocabulary-exercise";
+import type { VocabularyExercise } from "../exercises";
 
 export type VocabularyTurn = {
   mode: "vocabulary";

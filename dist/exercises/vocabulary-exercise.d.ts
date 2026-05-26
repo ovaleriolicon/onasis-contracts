@@ -1,5 +1,10 @@
-import type { VocabularyItem } from "../vocabulary-item";
 export type VocabularyExercise = {
     mode: "vocabulary";
-    item: VocabularyItem;
+    question: string;
+    options: Array<{
+        label: string;
+        correct: boolean;
+    }>;
+    word: string;
+    translation: string;
 };

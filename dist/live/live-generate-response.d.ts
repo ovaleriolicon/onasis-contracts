@@ -1,3 +1,4 @@
-import type { FluencyTurn } from "./fluency-turn";
-import type { VocabularyTurn } from "./vocabulary-turn";
-export type LiveGenerateResponse = FluencyTurn | VocabularyTurn;
+import type { CurrentTurn } from "./current-turn";
+export type LiveGenerateResponse = {
+    currentTurn: CurrentTurn;
+};

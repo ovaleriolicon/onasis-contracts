@@ -1,6 +1,6 @@
 import type { SemanticType } from "./lexicon";
 
-export type PatternType = "verb-object" | "to-be-adjective" | "go-place";
+export type PatternType = "verb-object" | "to-be-adjective" | "go-place" | "pronoun-to-be";
 
 import type { Tense, Polarity } from "./scene";
 

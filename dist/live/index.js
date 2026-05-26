@@ -20,3 +20,5 @@ __exportStar(require("./fluency-turn"), exports);
 __exportStar(require("./vocabulary-turn"), exports);
 __exportStar(require("./live-generate-body"), exports);
 __exportStar(require("./live-generate-response"), exports);
+__exportStar(require("./current-turn"), exports);
+__exportStar(require("./live-student"), exports);

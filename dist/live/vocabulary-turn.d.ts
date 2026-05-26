@@ -1,8 +1,7 @@
-import type { VocabularyItem } from "../vocabulary-item";
+import type { VocabularyExercise } from "../exercises";
 export type VocabularyTurn = {
     mode: "vocabulary";
-    currentTurn: {
-        studentId: string;
-        item: VocabularyItem;
-    };
+    turnId: string;
+    studentId: string;
+    exercise: VocabularyExercise;
 };

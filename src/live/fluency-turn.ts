@@ -1,7 +1,7 @@
 import type { FluencyExercise } from "../exercises/fluency-exercise";
 
 export type FluencyTurn = {
-  turnId: string;
+  mode: "fluency";
 
   studentId: string;
 

@@ -1,13 +1,6 @@
-import type { Scene } from "../scene";
+import type { FluencyExercise } from "../exercises/fluency-exercise";
 export type FluencyTurn = {
     mode: "fluency";
-    currentTurn: {
-        studentId: string;
-        question: {
-            id: string;
-            prompt: string;
-            answer: string;
-            scene: Scene;
-        };
-    };
+    studentId: string;
+    exercise: FluencyExercise;
 };
