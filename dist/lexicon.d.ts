@@ -27,7 +27,7 @@ export type NounEntry = {
         animate: boolean;
     };
     pedagogy?: {
-        unlockAtModule?: number;
+        unlockedAtVocabularyLevel: number;
     };
 };
 export type VerbEntry = {
@@ -60,7 +60,7 @@ export type AdjectiveEntry = {
     id: string;
     base: string;
     translation?: string;
-    unlockAtModule?: number;
+    unlockedAtVocabularyLevel: number;
     semantics: {
         type?: "state" | "quality";
         appliesTo?: SemanticType[];

@@ -1,13 +1,11 @@
 import type { SemanticType } from "./lexicon";
-export type PatternType = "verb-object" | "to-be-adjective" | "go-place" | "pronoun-to-be";
 import type { Tense, Polarity } from "./scene";
+export type PatternType = "verb-object" | "to-be-adjective" | "go-place" | "pronoun-to-be";
 export type Pattern = {
     id: string;
-    unlockAtModule: number;
-    unlockAtModuleByTense?: {
-        [key in Tense]?: number;
-    };
     type: PatternType;
+    unlockedAtStructureLevel: number;
+    tenseUnlocks?: Partial<Record<Tense, number>>;
     structure: {
         verb: string;
         object?: "dynamic";
