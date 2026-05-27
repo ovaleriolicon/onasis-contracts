@@ -22,6 +22,10 @@ export type Pattern = {
     Record<Tense, number>
   >;
 
+  polarityUnlocks?: Partial<
+    Record<Polarity, number>
+  >;
+
   structure: {
     verb: string;
 

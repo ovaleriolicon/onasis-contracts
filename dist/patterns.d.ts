@@ -6,6 +6,7 @@ export type Pattern = {
     type: PatternType;
     unlockedAtStructureLevel: number;
     tenseUnlocks?: Partial<Record<Tense, number>>;
+    polarityUnlocks?: Partial<Record<Polarity, number>>;
     structure: {
         verb: string;
         object?: "dynamic";
