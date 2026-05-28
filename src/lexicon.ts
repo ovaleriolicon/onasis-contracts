@@ -10,8 +10,7 @@ export type SemanticType =
   | "activity"
   | "concept"
   | "event"
-  | "movement"
-  | "trait";
+  | "movement";
 
 export type DeterminerPolicy =
   | "none"

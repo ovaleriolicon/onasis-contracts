@@ -1,4 +1,4 @@
-export type SemanticType = "person" | "object" | "place" | "abstract" | "state" | "food" | "activity" | "concept" | "event" | "movement" | "trait";
+export type SemanticType = "person" | "object" | "place" | "abstract" | "state" | "food" | "activity" | "concept" | "event" | "movement";
 export type DeterminerPolicy = "none" | "indefinite" | "definite" | "plural" | "some" | "any";
 export type SubjectEntry = {
     value: string;
