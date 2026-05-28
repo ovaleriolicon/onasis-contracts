@@ -8,7 +8,6 @@ export type Pattern = {
     tenseUnlocks?: Partial<Record<Tense, number>>;
     polarityUnlocks?: Partial<Record<Polarity, number>>;
     subjectUnlocks?: Partial<Record<"pronoun" | "name", number>>;
-    allowedSubjectForms?: ("pronoun" | "name")[];
     structure: {
         verb: string;
         object?: "dynamic";
