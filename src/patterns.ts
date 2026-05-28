@@ -46,6 +46,8 @@ export type Pattern = {
     place?: SemanticType[];
 
     adjective?: boolean;
+
+    pronoun?: boolean;
   };
 
   meaning: {

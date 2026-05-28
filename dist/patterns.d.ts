@@ -13,11 +13,13 @@ export type Pattern = {
         adjective?: "dynamic";
         preposition?: "to";
         place?: "dynamic";
+        pronoun?: "dynamic";
     };
     slots?: {
         object?: SemanticType[];
         place?: SemanticType[];
         adjective?: boolean;
+        pronoun?: boolean;
     };
     meaning: {
         es: {
