@@ -9,7 +9,6 @@ export type PatternType =
   | "verb-object"
   | "to-be-adjective"
   | "go-place"
-  | "pronoun-to-be";
 
 export type Pattern = {
   id: string;
@@ -24,6 +23,13 @@ export type Pattern = {
 
   polarityUnlocks?: Partial<
     Record<Polarity, number>
+  >;
+
+  subjectUnlocks?: Partial<
+    Record<
+      "pronoun" | "name",
+      number
+    >
   >;
 
   structure: {
