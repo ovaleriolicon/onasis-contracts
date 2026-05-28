@@ -32,6 +32,11 @@ export type Pattern = {
     >
   >;
 
+  allowedSubjectForms?: (
+    | "pronoun"
+    | "name"
+  )[];
+
   structure: {
     verb: string;
 
