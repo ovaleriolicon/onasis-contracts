@@ -36,6 +36,8 @@ export type Pattern = {
     preposition?: "to";
 
     place?: "dynamic";
+
+    pronoun?: "dynamic";
   };
 
   slots?: {
