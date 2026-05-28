@@ -24,3 +24,4 @@ __exportStar(require("./vocabulary-item"), exports);
 __exportStar(require("./exercises"), exports);
 __exportStar(require("./live"), exports);
 __exportStar(require("./spanish-prompt-draft"), exports);
+__exportStar(require("./student-knowledge-state"), exports);
