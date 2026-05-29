@@ -10,3 +10,4 @@ export * from "./exercises";
 export * from "./live";
 export * from "./spanish-prompt-draft";
 export * from "./student-knowledge-state";
+export * from "./pedagogy/structure-levels";
