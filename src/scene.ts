@@ -1,5 +1,11 @@
 // packages/contracts/scene.ts
-import { SubjectEntry } from "./lexicon";
+
+import type {
+  SubjectEntry,
+  VerbEntry,
+  NounEntry,
+  AdjectiveEntry,
+} from "./lexicon";
 
 export type Polarity = "affirmative" | "negative";
 
@@ -14,13 +20,13 @@ export type Scene = {
 
   subject: SubjectEntry;
 
-  verb: string;
+  verb: VerbEntry;
 
-  object?: string;
+  object?: NounEntry;
 
   requiresObject?: boolean;
 
-  adjective?: string;
+  adjective?: AdjectiveEntry;
 
   auxiliary?: string;
 
@@ -34,6 +40,3 @@ export type Scene = {
     index: number;
   };
 };
-
-
-
