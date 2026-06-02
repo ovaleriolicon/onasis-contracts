@@ -7,5 +7,5 @@ export type FluencyExercise = {
 
   scene: Scene;
 
-  assets: SceneAssets;
+  assets?: SceneAssets;
 };
