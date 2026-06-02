@@ -26,3 +26,4 @@ __exportStar(require("./live"), exports);
 __exportStar(require("./spanish-prompt-draft"), exports);
 __exportStar(require("./student-knowledge-state"), exports);
 __exportStar(require("./pedagogy/structure-levels"), exports);
+__exportStar(require("./scene-assets"), exports);
