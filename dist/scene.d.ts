@@ -8,6 +8,7 @@ export type Scene = {
     subject: SubjectEntry;
     verb: VerbEntry;
     object?: NounEntry;
+    place?: NounEntry;
     requiresObject?: boolean;
     adjective?: AdjectiveEntry;
     auxiliary?: string;

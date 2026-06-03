@@ -24,6 +24,8 @@ export type Scene = {
 
   object?: NounEntry;
 
+  place?: NounEntry;
+
   requiresObject?: boolean;
 
   adjective?: AdjectiveEntry;
