@@ -14,6 +14,7 @@ export type Scene = {
     adjective?: AdjectiveEntry;
     auxiliary?: string;
     polarity: Polarity;
+    sentenceType: SentenceType;
     verbBehavior: VerbBehavior;
     tense: Tense;
     target: {

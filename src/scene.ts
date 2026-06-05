@@ -36,6 +36,8 @@ export type Scene = {
 
   polarity: Polarity;
 
+  sentenceType: SentenceType;
+
   verbBehavior: VerbBehavior;
 
   tense: Tense;
