@@ -31,23 +31,33 @@ exports.structureLevels = [
     },
     {
         level: 5,
+        key: "present-questions",
+        name: "Present Questions",
+    },
+    {
+        level: 6,
         key: "to-be-past-affirmative",
         name: "To Be Past Affirmative",
     },
     {
-        level: 6,
+        level: 7,
         key: "to-be-past-negative",
         name: "To Be Past Negative",
     },
     {
-        level: 7,
+        level: 8,
         key: "past-actions-affirmative",
         name: "Past Actions Affirmative",
     },
     {
-        level: 8,
+        level: 9,
         key: "past-actions-negative",
         name: "Past Actions Negative",
+    },
+    {
+        level: 10,
+        key: "past-questions",
+        name: "Past Questions",
     },
 ];
 function getStructureLevel(level) {

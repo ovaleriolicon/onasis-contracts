@@ -1,10 +1,11 @@
 import type { SemanticType } from "./lexicon";
-import type { Tense, Polarity } from "./scene";
+import type { Tense, Polarity, SentenceType } from "./scene";
 export type PatternType = "verb-object" | "to-be-adjective" | "go-place";
 export type Pattern = {
     id: string;
     type: PatternType;
     unlockedAtStructureLevel: number;
+    sentenceTypeUnlocks?: Partial<Record<SentenceType, number>>;
     tenseUnlocks?: Partial<Record<Tense, number>>;
     polarityUnlocks?: Partial<Record<Polarity, number>>;
     subjectUnlocks?: Partial<Record<"pronoun" | "name", number>>;
@@ -33,4 +34,5 @@ export type Pattern = {
     };
     allowedTenses: Tense[];
     allowedPolarity: Polarity[];
+    allowedSentenceTypes: SentenceType[];
 };
