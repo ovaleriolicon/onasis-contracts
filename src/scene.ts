@@ -9,6 +9,8 @@ import type {
 
 export type Polarity = "affirmative" | "negative";
 
+export type SentenceType = "statement" | "question";
+
 export type VerbBehavior = "to-be" | "no-to-be";
 
 export type Tense = "present" | "past";
