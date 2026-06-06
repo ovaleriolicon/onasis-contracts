@@ -43,8 +43,8 @@ export const structureLevels: StructureLevelDefinition[] = [
 
   {
     level: 5,
-    key: "present-questions",
-    name: "Present Questions",
+    key: "present-questions-affirmative",
+    name: "Present Questions Affirmative",
   },
 
   {
@@ -73,8 +73,8 @@ export const structureLevels: StructureLevelDefinition[] = [
 
   {
     level: 10,
-    key: "past-questions",
-    name: "Past Questions",
+    key: "past-questions-affirmative",
+    name: "Past Questions Affirmative",
   },
 ];
 export function getStructureLevel(
