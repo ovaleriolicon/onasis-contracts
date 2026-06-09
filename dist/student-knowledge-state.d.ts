@@ -5,9 +5,13 @@ export type KnowledgeMetric = {
     recentAttempts: number;
     lastSeenAt?: string;
 };
+export type ErrorKnowledgeMetric = {
+    count: number;
+    lastSeenAt?: string;
+};
 export type StudentKnowledgeState = {
     userId: string;
-    patterns: Record<string, KnowledgeMetric>;
-    errorStats: Record<string, KnowledgeMetric>;
+    patterns: Map<string, KnowledgeMetric>;
+    errorStats: Map<string, ErrorKnowledgeMetric>;
     updatedAt?: string;
 };
