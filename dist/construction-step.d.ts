@@ -3,7 +3,7 @@ export type ConstructionStep = {
     question: string;
     answer: string;
 } | {
-    type: "explanation";
+    type: "rule";
     text: string;
 } | {
     type: "result";

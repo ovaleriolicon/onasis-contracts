@@ -1,5 +1,4 @@
 // construction-step.ts
-
 export type ConstructionStep =
   | {
       type: "question";
@@ -7,7 +6,7 @@ export type ConstructionStep =
       answer: string;
     }
   | {
-      type: "explanation";
+      type: "rule";
       text: string;
     }
   | {
