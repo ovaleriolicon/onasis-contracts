@@ -7,6 +7,7 @@ export type ConstructionStep = {
     question: string;
     options: string[];
     correctAnswer: string;
+    builderToken: string;
 } | {
     type: "rule";
     text: string;

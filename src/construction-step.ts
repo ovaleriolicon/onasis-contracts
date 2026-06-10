@@ -13,6 +13,8 @@ export type ConstructionStep =
       options: string[];
 
       correctAnswer: string;
+
+      builderToken: string;
     }
   | {
       type: "rule";
