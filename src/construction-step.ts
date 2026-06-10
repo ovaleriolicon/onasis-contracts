@@ -1,9 +1,18 @@
 // construction-step.ts
+
 export type ConstructionStep =
   | {
       type: "question";
       question: string;
       answer: string;
+    }
+  | {
+      type: "multiple-choice";
+      question: string;
+
+      options: string[];
+
+      correctAnswer: string;
     }
   | {
       type: "rule";
