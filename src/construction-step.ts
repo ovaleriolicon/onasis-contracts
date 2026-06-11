@@ -9,6 +9,16 @@ export type ConstructionSlot =
   | "adjective"
   | "question-order";
 
+export type ConstructionState = {
+  subject: string;
+  be: string;
+  verb: string;
+  object: string;
+  adjective: string;
+  negation: string;
+  questionOrder: boolean;
+};
+
 export type ConstructionStep =
   | {
       type: "question";
