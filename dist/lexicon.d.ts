@@ -17,6 +17,9 @@ export type SubjectEntry = {
 export type NounEntry = {
     id: string;
     lemma: string;
+    translations: {
+        es: string;
+    };
     adjective?: string;
     grammar: {
         countable: boolean;

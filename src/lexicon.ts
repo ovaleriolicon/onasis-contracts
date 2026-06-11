@@ -47,6 +47,10 @@ export type NounEntry = {
 
   lemma: string;
 
+  translations: {
+    es: string;
+  };
+
   adjective?: string;
 
   grammar: {
