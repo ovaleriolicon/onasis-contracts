@@ -1,5 +1,4 @@
 "use strict";
-// packages/contracts/index.ts
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -15,16 +14,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./scene"), exports);
-__exportStar(require("./evaluation"), exports);
-__exportStar(require("./errors"), exports);
-__exportStar(require("./lexicon"), exports);
-__exportStar(require("./patterns"), exports);
-__exportStar(require("./vocabulary-item"), exports);
-__exportStar(require("./exercises"), exports);
-__exportStar(require("./live"), exports);
-__exportStar(require("./spanish-prompt-draft"), exports);
-__exportStar(require("./student-knowledge-state"), exports);
-__exportStar(require("./pedagogy/structure-levels"), exports);
-__exportStar(require("./scene-assets"), exports);
-__exportStar(require("./construction"), exports);
+__exportStar(require("./construction-mutation"), exports);
+__exportStar(require("./construction-step"), exports);

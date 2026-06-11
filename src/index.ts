@@ -12,4 +12,4 @@ export * from "./spanish-prompt-draft";
 export * from "./student-knowledge-state";
 export * from "./pedagogy/structure-levels";
 export * from "./scene-assets";
-export * from "./construction-step";
+export * from "./construction";

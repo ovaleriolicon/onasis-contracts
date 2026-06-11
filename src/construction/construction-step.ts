@@ -13,6 +13,7 @@ export type ConstructionSlot =
 export type ConstructionState = {
   subject: string;
   be: string;
+  auxiliary: string;
   verb: string;
   object: string;
   adjective: string;
