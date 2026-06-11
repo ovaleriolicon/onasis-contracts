@@ -14,4 +14,6 @@ export type VocabularyExercise = {
   word: string;
 
   translation: string;
+
+  vocabAudioUrl?: string;
 };
