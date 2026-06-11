@@ -1,5 +1,12 @@
 // construction-step.ts
 
+export type ConstructionSlot =
+  | "subject"
+  | "be"
+  | "negation"
+  | "adjective"
+  | "question-order";
+
 export type ConstructionStep =
   | {
       type: "question";
@@ -15,6 +22,8 @@ export type ConstructionStep =
       correctAnswer: string;
 
       builderToken: string;
+
+      slot: ConstructionSlot;
     }
   | {
       type: "rule";
