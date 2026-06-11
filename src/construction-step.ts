@@ -3,6 +3,8 @@
 export type ConstructionSlot =
   | "subject"
   | "be"
+  | "verb"
+  | "object"
   | "negation"
   | "adjective"
   | "question-order";
