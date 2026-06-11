@@ -117,6 +117,8 @@ export type AdjectiveEntry = {
 
   translation?: string;
 
+  audioUrl?: string;
+
   unlockedAtVocabularyLevel: number;
 
   semantics: {

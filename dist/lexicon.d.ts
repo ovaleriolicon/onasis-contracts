@@ -63,6 +63,7 @@ export type AdjectiveEntry = {
     id: string;
     base: string;
     translation?: string;
+    audioUrl?: string;
     unlockedAtVocabularyLevel: number;
     semantics: {
         type?: "state" | "quality";
