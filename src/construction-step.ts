@@ -7,6 +7,7 @@ export type ConstructionSlot =
   | "object"
   | "negation"
   | "adjective"
+  | "auxiliary"
   | "question-order";
 
 export type ConstructionState = {

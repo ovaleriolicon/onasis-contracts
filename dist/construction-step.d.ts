@@ -1,4 +1,4 @@
-export type ConstructionSlot = "subject" | "be" | "verb" | "object" | "negation" | "adjective" | "question-order";
+export type ConstructionSlot = "subject" | "be" | "verb" | "object" | "negation" | "adjective" | "auxiliary" | "question-order";
 export type ConstructionState = {
     subject: string;
     be: string;
