@@ -21,6 +21,9 @@ export type ConstructionStep = {
     builderToken: string;
     slot: ConstructionSlot;
 } | {
+    type: "explanation";
+    text: string;
+} | {
     type: "rule";
     text: string;
 } | {

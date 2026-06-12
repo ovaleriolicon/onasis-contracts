@@ -40,6 +40,10 @@ export type ConstructionStep =
       slot: ConstructionSlot;
     }
   | {
+      type: "explanation";
+      text: string;
+    }
+  | {
       type: "rule";
       text: string;
     }
