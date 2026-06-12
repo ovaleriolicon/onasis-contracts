@@ -5,6 +5,7 @@ export type ConstructionState = {
     auxiliary: string;
     verb: string;
     object: string;
+    place: string;
     adjective: string;
     negation: string;
 };
