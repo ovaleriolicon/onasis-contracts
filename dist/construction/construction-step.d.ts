@@ -1,7 +1,8 @@
-export type ConstructionSlot = "subject" | "be" | "verb" | "object" | "place" | "negation" | "adjective" | "auxiliary";
+export type ConstructionSlot = "subject" | "be" | "verb" | "object" | "place" | "negation" | "adjective" | "auxiliary" | "moved-be";
 export type ConstructionState = {
     subject: string;
     be: string;
+    movedBe: string;
     auxiliary: string;
     verb: string;
     object: string;
