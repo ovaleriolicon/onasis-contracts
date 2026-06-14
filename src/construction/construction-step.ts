@@ -52,4 +52,8 @@ export type ConstructionStep =
   | {
       type: "result";
       text: string;
+    }
+  | {
+      type: "transition";
+      text: string;
     };
