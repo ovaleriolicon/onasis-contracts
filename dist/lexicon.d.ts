@@ -24,6 +24,7 @@ export type NounEntry = {
     grammar: {
         countable: boolean;
         defaultDeterminer: DeterminerPolicy;
+        defaultPreposition?: string;
     };
     semantics: {
         type: SemanticType;

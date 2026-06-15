@@ -57,6 +57,8 @@ export type NounEntry = {
     countable: boolean;
 
     defaultDeterminer: DeterminerPolicy;
+
+    defaultPreposition?: string;
   };
 
   semantics: {
