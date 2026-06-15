@@ -13,7 +13,6 @@ export type Pattern = {
         verb: string;
         object?: "dynamic";
         adjective?: "dynamic";
-        preposition?: "to";
         place?: "dynamic";
         pronoun?: "dynamic";
     };

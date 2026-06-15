@@ -26,8 +26,6 @@ export type Pattern = {
 
     adjective?: "dynamic";
 
-    preposition?: "to";
-
     place?: "dynamic";
 
     pronoun?: "dynamic";
