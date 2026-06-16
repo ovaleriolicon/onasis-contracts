@@ -17,3 +17,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./build-noun-phrase"), exports);
 __exportStar(require("./resolve-place"), exports);
 __exportStar(require("./resolve-determiner"), exports);
+__exportStar(require("./resolve-place"), exports);
+__exportStar(require("./resolve-object"), exports);
