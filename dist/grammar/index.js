@@ -19,3 +19,4 @@ __exportStar(require("./resolve-place"), exports);
 __exportStar(require("./resolve-determiner"), exports);
 __exportStar(require("./resolve-place"), exports);
 __exportStar(require("./resolve-object"), exports);
+__exportStar(require("./pluralize"), exports);
