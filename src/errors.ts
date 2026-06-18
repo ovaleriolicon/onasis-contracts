@@ -4,6 +4,7 @@ export type ErrorId =
   // Present simple
   | "present_simple_third_person_s"
   | "present_simple_third_person_doesnt"
+  | "doesnt_with_non_third_person"
   | "missing_dont_doesnt"
   | "doesnt_with_s_verb"
 
