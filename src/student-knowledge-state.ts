@@ -21,6 +21,8 @@ export type ErrorKnowledgeMetric = {
 export type StudentKnowledgeState = {
   userId: string;
 
+  guidedMode?: boolean;
+
   patterns: Map<string, KnowledgeMetric>;
 
   errorStats: Map<string, ErrorKnowledgeMetric>;
