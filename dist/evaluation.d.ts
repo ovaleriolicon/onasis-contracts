@@ -12,6 +12,7 @@ export type ParsedInput = {
     adjective?: string;
     be?: string;
     negation?: boolean;
+    tense: "present" | "past" | "unknown";
     tokens: string[];
 };
 export type EvaluatorContext = {

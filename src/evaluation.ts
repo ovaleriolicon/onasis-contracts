@@ -31,6 +31,8 @@ export type ParsedInput = {
 
   negation?: boolean;
 
+  tense: "present" | "past" | "unknown";
+
   tokens: string[];
 };
 
