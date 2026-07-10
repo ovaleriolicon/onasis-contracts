@@ -33,6 +33,8 @@ export type ParsedInput = {
 
   tense: "present" | "past" | "unknown";
 
+  sentenceType: "statement" | "question";
+
   tokens: string[];
 };
 

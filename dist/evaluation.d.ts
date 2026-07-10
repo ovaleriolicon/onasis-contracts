@@ -13,6 +13,7 @@ export type ParsedInput = {
     be?: string;
     negation?: boolean;
     tense: "present" | "past" | "unknown";
+    sentenceType: "statement" | "question";
     tokens: string[];
 };
 export type EvaluatorContext = {
