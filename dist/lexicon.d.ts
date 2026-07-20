@@ -32,6 +32,7 @@ export type NounEntry = {
     };
     pedagogy?: {
         unlockedAtVocabularyLevel: number;
+        interests?: string[];
     };
 };
 export type VerbEntry = {

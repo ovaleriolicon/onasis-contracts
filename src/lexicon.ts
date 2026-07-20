@@ -69,6 +69,7 @@ export type NounEntry = {
 
   pedagogy?: {
     unlockedAtVocabularyLevel: number;
+    interests?: string[];
   };
 };
 
