@@ -1,6 +1,6 @@
 import type { SemanticType } from "./lexicon";
 import type { Tense, Polarity, SentenceType } from "./scene";
-export type PatternType = "verb-object" | "to-be-adjective" | "go-place";
+export type PatternType = "verb-object" | "to-be-adjective" | "verb-place";
 export type Pattern = {
     id: string;
     type: PatternType;
@@ -10,7 +10,8 @@ export type Pattern = {
     polarityUnlocks?: Partial<Record<Polarity, number>>;
     subjectUnlocks?: Partial<Record<"pronoun" | "name", number>>;
     structure: {
-        verb: string;
+        verbBehavior: "to-be" | "no-to-be";
+        transitive?: boolean;
         object?: "dynamic";
         adjective?: "dynamic";
         place?: "dynamic";
