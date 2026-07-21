@@ -110,6 +110,18 @@ export type VerbEntry = {
 
   spanish?: {
     lemma: string;
+
+    present: {
+      first: string;
+
+      second: string;
+
+      third: string;
+
+      nonThird: string;
+
+      firstPlural: string;
+    };
   };
 };
 
