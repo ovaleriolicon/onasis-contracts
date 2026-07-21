@@ -2,8 +2,7 @@ import type { SemanticType } from "./lexicon";
 import type { Tense, Polarity, SentenceType } from "./scene";
 export type PatternType = "verb-object" | "verb-place" | "to-be-adjective";
 export type Pattern = {
-    id: string;
-    type: PatternType;
+    id: PatternType;
     unlockedAtStructureLevel: number;
     sentenceTypeUnlocks?: Partial<Record<SentenceType, number>>;
     tenseUnlocks?: Partial<Record<Tense, number>>;

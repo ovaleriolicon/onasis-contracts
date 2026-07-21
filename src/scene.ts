@@ -22,9 +22,7 @@ export type Tense =
   | "past-progressive";
 
 export type Scene = {
-  patternId: string;
-
-  patternType: PatternType;
+  patternId: PatternType;
 
   correctSentence: string;
 

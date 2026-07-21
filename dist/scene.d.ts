@@ -5,8 +5,7 @@ export type SentenceType = "statement" | "question";
 export type VerbBehavior = "to-be" | "no-to-be";
 export type Tense = "present" | "past" | "present-progressive" | "past-progressive";
 export type Scene = {
-    patternId: string;
-    patternType: PatternType;
+    patternId: PatternType;
     correctSentence: string;
     subject: SubjectEntry;
     verb: VerbEntry;

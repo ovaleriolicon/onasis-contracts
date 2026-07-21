@@ -4,11 +4,7 @@ import type { Tense, Polarity, SentenceType } from "./scene";
 export type PatternType = "verb-object" | "verb-place" | "to-be-adjective";
 
 export type Pattern = {
-  // Identificador único del patrón
-  id: string;
-
-  // Familia del patrón
-  type: PatternType;
+  id: PatternType;
 
   unlockedAtStructureLevel: number;
 
