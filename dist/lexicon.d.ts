@@ -38,7 +38,7 @@ export type NounEntry = {
 export type VerbEntry = {
     base: string;
     behavior: "to-be" | "no-to-be";
-    transitive: boolean;
+    complements: ("object" | "place" | "adjective")[];
     semantics: {
         type: SemanticType;
         requiresAnimateSubject?: boolean;

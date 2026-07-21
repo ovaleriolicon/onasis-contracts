@@ -78,7 +78,7 @@ export type VerbEntry = {
 
   behavior: "to-be" | "no-to-be";
 
-  transitive: boolean;
+  complements: ("object" | "place" | "adjective")[];
 
   semantics: {
     type: SemanticType;
