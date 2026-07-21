@@ -1,10 +1,12 @@
 import type { SubjectEntry, VerbEntry, NounEntry, AdjectiveEntry } from "./lexicon";
+import type { PatternType } from "./patterns";
 export type Polarity = "affirmative" | "negative";
 export type SentenceType = "statement" | "question";
 export type VerbBehavior = "to-be" | "no-to-be";
 export type Tense = "present" | "past" | "present-progressive" | "past-progressive";
 export type Scene = {
     patternId: string;
+    patternType: PatternType;
     correctSentence: string;
     subject: SubjectEntry;
     verb: VerbEntry;

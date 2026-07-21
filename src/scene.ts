@@ -7,6 +7,8 @@ import type {
   AdjectiveEntry,
 } from "./lexicon";
 
+import type { PatternType } from "./patterns";
+
 export type Polarity = "affirmative" | "negative";
 
 export type SentenceType = "statement" | "question";
@@ -21,6 +23,8 @@ export type Tense =
 
 export type Scene = {
   patternId: string;
+
+  patternType: PatternType;
 
   correctSentence: string;
 
