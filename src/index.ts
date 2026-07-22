@@ -14,3 +14,4 @@ export * from "./pedagogy/structure-levels";
 export * from "./scene-assets";
 export * from "./construction";
 export * from "./grammar";
+export * from "./topics";

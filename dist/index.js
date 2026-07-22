@@ -29,3 +29,4 @@ __exportStar(require("./pedagogy/structure-levels"), exports);
 __exportStar(require("./scene-assets"), exports);
 __exportStar(require("./construction"), exports);
 __exportStar(require("./grammar"), exports);
+__exportStar(require("./topics"), exports);
