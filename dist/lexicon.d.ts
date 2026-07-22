@@ -39,10 +39,14 @@ export type VerbEntry = {
     base: string;
     behavior: "to-be" | "no-to-be";
     complements: ("object" | "place" | "adjective")[];
+    transitive: boolean;
     semantics: {
         type: SemanticType;
         requiresAnimateSubject?: boolean;
         requiresPreposition?: string;
+        objectTypes?: SemanticType[];
+        placeTypes?: SemanticType[];
+        adjectiveTypes?: SemanticType[];
     };
     ppp?: readonly [string, string, string];
     forms?: {
@@ -59,7 +63,7 @@ export type VerbEntry = {
     };
     spanish?: {
         lemma: string;
-        present: {
+        present?: {
             first: string;
             second: string;
             third: string;
@@ -67,6 +71,11 @@ export type VerbEntry = {
             firstPlural: string;
         };
     };
+    pedagogy?: {
+        unlockedAtStructureLevel?: number;
+    };
+    active?: boolean;
+    audioUrl?: string;
 };
 export type AdjectiveEntry = {
     id: string;

@@ -80,12 +80,20 @@ export type VerbEntry = {
 
   complements: ("object" | "place" | "adjective")[];
 
+  transitive: boolean;
+
   semantics: {
     type: SemanticType;
 
     requiresAnimateSubject?: boolean;
 
     requiresPreposition?: string;
+
+    objectTypes?: SemanticType[];
+
+    placeTypes?: SemanticType[];
+
+    adjectiveTypes?: SemanticType[];
   };
 
   ppp?: readonly [string, string, string];
@@ -93,17 +101,13 @@ export type VerbEntry = {
   forms?: {
     present: {
       firstSingular: string;
-
       thirdSingular: string;
-
       plural: string;
     };
 
     negative: {
       firstSingular: string;
-
       thirdSingular: string;
-
       plural: string;
     };
   };
@@ -111,18 +115,22 @@ export type VerbEntry = {
   spanish?: {
     lemma: string;
 
-    present: {
+    present?: {
       first: string;
-
       second: string;
-
       third: string;
-
       nonThird: string;
-
       firstPlural: string;
     };
   };
+
+  pedagogy?: {
+    unlockedAtStructureLevel?: number;
+  };
+
+  active?: boolean;
+
+  audioUrl?: string;
 };
 
 export type AdjectiveEntry = {
