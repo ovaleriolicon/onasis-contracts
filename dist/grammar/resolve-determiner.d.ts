@@ -1,5 +1,5 @@
-import type { NounEntry } from "../lexicon";
+import type { NounEntry, VerbEntry } from "../lexicon";
 export declare function resolveDeterminer({ verb, noun, }: {
-    verb: string;
+    verb: VerbEntry;
     noun: NounEntry;
 }): string;

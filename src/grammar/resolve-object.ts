@@ -25,7 +25,7 @@ export function resolveObject(
   return buildNounPhrase(
     object,
     resolveDeterminer({
-      verb: verb.base,
+      verb,
       noun: object,
     }),
   );
