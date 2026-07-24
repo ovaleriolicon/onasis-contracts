@@ -7,6 +7,7 @@ export type SemanticType =
   | "abstract"
   | "state"
   | "food"
+  | "beverage"
   | "activity"
   | "concept"
   | "event"
