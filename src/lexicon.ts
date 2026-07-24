@@ -132,6 +132,8 @@ export type VerbEntry = {
     unlockedAtStructureLevel?: number;
 
     preferredTopics?: string[];
+
+    preferredObjectNumber?: "generic" | "singular";
   };
 
   active?: boolean;

@@ -75,6 +75,7 @@ export type VerbEntry = {
     pedagogy?: {
         unlockedAtStructureLevel?: number;
         preferredTopics?: string[];
+        preferredObjectNumber?: "generic" | "singular";
     };
     active?: boolean;
     audioUrl?: string;
