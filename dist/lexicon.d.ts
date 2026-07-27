@@ -1,5 +1,17 @@
-export type SemanticType = "person" | "object" | "place" | "abstract" | "state" | "food" | "beverage" | "activity" | "concept" | "event" | "movement";
-export type DeterminerPolicy = "none" | "indefinite" | "definite" | "plural" | "some" | "any";
+import type { NounSemanticType, VerbSemanticType, AdjectiveSemanticType } from "./semantics";
+import type { DeterminerPolicy } from "./grammar/determiner-policy";
+import type { VerbBehavior } from "./grammar/verb-behavior";
+import type { ComplementType } from "./grammar/complement-type";
+import type { ObjectNumber } from "./grammar/object-number";
+import type { Topic } from "./topics";
+/**
+ * @deprecated Usa `NounSemanticType`, `VerbSemanticType` o
+ * `AdjectiveSemanticType` según corresponda (ver ./semantics). Se mantiene
+ * únicamente por compatibilidad mientras se completa la migración de la
+ * taxonomía semántica; no lo uses para declarar campos nuevos. Se
+ * eliminará en una fase posterior de la migración.
+ */
+export type SemanticType = NounSemanticType | VerbSemanticType | AdjectiveSemanticType;
 export type SubjectEntry = {
     value: string;
     translation: string;
@@ -27,27 +39,27 @@ export type NounEntry = {
         defaultPreposition?: string;
     };
     semantics: {
-        type: SemanticType;
+        type: NounSemanticType;
         animate: boolean;
     };
     pedagogy?: {
         unlockedAtVocabularyLevel: number;
         interests?: string[];
-        topics?: string[];
+        topics?: Topic[];
     };
 };
 export type VerbEntry = {
     base: string;
-    behavior: "to-be" | "no-to-be";
-    complements: ("object" | "place" | "adjective")[];
+    behavior: VerbBehavior;
+    complements: ComplementType[];
     transitive: boolean;
     semantics: {
-        type: SemanticType;
+        type: VerbSemanticType;
         requiresAnimateSubject?: boolean;
         requiresPreposition?: string;
-        objectTypes?: SemanticType[];
-        placeTypes?: SemanticType[];
-        adjectiveTypes?: SemanticType[];
+        objectTypes?: NounSemanticType[];
+        placeTypes?: NounSemanticType[];
+        adjectiveTypes?: AdjectiveSemanticType[];
     };
     ppp?: readonly [string, string, string];
     forms?: {
@@ -74,8 +86,8 @@ export type VerbEntry = {
     };
     pedagogy?: {
         unlockedAtStructureLevel?: number;
-        preferredTopics?: string[];
-        preferredObjectNumber?: "generic" | "singular";
+        preferredTopics?: Topic[];
+        preferredObjectNumber?: ObjectNumber;
     };
     active?: boolean;
     audioUrl?: string;
@@ -87,7 +99,7 @@ export type AdjectiveEntry = {
     audioUrl?: string;
     unlockedAtVocabularyLevel: number;
     semantics: {
-        type?: "state" | "quality";
-        appliesTo?: SemanticType[];
+        type?: AdjectiveSemanticType;
+        appliesTo?: NounSemanticType[];
     };
 };

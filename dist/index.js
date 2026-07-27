@@ -30,3 +30,4 @@ __exportStar(require("./scene-assets"), exports);
 __exportStar(require("./construction"), exports);
 __exportStar(require("./grammar"), exports);
 __exportStar(require("./topics"), exports);
+__exportStar(require("./semantics"), exports);

@@ -1,4 +1,6 @@
-import type { SemanticType } from "./lexicon";
+import type { NounSemanticType } from "./semantics";
+import type { VerbBehavior } from "./grammar/verb-behavior";
+import type { ComplementType } from "./grammar/complement-type";
 import type { Tense, Polarity, SentenceType } from "./scene";
 export type PatternType = "verb-object" | "verb-place" | "to-be-adjective";
 export type Pattern = {
@@ -9,12 +11,12 @@ export type Pattern = {
     polarityUnlocks?: Partial<Record<Polarity, number>>;
     subjectUnlocks?: Partial<Record<"pronoun" | "name", number>>;
     structure: {
-        verbBehavior: "to-be" | "no-to-be";
-        complements?: ("object" | "place" | "adjective")[];
+        verbBehavior: VerbBehavior;
+        complements?: ComplementType[];
     };
     slots?: {
-        object?: SemanticType[];
-        place?: SemanticType[];
+        object?: NounSemanticType[];
+        place?: NounSemanticType[];
         adjective?: boolean;
         pronoun?: boolean;
     };

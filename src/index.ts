@@ -15,3 +15,4 @@ export * from "./scene-assets";
 export * from "./construction";
 export * from "./grammar";
 export * from "./topics";
+export * from "./semantics";

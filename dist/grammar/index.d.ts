@@ -4,3 +4,7 @@ export * from "./resolve-determiner";
 export * from "./resolve-place";
 export * from "./resolve-object";
 export * from "./pluralize";
+export * from "./complement-type";
+export * from "./object-number";
+export * from "./verb-behavior";
+export * from "./determiner-policy";

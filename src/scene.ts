@@ -9,11 +9,15 @@ import type {
 
 import type { PatternType } from "./patterns";
 
+// VerbBehavior ahora vive en grammar/verb-behavior.ts (fuente única de
+// verdad); aquí solo se importa para tipar el campo Scene.verbBehavior.
+// Sigue disponible como @onasis/contracts -> VerbBehavior a través del
+// barrel de grammar/, así que ningún consumidor existente se rompe.
+import type { VerbBehavior } from "./grammar/verb-behavior";
+
 export type Polarity = "affirmative" | "negative";
 
 export type SentenceType = "statement" | "question";
-
-export type VerbBehavior = "to-be" | "no-to-be";
 
 export type Tense =
   | "present"

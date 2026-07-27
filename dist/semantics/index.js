@@ -14,13 +14,6 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./build-noun-phrase"), exports);
-__exportStar(require("./resolve-place"), exports);
-__exportStar(require("./resolve-determiner"), exports);
-__exportStar(require("./resolve-place"), exports);
-__exportStar(require("./resolve-object"), exports);
-__exportStar(require("./pluralize"), exports);
-__exportStar(require("./complement-type"), exports);
-__exportStar(require("./object-number"), exports);
-__exportStar(require("./verb-behavior"), exports);
-__exportStar(require("./determiner-policy"), exports);
+__exportStar(require("./noun-semantic-type"), exports);
+__exportStar(require("./verb-semantic-type"), exports);
+__exportStar(require("./adjective-semantic-type"), exports);
