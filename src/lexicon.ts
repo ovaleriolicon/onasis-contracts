@@ -138,6 +138,8 @@ export type VerbEntry = {
   pedagogy?: {
     unlockedAtStructureLevel?: number;
 
+    unlockedAtVocabularyLevel?: number;
+
     preferredTopics?: Topic[];
 
     preferredObjectNumber?: ObjectNumber;
