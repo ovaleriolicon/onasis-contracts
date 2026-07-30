@@ -61,22 +61,43 @@ export const structureLevels: StructureLevelDefinition[] = [
 
   {
     level: 8,
-    key: "past-actions-affirmative",
-    name: "Past Actions Affirmative",
+    key: "past-affirmative",
+    name: "Past Affirmative",
   },
 
   {
     level: 9,
-    key: "past-actions-negative",
-    name: "Past Actions Negative",
+    key: "past-negative",
+    name: "Past Negative",
   },
 
   {
     level: 10,
-    key: "past-questions-affirmative",
-    name: "Past Questions Affirmative",
+    key: "past-questions",
+    name: "Past Questions",
+  },
+
+  {
+    level: 11,
+    key: "present-progressive",
+    name: "Present Progressive",
+  },
+
+  {
+    level: 12,
+    key: "past-progressive",
+    name: "Past Progressive",
+  },
+
+  {
+    level: 13,
+    key: "possessive-pronouns",
+    name: "Possessive Pronouns",
+    description:
+      "Placeholder: Structure Level reserved for possessive pronouns. Not implemented in the engine yet.",
   },
 ];
+
 export function getStructureLevel(
   level: number,
 ): StructureLevelDefinition | undefined {

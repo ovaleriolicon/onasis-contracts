@@ -9,6 +9,8 @@ export * from "./live";
 export * from "./spanish-prompt-draft";
 export * from "./student-knowledge-state";
 export * from "./pedagogy/structure-levels";
+export * from "./pedagogy/curriculum-stage";
+export * from "./pedagogy/curriculum-stages";
 export * from "./scene-assets";
 export * from "./construction";
 export * from "./grammar";
