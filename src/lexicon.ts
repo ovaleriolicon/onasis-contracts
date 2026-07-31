@@ -2,6 +2,7 @@
 
 import type {
   NounSemanticType,
+  SubjectSemanticType,
   VerbSemanticType,
   AdjectiveSemanticType,
 } from "./semantics";
@@ -44,9 +45,10 @@ export type SubjectEntry = {
   };
 
   semantics: {
-    type: "person";
+    /** Shared taxonomy with nouns (person, object, animal, place, …). */
+    type: SubjectSemanticType;
 
-    animate: true;
+    animate: boolean;
   };
 };
 
@@ -164,6 +166,16 @@ export type AdjectiveEntry = {
   semantics: {
     type?: AdjectiveSemanticType;
 
+    /**
+     * Subject types this adjective may describe.
+     * Prefer this field going forward.
+     */
+    applicableTo?: SubjectSemanticType[];
+
+    /**
+     * Legacy synonym of `applicableTo` (already present on many DB docs).
+     * Engine treats `applicableTo ?? appliesTo` as the compatibility list.
+     */
     appliesTo?: NounSemanticType[];
   };
 };

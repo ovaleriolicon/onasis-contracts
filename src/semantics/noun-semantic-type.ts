@@ -11,6 +11,7 @@ export const NOUN_SEMANTIC_TYPES = [
   "person",
   "object",
   "place",
+  "animal",
   "abstract",
   "food",
   "beverage",
@@ -21,10 +22,14 @@ export const NOUN_SEMANTIC_TYPES = [
 
 export type NounSemanticType = (typeof NOUN_SEMANTIC_TYPES)[number];
 
+/** Subject semantic types reuse the shared noun taxonomy (no parallel list). */
+export type SubjectSemanticType = NounSemanticType;
+
 export const NOUN_SEMANTIC_TYPE_LABELS: Record<NounSemanticType, string> = {
   person: "Persona",
   object: "Objeto",
   place: "Lugar",
+  animal: "Animal",
   abstract: "Abstracto",
   food: "Comida",
   beverage: "Bebida",

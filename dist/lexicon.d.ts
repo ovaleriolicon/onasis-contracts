@@ -1,4 +1,4 @@
-import type { NounSemanticType, VerbSemanticType, AdjectiveSemanticType } from "./semantics";
+import type { NounSemanticType, SubjectSemanticType, VerbSemanticType, AdjectiveSemanticType } from "./semantics";
 import type { DeterminerPolicy } from "./grammar/determiner-policy";
 import type { VerbBehavior } from "./grammar/verb-behavior";
 import type { ComplementType } from "./grammar/complement-type";
@@ -22,8 +22,9 @@ export type SubjectEntry = {
         number: "singular" | "plural";
     };
     semantics: {
-        type: "person";
-        animate: true;
+        /** Shared taxonomy with nouns (person, object, animal, place, …). */
+        type: SubjectSemanticType;
+        animate: boolean;
     };
 };
 export type NounEntry = {
@@ -101,6 +102,15 @@ export type AdjectiveEntry = {
     unlockedAtVocabularyLevel: number;
     semantics: {
         type?: AdjectiveSemanticType;
+        /**
+         * Subject types this adjective may describe.
+         * Prefer this field going forward.
+         */
+        applicableTo?: SubjectSemanticType[];
+        /**
+         * Legacy synonym of `applicableTo` (already present on many DB docs).
+         * Engine treats `applicableTo ?? appliesTo` as the compatibility list.
+         */
         appliesTo?: NounSemanticType[];
     };
 };
