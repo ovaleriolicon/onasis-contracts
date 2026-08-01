@@ -5,11 +5,15 @@
 // The game engine must never import or depend on Ecosystem.
 
 /**
- * Reference to a lexicon lemma by type.
- * Does not embed grammar/semantics — those stay on VocabularyItem.
+ * Editorial reference to a lexicon entry by type.
+ * Does not embed grammar/semantics.
+ *
+ * For verb/noun/adjective: `lemma` is the VocabularyItem lemma.
+ * For subject: `lemma` holds the Subject `value` (e.g. "I", "Alex").
+ * Subjects are not VocabularyItems; the field name is kept for a uniform ref shape.
  */
 export type EcosystemMemberRef = {
-  type: "verb" | "noun" | "adjective";
+  type: "subject" | "verb" | "noun" | "adjective";
   lemma: string;
 };
 
@@ -47,6 +51,7 @@ export type Ecosystem = {
   active: boolean;
 
   members: {
+    subjects: EcosystemMemberRef[];
     verbs: EcosystemMemberRef[];
     nouns: EcosystemMemberRef[];
     adjectives: EcosystemMemberRef[];

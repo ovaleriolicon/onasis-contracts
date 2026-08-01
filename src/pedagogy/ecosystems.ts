@@ -16,6 +16,12 @@ export const ecosystems: Ecosystem[] = [
     communicativeGoal: "I can talk about how I feel.",
     active: true,
     members: {
+      subjects: [
+        { type: "subject", lemma: "I" },
+        { type: "subject", lemma: "You" },
+        { type: "subject", lemma: "He" },
+        { type: "subject", lemma: "She" },
+      ],
       verbs: [{ type: "verb", lemma: "be" }],
       nouns: [],
       adjectives: [
@@ -38,6 +44,11 @@ export const ecosystems: Ecosystem[] = [
     communicativeGoal: "I can say what food I like.",
     active: true,
     members: {
+      subjects: [
+        { type: "subject", lemma: "I" },
+        { type: "subject", lemma: "We" },
+        { type: "subject", lemma: "They" },
+      ],
       verbs: [{ type: "verb", lemma: "like" }],
       nouns: [
         { type: "noun", lemma: "pizza" },
@@ -59,6 +70,12 @@ export const ecosystems: Ecosystem[] = [
     communicativeGoal: "I can say where I go.",
     active: true,
     members: {
+      subjects: [
+        { type: "subject", lemma: "I" },
+        { type: "subject", lemma: "You" },
+        { type: "subject", lemma: "We" },
+        { type: "subject", lemma: "Alex" },
+      ],
       verbs: [{ type: "verb", lemma: "go" }],
       nouns: [
         { type: "noun", lemma: "school" },
