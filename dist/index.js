@@ -28,6 +28,8 @@ __exportStar(require("./student-knowledge-state"), exports);
 __exportStar(require("./pedagogy/structure-levels"), exports);
 __exportStar(require("./pedagogy/curriculum-stage"), exports);
 __exportStar(require("./pedagogy/curriculum-stages"), exports);
+__exportStar(require("./pedagogy/ecosystem"), exports);
+__exportStar(require("./pedagogy/ecosystems"), exports);
 __exportStar(require("./scene-assets"), exports);
 __exportStar(require("./construction"), exports);
 __exportStar(require("./grammar"), exports);

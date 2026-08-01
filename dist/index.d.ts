@@ -11,6 +11,8 @@ export * from "./student-knowledge-state";
 export * from "./pedagogy/structure-levels";
 export * from "./pedagogy/curriculum-stage";
 export * from "./pedagogy/curriculum-stages";
+export * from "./pedagogy/ecosystem";
+export * from "./pedagogy/ecosystems";
 export * from "./scene-assets";
 export * from "./construction";
 export * from "./grammar";
