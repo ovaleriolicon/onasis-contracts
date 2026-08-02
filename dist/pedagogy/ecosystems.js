@@ -92,12 +92,12 @@ exports.ecosystems = [
             subjects: [
                 { type: "subject", lemma: "I" },
                 { type: "subject", lemma: "You" },
-                { type: "subject", lemma: "We" },
-                { type: "subject", lemma: "They" },
-                { type: "subject", lemma: "Alex" },
-                { type: "subject", lemma: "Emma" },
                 { type: "subject", lemma: "My mom" },
                 { type: "subject", lemma: "My friend" },
+                { type: "subject", lemma: "The pizza" },
+                { type: "subject", lemma: "The burger" },
+                { type: "subject", lemma: "The salad" },
+                { type: "subject", lemma: "The coffee" },
             ],
             verbs: [
                 { type: "verb", lemma: "like" },
