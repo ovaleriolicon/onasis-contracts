@@ -1,5 +1,14 @@
 // packages/contracts/vocabulary-exercise.ts
 
+export type VocabularyVerbForms = {
+  /** Infinitive / base form */
+  base: string;
+  /** Simple past */
+  past: string;
+  /** Past participle */
+  pastParticiple: string;
+};
+
 export type VocabularyExercise = {
   mode: "vocabulary";
 
@@ -16,4 +25,10 @@ export type VocabularyExercise = {
   translation: string;
 
   vocabAudioUrl?: string;
+
+  /** Lexical category for presentation (verbs show PPP forms). */
+  vocabType?: "noun" | "adjective" | "verb";
+
+  /** Present when vocabType is "verb" — from VocabularyItem.grammar.ppp */
+  verbForms?: VocabularyVerbForms;
 };
