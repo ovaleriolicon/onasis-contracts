@@ -68,7 +68,14 @@ exports.ecosystems = [
                 { type: "subject", lemma: "The student" },
             ],
             verbs: [{ type: "verb", lemma: "be" }],
-            nouns: [],
+            nouns: [
+                { type: "noun", lemma: "mom" },
+                { type: "noun", lemma: "dad" },
+                { type: "noun", lemma: "friend" },
+                { type: "noun", lemma: "teacher" },
+                { type: "noun", lemma: "doctor" },
+                { type: "noun", lemma: "student" },
+            ],
             adjectives: [
                 { type: "adjective", lemma: "kind" },
                 { type: "adjective", lemma: "nice" },
@@ -116,6 +123,8 @@ exports.ecosystems = [
                 { type: "noun", lemma: "water" },
                 { type: "noun", lemma: "coffee" },
                 { type: "noun", lemma: "juice" },
+                { type: "noun", lemma: "mom" },
+                { type: "noun", lemma: "friend" },
             ],
             adjectives: [
                 { type: "adjective", lemma: "good" },
@@ -204,6 +213,11 @@ exports.ecosystems = [
                 { type: "noun", lemma: "report" },
                 { type: "noun", lemma: "project" },
                 { type: "noun", lemma: "schedule" },
+                { type: "noun", lemma: "boss" },
+                { type: "noun", lemma: "manager" },
+                { type: "noun", lemma: "coworker" },
+                { type: "noun", lemma: "customer" },
+                { type: "noun", lemma: "client" },
             ],
             adjectives: [
                 { type: "adjective", lemma: "busy" },
@@ -245,6 +259,8 @@ exports.ecosystems = [
                 { type: "noun", lemma: "map" },
                 { type: "noun", lemma: "taxi" },
                 { type: "noun", lemma: "reservation" },
+                { type: "noun", lemma: "tourist" },
+                { type: "noun", lemma: "traveler" },
             ],
             adjectives: [
                 { type: "adjective", lemma: "ready" },
@@ -288,6 +304,10 @@ exports.ecosystems = [
                 { type: "noun", lemma: "coffee" },
                 { type: "noun", lemma: "breakfast" },
                 { type: "noun", lemma: "backpack" },
+                { type: "noun", lemma: "friend" },
+                { type: "noun", lemma: "family" },
+                { type: "noun", lemma: "boy" },
+                { type: "noun", lemma: "girl" },
             ],
             adjectives: [
                 { type: "adjective", lemma: "busy" },

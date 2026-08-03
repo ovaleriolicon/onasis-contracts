@@ -1,2 +1,2 @@
-import type { NounEntry } from "../lexicon";
-export declare function resolvePlace(place?: NounEntry): string;
+import type { NounEntry, VerbEntry } from "../lexicon";
+export declare function resolvePlace(place?: NounEntry, verb?: VerbEntry): string;

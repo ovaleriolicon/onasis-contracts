@@ -38,6 +38,11 @@ export type NounEntry = {
         countable: boolean;
         defaultDeterminer: DeterminerPolicy;
         defaultPreposition?: string;
+        /**
+         * When true, place phrases stay bare (e.g. "home") even if the verb
+         * declares semantics.requiresPreposition.
+         */
+        omitPlacePreposition?: boolean;
     };
     semantics: {
         type: NounSemanticType;
