@@ -114,6 +114,7 @@ export const ecosystems: Ecosystem[] = [
         { type: "verb", lemma: "eat" },
         { type: "verb", lemma: "drink" },
         { type: "verb", lemma: "want" },
+        { type: "verb", lemma: "be" },
       ],
 
       nouns: [
@@ -133,6 +134,60 @@ export const ecosystems: Ecosystem[] = [
         { type: "adjective", lemma: "delicious" },
         { type: "adjective", lemma: "hot" },
         { type: "adjective", lemma: "cold" },
+      ],
+    },
+  },
+  {
+    id: "eco-pets-1",
+    familyId: "pets",
+    tier: 1,
+    order: 4,
+
+    name: "Pets 1",
+
+    description: "Talking about pets and animals.",
+
+    communicativeGoal: "I can talk about pets.",
+
+    active: true,
+
+    members: {
+      subjects: [
+        { type: "subject", lemma: "I" },
+        { type: "subject", lemma: "You" },
+
+        { type: "subject", lemma: "My dog" },
+        { type: "subject", lemma: "My cat" },
+
+        { type: "subject", lemma: "The dog" },
+        { type: "subject", lemma: "The cat" },
+        { type: "subject", lemma: "The bird" },
+        { type: "subject", lemma: "The fish" },
+      ],
+
+      verbs: [
+        { type: "verb", lemma: "have" },
+        { type: "verb", lemma: "like" },
+        { type: "verb", lemma: "want" },
+        { type: "verb", lemma: "be" },
+      ],
+
+      nouns: [
+        { type: "noun", lemma: "dog" },
+        { type: "noun", lemma: "cat" },
+        { type: "noun", lemma: "bird" },
+        { type: "noun", lemma: "fish" },
+        { type: "noun", lemma: "food" },
+        { type: "noun", lemma: "water" },
+        { type: "noun", lemma: "ball" },
+        { type: "noun", lemma: "toy" },
+      ],
+
+      adjectives: [
+        { type: "adjective", lemma: "cute" },
+        { type: "adjective", lemma: "friendly" },
+        { type: "adjective", lemma: "happy" },
+        { type: "adjective", lemma: "hungry" },
       ],
     },
   },
