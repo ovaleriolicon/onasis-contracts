@@ -19,3 +19,4 @@ export * from "./construction";
 export * from "./grammar";
 export * from "./topics";
 export * from "./semantics";
+export * from "./linguistic-laboratory";
