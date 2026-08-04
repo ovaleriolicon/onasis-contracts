@@ -17,3 +17,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./noun-semantic-type"), exports);
 __exportStar(require("./verb-semantic-type"), exports);
 __exportStar(require("./adjective-semantic-type"), exports);
+__exportStar(require("./verb-roles"), exports);

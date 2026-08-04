@@ -1,4 +1,4 @@
-import type { NounSemanticType, SubjectSemanticType, VerbSemanticType, AdjectiveSemanticType } from "./semantics";
+import type { NounSemanticType, SubjectSemanticType, VerbSemanticType, AdjectiveSemanticType, VerbRoles } from "./semantics";
 import type { DeterminerPolicy } from "./grammar/determiner-policy";
 import type { VerbBehavior } from "./grammar/verb-behavior";
 import type { ComplementType } from "./grammar/complement-type";
@@ -61,10 +61,28 @@ export type VerbEntry = {
     transitive: boolean;
     semantics: {
         type: VerbSemanticType;
+        /**
+         * Semantic Ontology v2 role selection.
+         * Optional; absent on all v1 documents. Runtime must ignore until dual-read.
+         */
+        roles?: VerbRoles;
+        /**
+         * @deprecated Use `roles.agent.selection.animate` (Semantic Ontology v2).
+         */
         requiresAnimateSubject?: boolean;
         requiresPreposition?: string;
+        /**
+         * @deprecated Use `roles.theme.selection.classes` (Semantic Ontology v2).
+         */
         objectTypes?: NounSemanticType[];
+        /**
+         * @deprecated Use `roles.goal.selection.classes` (Semantic Ontology v2).
+         */
         placeTypes?: NounSemanticType[];
+        /**
+         * @deprecated Use `roles.attribute.selection.adjectiveTypes` when a partial
+         * filter is needed; omit the filter when unconstrained (Semantic Ontology v2).
+         */
         adjectiveTypes?: AdjectiveSemanticType[];
     };
     ppp?: readonly [string, string, string];
@@ -117,5 +135,10 @@ export type AdjectiveEntry = {
          * Engine treats `applicableTo ?? appliesTo` as the compatibility list.
          */
         appliesTo?: NounSemanticType[];
+        /**
+         * Semantic Ontology v2: when true, bare predicative is blocked
+         * (e.g. "is favorite"). Optional; absent means false for v1 docs.
+         */
+        requiresDeterminer?: boolean;
     };
 };
