@@ -1,3 +1,4 @@
+import type { CommunicativeFunctionId } from "./communicative-functions";
 /**
  * Editorial reference to a lexicon entry by type.
  * Does not embed grammar/semantics.
@@ -12,6 +13,9 @@ export type EcosystemMemberRef = {
 };
 /**
  * Canonical Ecosystem (v1 — catalog + explorer only).
+ *
+ * `functions` (F1): authorized Communicative Function ids only.
+ * Presence = authorization. Not weights, exponents, patterns, or selection policy.
  *
  * Future fields under consideration (NOT in this contract yet):
  * - previousEcosystemId / inheritsMembersFromPrevious (family growth chain)
@@ -34,6 +38,12 @@ export type Ecosystem = {
     description: string;
     /** Student-facing ability, e.g. "I can say what food I like." */
     communicativeGoal: string;
+    /**
+     * Authorized communicative acts for this Ecosystem (F1).
+     * Ids must belong to COMMUNICATIVE_FUNCTIONS.
+     * Order is an editorial hint only — not runtime selection weight.
+     */
+    functions: CommunicativeFunctionId[];
     active: boolean;
     members: {
         subjects: EcosystemMemberRef[];

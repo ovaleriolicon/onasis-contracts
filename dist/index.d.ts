@@ -10,6 +10,8 @@ export * from "./live";
 export * from "./spanish-prompt-draft";
 export * from "./student-knowledge-state";
 export * from "./pedagogy/structure-levels";
+export * from "./pedagogy/communicative-functions";
+export * from "./pedagogy/communicative-function-turn-metadata";
 export * from "./pedagogy/ecosystem";
 export * from "./pedagogy/ecosystems";
 export * from "./scene-assets";

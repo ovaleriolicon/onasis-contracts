@@ -14,6 +14,7 @@ export const ecosystems: Ecosystem[] = [
     name: "How I Feel 1",
     description: "Core feelings and personal states with the verb 'be'.",
     communicativeGoal: "I can describe how people feel and are.",
+    functions: ["describe", "ask-information"],
     active: true,
 
     members: {
@@ -51,6 +52,7 @@ export const ecosystems: Ecosystem[] = [
     name: "People Around Me 1",
     description: "Describing people around me with the verb 'be'.",
     communicativeGoal: "I can describe people around me.",
+    functions: ["describe", "ask-information"],
     active: true,
 
     members: {
@@ -100,6 +102,13 @@ export const ecosystems: Ecosystem[] = [
     name: "Food 1",
     description: "Talking about everyday food and drinks.",
     communicativeGoal: "I can talk about food and drinks.",
+    functions: [
+      "describe",
+      "express-preference",
+      "express-desire",
+      "talk-about-activities",
+      "ask-information",
+    ],
     active: true,
 
     members: {
@@ -158,6 +167,14 @@ export const ecosystems: Ecosystem[] = [
 
     communicativeGoal: "I can talk about pets.",
 
+    functions: [
+      "describe",
+      "express-preference",
+      "express-desire",
+      "express-possession",
+      "ask-information",
+    ],
+
     active: true,
 
     members: {
@@ -212,6 +229,15 @@ export const ecosystems: Ecosystem[] = [
     description: "Talking about work and the office.",
 
     communicativeGoal: "I can talk about my work.",
+
+    functions: [
+      "describe",
+      "express-preference",
+      "express-need",
+      "express-possession",
+      "talk-about-activities",
+      "ask-information",
+    ],
 
     active: true,
 
@@ -273,6 +299,15 @@ export const ecosystems: Ecosystem[] = [
 
     communicativeGoal: "I can travel using English.",
 
+    functions: [
+      "describe",
+      "express-desire",
+      "express-need",
+      "express-possession",
+      "talk-about-activities",
+      "ask-information",
+    ],
+
     active: true,
 
     members: {
@@ -325,6 +360,15 @@ export const ecosystems: Ecosystem[] = [
     description: "Talking about everyday life.",
 
     communicativeGoal: "I can talk about my daily life.",
+
+    functions: [
+      "describe",
+      "express-preference",
+      "express-need",
+      "express-possession",
+      "talk-about-activities",
+      "ask-information",
+    ],
 
     active: true,
 
@@ -380,6 +424,16 @@ export const ecosystems: Ecosystem[] = [
     name: "Video Games 1",
     description: "Talking about video games and gaming.",
     communicativeGoal: "I can talk about video games.",
+    functions: [
+      "describe",
+      "express-preference",
+      "express-desire",
+      "express-need",
+      "express-possession",
+      "talk-about-activities",
+      "report-result",
+      "ask-information",
+    ],
     active: true,
 
     members: {
