@@ -6,6 +6,8 @@
 // Ecosystem.functions references these ids. Presence = authorized.
 // Array order on an Ecosystem is an editorial hint only (not selection weights).
 
+import type { ObjectNumber } from "../grammar/object-number";
+
 // Foundations catalog (frozen temporarily at 7).
 // `talk-about-activities` withdrawn — content-like, not a clear speaker act.
 // Action sentences remain in Ecosystems; no Function covers that slot for now.
@@ -33,6 +35,23 @@ export const COMMUNICATIVE_FUNCTION_LABELS: Record<
   "express-possession": "Express Possession",
   "report-result": "Report Result",
   "ask-information": "Ask Information",
+};
+
+/**
+ * Optional object-number override for the communicative act (global catalog).
+ * Absent → NLG inherits Verb.pedagogy.preferredObjectNumber.
+ * Ask Information has no entry: use the content function id instead.
+ */
+export const COMMUNICATIVE_FUNCTION_OBJECT_NUMBERS: Partial<
+  Record<CommunicativeFunctionId, ObjectNumber>
+> = {
+  "express-preference": "generic",
+  "express-desire": "singular",
+  "express-need": "singular",
+  "express-possession": "singular",
+  "report-result": "singular",
+  // describe — inherit verb
+  // ask-information — inherit content function
 };
 
 export function isCommunicativeFunctionId(

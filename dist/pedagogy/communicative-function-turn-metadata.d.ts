@@ -1,3 +1,4 @@
+import type { ObjectNumber, ObjectNumberSource } from "../grammar/object-number";
 import type { CommunicativeFunctionId } from "./communicative-functions";
 /**
  * Analytics / curriculum cursor for the selected Function of a turn.
@@ -15,4 +16,8 @@ export type CommunicativeFunctionTurnMetadata = {
     protoExponentApplied?: boolean;
     /** True when Proto-Exponent was considered but fell back to full pool. */
     fallbackUsed?: boolean;
+    /** Final object-number policy used for object realization (observability). */
+    objectNumber?: ObjectNumber;
+    /** Which layer supplied objectNumber: function | verb | fallback. */
+    objectNumberSource?: ObjectNumberSource;
 };

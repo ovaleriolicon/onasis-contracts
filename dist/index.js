@@ -29,6 +29,7 @@ __exportStar(require("./student-knowledge-state"), exports);
 __exportStar(require("./pedagogy/structure-levels"), exports);
 __exportStar(require("./pedagogy/communicative-functions"), exports);
 __exportStar(require("./pedagogy/communicative-function-turn-metadata"), exports);
+__exportStar(require("./pedagogy/resolve-object-number"), exports);
 __exportStar(require("./pedagogy/ecosystem"), exports);
 __exportStar(require("./pedagogy/ecosystems"), exports);
 __exportStar(require("./scene-assets"), exports);

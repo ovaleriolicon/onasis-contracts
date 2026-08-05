@@ -164,7 +164,10 @@ export const ecosystems: Ecosystem[] = [
 
     description: "Talking about pets and animals.",
 
-    communicativeGoal: "I can talk about pets.",
+    // Editorially Validated frame (v1.0): person → pet (+ describe pet qualities).
+    // Care-item frame (My dog likes food / has a ball) deferred to a later tier.
+    communicativeGoal:
+      "I can say what pets I like, want, and have, describe pets, and ask about that.",
 
     functions: [
       "describe",
@@ -197,15 +200,13 @@ export const ecosystems: Ecosystem[] = [
         { type: "verb", lemma: "be" },
       ],
 
+      // Pet objects only. Care nouns (food/water/ball/toy) removed for Pets 1
+      // one-frame rule — they re-enter when a pet→care frame is authorized.
       nouns: [
         { type: "noun", lemma: "dog" },
         { type: "noun", lemma: "cat" },
         { type: "noun", lemma: "bird" },
         { type: "noun", lemma: "fish" },
-        { type: "noun", lemma: "food" },
-        { type: "noun", lemma: "water" },
-        { type: "noun", lemma: "ball" },
-        { type: "noun", lemma: "toy" },
       ],
 
       adjectives: [

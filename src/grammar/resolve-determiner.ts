@@ -1,16 +1,23 @@
-import type { NounEntry, VerbEntry } from "../lexicon";
+import type { NounEntry } from "../lexicon";
+import type { ObjectNumber } from "./object-number";
 
+/**
+ * Realize determiner/number policy for a noun object.
+ *
+ * Pure Grammar: receives an already-resolved `objectNumber`. Does not read
+ * Verb, Function, Ecosystem, or Exponent.
+ *
+ * - "generic" → kind-reading: countable bare plural; uncountable bare
+ * - "singular" | "plural" | other → noun.grammar.defaultDeterminer
+ */
 export function resolveDeterminer({
-  verb,
   noun,
+  objectNumber,
 }: {
-  verb: VerbEntry;
   noun: NounEntry;
+  objectNumber: ObjectNumber;
 }): string {
-  if (
-    verb.pedagogy?.preferredObjectNumber === "generic" &&
-    noun.semantics?.type === "food"
-  ) {
+  if (objectNumber === "generic") {
     return noun.grammar?.countable ? "plural" : "none";
   }
 

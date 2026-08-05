@@ -14,6 +14,7 @@ import type { PatternType } from "./patterns";
 // Sigue disponible como @onasis/contracts -> VerbBehavior a través del
 // barrel de grammar/, así que ningún consumidor existente se rompe.
 import type { VerbBehavior } from "./grammar/verb-behavior";
+import type { ObjectNumber, ObjectNumberSource } from "./grammar/object-number";
 
 export type Polarity = "affirmative" | "negative";
 
@@ -55,4 +56,10 @@ export type Scene = {
   target: {
     index: number;
   };
+
+  /** Final object-number used for object NP realization (NLG observability). */
+  objectNumber?: ObjectNumber;
+
+  /** Which layer supplied objectNumber: function | verb | fallback. */
+  objectNumberSource?: ObjectNumberSource;
 };

@@ -1,12 +1,19 @@
-import type { NounEntry, VerbEntry } from "../lexicon";
+import type { NounEntry } from "../lexicon";
+import type { ObjectNumber } from "./object-number";
 
 import { resolveDeterminer } from "./resolve-determiner";
 import { buildNounPhrase } from "./build-noun-phrase";
 
+/**
+ * Build the object surface string.
+ *
+ * `objectNumber` must already be resolved by NLG (Function ?? Verb ?? singular).
+ * Grammar does not inspect Verb pedagogy here.
+ */
 export function resolveObject(
-  verb: VerbEntry,
   object?: string | NounEntry,
   objectPhrase?: string,
+  objectNumber: ObjectNumber = "singular",
 ): string {
   // Curated phrase wins
 
@@ -25,8 +32,8 @@ export function resolveObject(
   return buildNounPhrase(
     object,
     resolveDeterminer({
-      verb,
       noun: object,
+      objectNumber,
     }),
   );
 }

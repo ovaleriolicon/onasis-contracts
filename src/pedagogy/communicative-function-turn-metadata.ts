@@ -4,6 +4,7 @@
 // F3.0: optional Proto-Exponent observability (orchestrator soft bias only).
 // generateScene does not read this object.
 
+import type { ObjectNumber, ObjectNumberSource } from "../grammar/object-number";
 import type { CommunicativeFunctionId } from "./communicative-functions";
 
 /**
@@ -25,4 +26,10 @@ export type CommunicativeFunctionTurnMetadata = {
 
   /** True when Proto-Exponent was considered but fell back to full pool. */
   fallbackUsed?: boolean;
+
+  /** Final object-number policy used for object realization (observability). */
+  objectNumber?: ObjectNumber;
+
+  /** Which layer supplied objectNumber: function | verb | fallback. */
+  objectNumberSource?: ObjectNumberSource;
 };
