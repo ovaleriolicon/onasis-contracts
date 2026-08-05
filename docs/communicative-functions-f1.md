@@ -4,7 +4,9 @@ Curriculum authorization only. Not consumed by `generateScene` or Hard Gates.
 
 ## Catalog
 
-See `src/pedagogy/communicative-functions.ts`.
+Foundations frozen at 7 (temporary). See `src/pedagogy/communicative-functions.ts`.
+
+Withdrawn: `talk-about-activities` (not a clear speaker act for isolated-sentence Foundations).
 
 ## Ecosystem.functions
 

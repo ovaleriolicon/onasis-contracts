@@ -1,13 +1,14 @@
 // pedagogy/communicative-function-turn-metadata.ts
 //
-// F2: selected Communicative Function for a turn (authorization already on Ecosystem).
-// Consumed as turn/exercise metadata only — generateScene must ignore this.
+// F2: selected Communicative Function for a turn.
+// F3.0: optional Proto-Exponent observability (orchestrator soft bias only).
+// generateScene does not read this object.
 
 import type { CommunicativeFunctionId } from "./communicative-functions";
 
 /**
  * Analytics / curriculum cursor for the selected Function of a turn.
- * Not a generation input. Not weights. Not exponents.
+ * Proto-Exponent fields are observability for F3.0 soft bias — not engine inputs.
  */
 export type CommunicativeFunctionTurnMetadata = {
   functionId: CommunicativeFunctionId;
@@ -15,4 +16,13 @@ export type CommunicativeFunctionTurnMetadata = {
   mode: string;
   /** ISO-8601 timestamp when the Function was selected. */
   timestamp: string;
+
+  /** F3.0 Proto-Exponent id when this Function has a proto (else omitted/null). */
+  protoExponent?: string | null;
+
+  /** True when the Proto-Exponent successfully narrowed candidates. */
+  protoExponentApplied?: boolean;
+
+  /** True when Proto-Exponent was considered but fell back to full pool. */
+  fallbackUsed?: boolean;
 };

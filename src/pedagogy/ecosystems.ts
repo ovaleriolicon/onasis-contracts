@@ -106,7 +106,6 @@ export const ecosystems: Ecosystem[] = [
       "describe",
       "express-preference",
       "express-desire",
-      "talk-about-activities",
       "ask-information",
     ],
     active: true,
@@ -235,7 +234,6 @@ export const ecosystems: Ecosystem[] = [
       "express-preference",
       "express-need",
       "express-possession",
-      "talk-about-activities",
       "ask-information",
     ],
 
@@ -304,7 +302,6 @@ export const ecosystems: Ecosystem[] = [
       "express-desire",
       "express-need",
       "express-possession",
-      "talk-about-activities",
       "ask-information",
     ],
 
@@ -366,7 +363,6 @@ export const ecosystems: Ecosystem[] = [
       "express-preference",
       "express-need",
       "express-possession",
-      "talk-about-activities",
       "ask-information",
     ],
 
@@ -430,7 +426,6 @@ export const ecosystems: Ecosystem[] = [
       "express-desire",
       "express-need",
       "express-possession",
-      "talk-about-activities",
       "report-result",
       "ask-information",
     ],
