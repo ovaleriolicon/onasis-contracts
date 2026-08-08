@@ -8,9 +8,10 @@
 
 import type { ObjectNumber } from "../grammar/object-number";
 
-// Foundations catalog (frozen temporarily at 7).
-// `talk-about-activities` withdrawn — content-like, not a clear speaker act.
-// Action sentences remain in Ecosystems; no Function covers that slot for now.
+// Foundations catalog (8).
+// `report-activities` covers the speaker act of saying what you do / perform.
+// Former draft id `talk-about-activities` was withdrawn (content-like naming);
+// do not revive it as an alias.
 export const COMMUNICATIVE_FUNCTIONS = [
   "describe",
   "express-preference",
@@ -18,6 +19,7 @@ export const COMMUNICATIVE_FUNCTIONS = [
   "express-need",
   "express-possession",
   "report-result",
+  "report-activities",
   "ask-information",
 ] as const;
 
@@ -34,7 +36,24 @@ export const COMMUNICATIVE_FUNCTION_LABELS: Record<
   "express-need": "Express Need",
   "express-possession": "Express Possession",
   "report-result": "Report Result",
+  "report-activities": "Report Activities",
   "ask-information": "Ask Information",
+};
+
+/** Short blurbs for editorial / lab UI (not selection weights). */
+export const COMMUNICATIVE_FUNCTION_DESCRIPTIONS: Record<
+  CommunicativeFunctionId,
+  string
+> = {
+  describe: "Say how someone or something is (qualities / states).",
+  "express-preference": "Say what you like.",
+  "express-desire": "Say what you want.",
+  "express-need": "Say what you need.",
+  "express-possession": "Say what you have.",
+  "report-result": "Report an outcome or result.",
+  "report-activities":
+    "Say what you do or what activities you perform.",
+  "ask-information": "Ask a question about authorized content acts.",
 };
 
 /**
@@ -51,6 +70,7 @@ export const COMMUNICATIVE_FUNCTION_OBJECT_NUMBERS: Partial<
   "express-possession": "singular",
   "report-result": "singular",
   // describe — inherit verb
+  // report-activities — inherit verb (objects vary: proper nouns, bare plurals, none)
   // ask-information — inherit content function
 };
 

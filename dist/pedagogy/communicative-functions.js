@@ -7,11 +7,12 @@
 // Ecosystem.functions references these ids. Presence = authorized.
 // Array order on an Ecosystem is an editorial hint only (not selection weights).
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.COMMUNICATIVE_FUNCTION_OBJECT_NUMBERS = exports.COMMUNICATIVE_FUNCTION_LABELS = exports.COMMUNICATIVE_FUNCTIONS = void 0;
+exports.COMMUNICATIVE_FUNCTION_OBJECT_NUMBERS = exports.COMMUNICATIVE_FUNCTION_DESCRIPTIONS = exports.COMMUNICATIVE_FUNCTION_LABELS = exports.COMMUNICATIVE_FUNCTIONS = void 0;
 exports.isCommunicativeFunctionId = isCommunicativeFunctionId;
-// Foundations catalog (frozen temporarily at 7).
-// `talk-about-activities` withdrawn — content-like, not a clear speaker act.
-// Action sentences remain in Ecosystems; no Function covers that slot for now.
+// Foundations catalog (8).
+// `report-activities` covers the speaker act of saying what you do / perform.
+// Former draft id `talk-about-activities` was withdrawn (content-like naming);
+// do not revive it as an alias.
 exports.COMMUNICATIVE_FUNCTIONS = [
     "describe",
     "express-preference",
@@ -19,6 +20,7 @@ exports.COMMUNICATIVE_FUNCTIONS = [
     "express-need",
     "express-possession",
     "report-result",
+    "report-activities",
     "ask-information",
 ];
 exports.COMMUNICATIVE_FUNCTION_LABELS = {
@@ -28,7 +30,19 @@ exports.COMMUNICATIVE_FUNCTION_LABELS = {
     "express-need": "Express Need",
     "express-possession": "Express Possession",
     "report-result": "Report Result",
+    "report-activities": "Report Activities",
     "ask-information": "Ask Information",
+};
+/** Short blurbs for editorial / lab UI (not selection weights). */
+exports.COMMUNICATIVE_FUNCTION_DESCRIPTIONS = {
+    describe: "Say how someone or something is (qualities / states).",
+    "express-preference": "Say what you like.",
+    "express-desire": "Say what you want.",
+    "express-need": "Say what you need.",
+    "express-possession": "Say what you have.",
+    "report-result": "Report an outcome or result.",
+    "report-activities": "Say what you do or what activities you perform.",
+    "ask-information": "Ask a question about authorized content acts.",
 };
 /**
  * Optional object-number override for the communicative act (global catalog).
@@ -42,6 +56,7 @@ exports.COMMUNICATIVE_FUNCTION_OBJECT_NUMBERS = {
     "express-possession": "singular",
     "report-result": "singular",
     // describe — inherit verb
+    // report-activities — inherit verb (objects vary: proper nouns, bare plurals, none)
     // ask-information — inherit content function
 };
 function isCommunicativeFunctionId(value) {
