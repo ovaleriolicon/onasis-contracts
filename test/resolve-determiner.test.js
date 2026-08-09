@@ -157,4 +157,37 @@ describe("objectNumber: Function ?? Verb ?? singular", () => {
       "generic",
     );
   });
+
+  it("report-activities → generic (uncountable bare / countable plural)", () => {
+    const instagram = noun("Instagram", {
+      countable: false,
+      defaultDeterminer: "indefinite",
+      type: "object",
+    });
+    const socialMedia = noun("social media", {
+      countable: false,
+      defaultDeterminer: "none",
+      type: "object",
+    });
+    const photo = noun("photo", {
+      countable: true,
+      defaultDeterminer: "indefinite",
+      type: "object",
+    });
+
+    assert.equal(getFunctionObjectNumber("report-activities"), "generic");
+    // Verb defaults singular; Function generic must win.
+    assert.equal(
+      affirmative("I", "use", instagram, "report-activities"),
+      "I use Instagram.",
+    );
+    assert.equal(
+      affirmative("I", "use", socialMedia, "report-activities"),
+      "I use social media.",
+    );
+    assert.equal(
+      affirmative("I", "share", photo, "report-activities"),
+      "I share photos.",
+    );
+  });
 });

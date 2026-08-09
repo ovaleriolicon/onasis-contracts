@@ -69,8 +69,8 @@ export const COMMUNICATIVE_FUNCTION_OBJECT_NUMBERS: Partial<
   "express-need": "singular",
   "express-possession": "singular",
   "report-result": "singular",
+  "report-activities": "generic",
   // describe — inherit verb
-  // report-activities — inherit verb (objects vary: proper nouns, bare plurals, none)
   // ask-information — inherit content function
 };
 
