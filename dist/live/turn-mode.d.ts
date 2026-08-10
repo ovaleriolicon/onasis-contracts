@@ -1,1 +1,1 @@
-export type TurnMode = "fluency" | "vocabulary";
+export type TurnMode = "fluency" | "vocabulary" | "drill";

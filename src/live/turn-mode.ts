@@ -2,4 +2,5 @@
 
 export type TurnMode =
   | "fluency"
-  | "vocabulary";
+  | "vocabulary"
+  | "drill";

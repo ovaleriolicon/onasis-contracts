@@ -18,6 +18,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./turn-mode"), exports);
 __exportStar(require("./fluency-turn"), exports);
 __exportStar(require("./vocabulary-turn"), exports);
+__exportStar(require("./drill-turn"), exports);
 __exportStar(require("./live-generate-body"), exports);
 __exportStar(require("./live-generate-response"), exports);
 __exportStar(require("./current-turn"), exports);
