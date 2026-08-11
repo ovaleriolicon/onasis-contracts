@@ -60,7 +60,7 @@ exports.COMMUNICATIVE_FUNCTION_OBJECT_NUMBERS = {
     // ask-information — inherit content function
 };
 exports.COMMUNICATIVE_FUNCTION_OBJECT_MODIFIER_POLICIES = {
-    "express-possession": "require",
+    "express-possession": ["omit", "require"],
 };
 function isCommunicativeFunctionId(value) {
     return exports.COMMUNICATIVE_FUNCTIONS.includes(value);

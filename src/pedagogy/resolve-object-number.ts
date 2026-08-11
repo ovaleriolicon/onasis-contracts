@@ -30,19 +30,69 @@ export function getFunctionObjectNumber(
 }
 
 /**
- * Look up the optional Function-level attributive object-modifier policy.
- * Absent → bare object NP (no objectAdjective).
+ * Ordered policy list for a Function, or undefined when bare NP only.
  * `ask-information` has none — callers should pass the content function id.
+ */
+export function getFunctionObjectModifierPolicies(
+  functionId?: CommunicativeFunctionId | string | null,
+): readonly ObjectModifierPolicy[] | undefined {
+  if (functionId == null || functionId === "") {
+    return undefined;
+  }
+  const list =
+    COMMUNICATIVE_FUNCTION_OBJECT_MODIFIER_POLICIES[
+      functionId as CommunicativeFunctionId
+    ];
+  if (!list || list.length === 0) {
+    return undefined;
+  }
+  return list;
+}
+
+/**
+ * Resolve one concrete policy for this turn (orchestrator only).
+ * - no catalog entry → undefined (bare NP)
+ * - single entry → that policy
+ * - multiple → next after lastObjectModifierPolicy; no last → first (omit for possession)
+ */
+export function resolveObjectModifierPolicy(
+  functionId?: CommunicativeFunctionId | string | null,
+  lastObjectModifierPolicy?: string | null,
+): ObjectModifierPolicy | undefined {
+  const policies = getFunctionObjectModifierPolicies(functionId);
+  if (!policies || policies.length === 0) {
+    return undefined;
+  }
+  if (policies.length === 1) {
+    return policies[0];
+  }
+
+  const last =
+    lastObjectModifierPolicy === "omit" || lastObjectModifierPolicy === "require"
+      ? lastObjectModifierPolicy
+      : null;
+
+  if (last == null) {
+    return policies[0];
+  }
+
+  const idx = policies.indexOf(last);
+  if (idx < 0) {
+    return policies[0];
+  }
+
+  return policies[(idx + 1) % policies.length];
+}
+
+/**
+ * @deprecated Use resolveObjectModifierPolicy — kept for call-site migration.
+ * Returns the first catalog policy only (no alternation).
  */
 export function getFunctionObjectModifierPolicy(
   functionId?: CommunicativeFunctionId | string | null,
 ): ObjectModifierPolicy | undefined {
-  if (functionId == null || functionId === "") {
-    return undefined;
-  }
-  return COMMUNICATIVE_FUNCTION_OBJECT_MODIFIER_POLICIES[
-    functionId as CommunicativeFunctionId
-  ];
+  const policies = getFunctionObjectModifierPolicies(functionId);
+  return policies?.[0];
 }
 
 /**

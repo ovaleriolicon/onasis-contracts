@@ -36,6 +36,7 @@ export type CommunicativeFunctionTurnMetadata = {
   /**
    * Function-level attributive object-modifier policy applied this turn
    * (observability; generateScene receives it via filters, not this object).
+   * Sticky client cursor: only overwrite lastObjectModifierPolicy when present.
    */
-  objectModifierPolicy?: "require";
+  objectModifierPolicy?: "omit" | "require";
 };

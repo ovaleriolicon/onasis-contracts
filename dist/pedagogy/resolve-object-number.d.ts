@@ -11,9 +11,20 @@ export type ResolvedObjectNumber = {
  */
 export declare function getFunctionObjectNumber(functionId?: CommunicativeFunctionId | string | null): ObjectNumber | undefined;
 /**
- * Look up the optional Function-level attributive object-modifier policy.
- * Absent → bare object NP (no objectAdjective).
+ * Ordered policy list for a Function, or undefined when bare NP only.
  * `ask-information` has none — callers should pass the content function id.
+ */
+export declare function getFunctionObjectModifierPolicies(functionId?: CommunicativeFunctionId | string | null): readonly ObjectModifierPolicy[] | undefined;
+/**
+ * Resolve one concrete policy for this turn (orchestrator only).
+ * - no catalog entry → undefined (bare NP)
+ * - single entry → that policy
+ * - multiple → next after lastObjectModifierPolicy; no last → first (omit for possession)
+ */
+export declare function resolveObjectModifierPolicy(functionId?: CommunicativeFunctionId | string | null, lastObjectModifierPolicy?: string | null): ObjectModifierPolicy | undefined;
+/**
+ * @deprecated Use resolveObjectModifierPolicy — kept for call-site migration.
+ * Returns the first catalog policy only (no alternation).
  */
 export declare function getFunctionObjectModifierPolicy(functionId?: CommunicativeFunctionId | string | null): ObjectModifierPolicy | undefined;
 /**

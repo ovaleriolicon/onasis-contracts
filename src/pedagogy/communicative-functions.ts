@@ -75,16 +75,17 @@ export const COMMUNICATIVE_FUNCTION_OBJECT_NUMBERS: Partial<
 };
 
 /**
- * Fixed attributive object-modifier policy for the communicative act (v1).
- * Absent → no objectAdjective (current bare NP behavior).
- * `"require"` → generateScene must attach a compatible attributive adjective.
+ * Attributive object-modifier policies for the communicative act (v2).
+ * Absent → bare object NP (no objectAdjective).
+ * List length 1 → always that policy.
+ * List length >1 → orchestrator advances deterministically via lastObjectModifierPolicy.
  */
-export type ObjectModifierPolicy = "require";
+export type ObjectModifierPolicy = "omit" | "require";
 
 export const COMMUNICATIVE_FUNCTION_OBJECT_MODIFIER_POLICIES: Partial<
-  Record<CommunicativeFunctionId, ObjectModifierPolicy>
+  Record<CommunicativeFunctionId, readonly ObjectModifierPolicy[]>
 > = {
-  "express-possession": "require",
+  "express-possession": ["omit", "require"],
 };
 
 export function isCommunicativeFunctionId(
