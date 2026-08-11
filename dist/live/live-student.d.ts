@@ -11,5 +11,11 @@ export type LiveStudent = {
      * Callers may omit or send 0.
      */
     vocabularyLevel?: number;
-    structureLevel: number;
+    /**
+     * Frozen legacy ordinal (S0–S13) when the student sits on a historical SL.
+     * Optional for key-only Structure Levels (e.g. adjective-noun-phrases).
+     */
+    structureLevel?: number;
+    /** Stable Structure Level key when known (preferred for key-only SLs). */
+    structureLevelKey?: string;
 };

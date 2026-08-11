@@ -1,4 +1,4 @@
-export type ConstructionSlot = "subject" | "be" | "verb" | "object" | "place" | "negation" | "adjective" | "auxiliary" | "moved-be";
+export type ConstructionSlot = "subject" | "be" | "verb" | "object" | "object-adjective" | "place" | "negation" | "adjective" | "auxiliary" | "moved-be";
 export type ConstructionState = {
     subject: string;
     be: string;
@@ -6,6 +6,8 @@ export type ConstructionState = {
     auxiliary: string;
     verb: string;
     object: string;
+    /** Attributive modifier of the object NP (not predicative `adjective`). */
+    objectAdjective: string;
     place: string;
     adjective: string;
     negation: string;

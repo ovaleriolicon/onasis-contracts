@@ -7,6 +7,11 @@
 // Array order on an Ecosystem is an editorial hint only (not selection weights).
 
 import type { ObjectNumber } from "../grammar/object-number";
+import type { StructureUnlockRef } from "./resolve-structure-unlock";
+import {
+  isStructureUnlockedAt,
+  resolveStructureUnlockOrder,
+} from "./resolve-structure-unlock";
 
 // Foundations catalog (8).
 // `report-activities` covers the speaker act of saying what you do / perform.
@@ -25,6 +30,12 @@ export const COMMUNICATIVE_FUNCTIONS = [
 
 export type CommunicativeFunctionId =
   (typeof COMMUNICATIVE_FUNCTIONS)[number];
+
+export function isCommunicativeFunctionId(
+  value: string,
+): value is CommunicativeFunctionId {
+  return (COMMUNICATIVE_FUNCTIONS as readonly string[]).includes(value);
+}
 
 export const COMMUNICATIVE_FUNCTION_LABELS: Record<
   CommunicativeFunctionId,
@@ -57,6 +68,78 @@ export const COMMUNICATIVE_FUNCTION_DESCRIPTIONS: Record<
 };
 
 /**
+ * Minimum Structure Level for each Communicative Function (stable keys).
+ * Mirrors pre-migration mins: describe→0, verb-led→3, ask→5.
+ */
+export const COMMUNICATIVE_FUNCTION_MIN_STRUCTURE_KEYS: Record<
+  CommunicativeFunctionId,
+  string
+> = {
+  describe: "to-be-present-affirmative",
+  "express-preference": "present-actions-affirmative",
+  "express-desire": "present-actions-affirmative",
+  "express-need": "present-actions-affirmative",
+  "express-possession": "present-actions-affirmative",
+  "report-result": "present-actions-affirmative",
+  "report-activities": "present-actions-affirmative",
+  "ask-information": "present-questions-affirmative",
+};
+
+/**
+ * Resolve a Function's minimum unlock (key preferred; legacy number accepted).
+ */
+export function resolveCommunicativeFunctionMinOrder(
+  functionId: CommunicativeFunctionId,
+  legacyOverride?: StructureUnlockRef | null,
+): number {
+  if (legacyOverride !== undefined && legacyOverride !== null && legacyOverride !== "") {
+    return resolveStructureUnlockOrder(legacyOverride);
+  }
+  return resolveStructureUnlockOrder(
+    COMMUNICATIVE_FUNCTION_MIN_STRUCTURE_KEYS[functionId],
+  );
+}
+
+/** True when studentOrder unlocks the Function's minimum Structure Level. */
+export function isCommunicativeFunctionAvailableAt(
+  functionId: string,
+  studentOrder: number,
+): boolean {
+  if (!isCommunicativeFunctionId(functionId)) {
+    return false;
+  }
+  return isStructureUnlockedAt(
+    COMMUNICATIVE_FUNCTION_MIN_STRUCTURE_KEYS[functionId],
+    studentOrder,
+  );
+}
+
+/**
+ * Resolve appliesWhen.minStructureLevelKey | minStructureLevel → order.
+ * Returns null when neither is set.
+ */
+export function resolveAppliesWhenMinOrder(appliesWhen: {
+  minStructureLevelKey?: string | null;
+  minStructureLevel?: number | null;
+} | null | undefined): number | null {
+  if (!appliesWhen) return null;
+  const key =
+    appliesWhen.minStructureLevelKey != null
+      ? String(appliesWhen.minStructureLevelKey).trim()
+      : "";
+  if (key) {
+    return resolveStructureUnlockOrder(key);
+  }
+  if (
+    appliesWhen.minStructureLevel !== undefined &&
+    appliesWhen.minStructureLevel !== null
+  ) {
+    return resolveStructureUnlockOrder(appliesWhen.minStructureLevel);
+  }
+  return null;
+}
+
+/**
  * Optional object-number override for the communicative act (global catalog).
  * Absent → NLG inherits Verb.pedagogy.preferredObjectNumber.
  * Ask Information has no entry: use the content function id instead.
@@ -87,9 +170,3 @@ export const COMMUNICATIVE_FUNCTION_OBJECT_MODIFIER_POLICIES: Partial<
 > = {
   "express-possession": ["omit", "require"],
 };
-
-export function isCommunicativeFunctionId(
-  value: string,
-): value is CommunicativeFunctionId {
-  return (COMMUNICATIVE_FUNCTIONS as readonly string[]).includes(value);
-}

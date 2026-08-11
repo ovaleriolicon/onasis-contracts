@@ -20,8 +20,11 @@ export declare function getFunctionObjectModifierPolicies(functionId?: Communica
  * - no catalog entry → undefined (bare NP)
  * - single entry → that policy
  * - multiple → next after lastObjectModifierPolicy; no last → first (omit for possession)
+ *
+ * When `studentStructureOrder` is provided and `require` is selected but
+ * adjective-noun-phrases is not unlocked, degrades cleanly to `omit`.
  */
-export declare function resolveObjectModifierPolicy(functionId?: CommunicativeFunctionId | string | null, lastObjectModifierPolicy?: string | null): ObjectModifierPolicy | undefined;
+export declare function resolveObjectModifierPolicy(functionId?: CommunicativeFunctionId | string | null, lastObjectModifierPolicy?: string | null, studentStructureOrder?: number): ObjectModifierPolicy | undefined;
 /**
  * @deprecated Use resolveObjectModifierPolicy — kept for call-site migration.
  * Returns the first catalog policy only (no alternation).

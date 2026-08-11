@@ -8,6 +8,8 @@ import {
   COMMUNICATIVE_FUNCTION_OBJECT_NUMBERS,
   COMMUNICATIVE_FUNCTION_OBJECT_MODIFIER_POLICIES,
 } from "./communicative-functions";
+import { ADJECTIVE_NOUN_PHRASES_KEY } from "./structure-levels";
+import { isStructureUnlockedAt } from "./resolve-structure-unlock";
 
 export type ResolvedObjectNumber = {
   objectNumber: ObjectNumber;
@@ -54,34 +56,47 @@ export function getFunctionObjectModifierPolicies(
  * - no catalog entry → undefined (bare NP)
  * - single entry → that policy
  * - multiple → next after lastObjectModifierPolicy; no last → first (omit for possession)
+ *
+ * When `studentStructureOrder` is provided and `require` is selected but
+ * adjective-noun-phrases is not unlocked, degrades cleanly to `omit`.
  */
 export function resolveObjectModifierPolicy(
   functionId?: CommunicativeFunctionId | string | null,
   lastObjectModifierPolicy?: string | null,
+  studentStructureOrder?: number,
 ): ObjectModifierPolicy | undefined {
   const policies = getFunctionObjectModifierPolicies(functionId);
   if (!policies || policies.length === 0) {
     return undefined;
   }
+
+  let policy: ObjectModifierPolicy;
   if (policies.length === 1) {
-    return policies[0];
+    policy = policies[0];
+  } else {
+    const last =
+      lastObjectModifierPolicy === "omit" || lastObjectModifierPolicy === "require"
+        ? lastObjectModifierPolicy
+        : null;
+
+    if (last == null) {
+      policy = policies[0];
+    } else {
+      const idx = policies.indexOf(last);
+      policy =
+        idx < 0 ? policies[0] : policies[(idx + 1) % policies.length];
+    }
   }
 
-  const last =
-    lastObjectModifierPolicy === "omit" || lastObjectModifierPolicy === "require"
-      ? lastObjectModifierPolicy
-      : null;
-
-  if (last == null) {
-    return policies[0];
+  if (
+    policy === "require" &&
+    studentStructureOrder !== undefined &&
+    !isStructureUnlockedAt(ADJECTIVE_NOUN_PHRASES_KEY, studentStructureOrder)
+  ) {
+    return "omit";
   }
 
-  const idx = policies.indexOf(last);
-  if (idx < 0) {
-    return policies[0];
-  }
-
-  return policies[(idx + 1) % policies.length];
+  return policy;
 }
 
 /**

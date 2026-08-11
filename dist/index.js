@@ -27,6 +27,8 @@ __exportStar(require("./live"), exports);
 __exportStar(require("./spanish-prompt-draft"), exports);
 __exportStar(require("./student-knowledge-state"), exports);
 __exportStar(require("./pedagogy/structure-levels"), exports);
+__exportStar(require("./pedagogy/resolve-student-structure"), exports);
+__exportStar(require("./pedagogy/resolve-structure-unlock"), exports);
 __exportStar(require("./pedagogy/communicative-functions"), exports);
 __exportStar(require("./pedagogy/communicative-function-turn-metadata"), exports);
 __exportStar(require("./pedagogy/resolve-object-number"), exports);
