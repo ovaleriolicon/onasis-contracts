@@ -1,6 +1,6 @@
 export type ResolveStudentStructureInput = {
-    structureLevel?: number;
-    structureLevelKey?: string;
+    structureLevel?: number | null;
+    structureLevelKey?: string | null;
 };
 export type ResolvedStudentStructure = {
     key: string;
@@ -12,49 +12,52 @@ export type ResolvedStudentStructure = {
     legacyLevel?: number;
 };
 /**
- * Resolve student structure from legacy number and/or stable key.
+ * Resolve student structure from stable key and/or legacy number.
  *
- * Strict mode (default):
- * - Key wins when both are provided (must match the same catalog entry).
- * - Legacy-only input derives key from the catalog.
- * - Mismatched key + number throws (does not auto-correct).
+ * - Key preferred; must exist in catalog.
+ * - Legacy-only derives key from catalog.
+ * - Key + incompatible number → throws (writes must not silent-correct).
+ * - Key without legacy may not be paired with a structureLevel number.
  */
 export declare function resolveStudentStructure(input: ResolveStudentStructureInput): ResolvedStudentStructure;
 export type StudentStructureRead = ResolvedStudentStructure & {
     /**
-     * True when both fields were present and disagreed.
-     * Effective fields always follow the legacy number (see precedence).
+     * True when stored fields disagreed.
+     * Effective fields follow a **valid key** when present.
      */
     mismatch: boolean;
-    /** Stored key that was ignored because it disagreed with structureLevel. */
+    /** Legacy number ignored because a valid key took precedence. */
+    ignoredStructureLevel?: number;
+    /** Stored key ignored because it was unknown (legacy fallback). */
     ignoredStructureLevelKey?: string;
 };
 /**
- * Read Structure Level from a User-like document (F2 / F4a).
+ * Read Structure Level from a User-like document.
  *
  * Precedence:
- * - Key only → resolve from key (order + legacyLevel from catalog).
- * - Number only → derive key from legacy level.
- * - Both present and aligned → ok.
- * - Both present and disagree → **legacy number wins** for effective
- *   key/order/legacyLevel; stored key reported in ignoredStructureLevelKey
- *   (not auto-written back).
+ * - Valid key → canonical (order + optional legacy from catalog).
+ * - Legacy number only → derive key (legacy users without key).
+ * - Valid key + incompatible number → **key wins**; mismatch flagged.
+ * - Unknown key + legacy → legacy fallback; mismatch flagged.
  */
 export declare function readStudentStructure(user: {
     structureLevel?: number | null;
     structureLevelKey?: string | null;
 }): StudentStructureRead;
-/**
- * Dual-write payload for User.structureLevel + User.structureLevelKey.
- * Uses the catalog via resolveStudentStructure — no manual maps.
- */
-export declare function structureLevelWriteFields(input: ResolveStudentStructureInput): {
-    structureLevel: number;
+/** Persist shape for User.structureLevelKey (+ optional legacy structureLevel). */
+export type StructureLevelWriteFields = {
     structureLevelKey: string;
+    /** Legacy ordinal, or null to unset (key-only Structure Levels). */
+    structureLevel: number | null;
 };
 /**
- * Curricular position for runtime gates (F4a).
- * key → order; legacy number-only → derive key → order.
+ * Build User write fields from key and/or legacy number.
+ * Prefer structureLevelKey. Uses contracts catalog only.
+ */
+export declare function structureLevelWriteFields(input: ResolveStudentStructureInput): StructureLevelWriteFields;
+/**
+ * Curricular position for runtime gates.
+ * Valid key → order; legacy-only → derive key → order.
  */
 export declare function getEffectiveStructureOrder(user: {
     structureLevel?: number | null;
