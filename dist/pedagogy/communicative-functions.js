@@ -7,7 +7,7 @@
 // Ecosystem.functions references these ids. Presence = authorized.
 // Array order on an Ecosystem is an editorial hint only (not selection weights).
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.COMMUNICATIVE_FUNCTION_OBJECT_NUMBERS = exports.COMMUNICATIVE_FUNCTION_DESCRIPTIONS = exports.COMMUNICATIVE_FUNCTION_LABELS = exports.COMMUNICATIVE_FUNCTIONS = void 0;
+exports.COMMUNICATIVE_FUNCTION_OBJECT_MODIFIER_POLICIES = exports.COMMUNICATIVE_FUNCTION_OBJECT_NUMBERS = exports.COMMUNICATIVE_FUNCTION_DESCRIPTIONS = exports.COMMUNICATIVE_FUNCTION_LABELS = exports.COMMUNICATIVE_FUNCTIONS = void 0;
 exports.isCommunicativeFunctionId = isCommunicativeFunctionId;
 // Foundations catalog (8).
 // `report-activities` covers the speaker act of saying what you do / perform.
@@ -58,6 +58,9 @@ exports.COMMUNICATIVE_FUNCTION_OBJECT_NUMBERS = {
     "report-activities": "generic",
     // describe — inherit verb
     // ask-information — inherit content function
+};
+exports.COMMUNICATIVE_FUNCTION_OBJECT_MODIFIER_POLICIES = {
+    "express-possession": "require",
 };
 function isCommunicativeFunctionId(value) {
     return exports.COMMUNICATIVE_FUNCTIONS.includes(value);

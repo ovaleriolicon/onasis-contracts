@@ -8,8 +8,11 @@ const build_noun_phrase_1 = require("./build-noun-phrase");
  *
  * `objectNumber` must already be resolved by NLG (Function ?? Verb ?? singular).
  * Grammar does not inspect Verb pedagogy here.
+ *
+ * Optional `adjective` is attributive only when the caller supplies it —
+ * Grammar never selects adjectives.
  */
-function resolveObject(object, objectPhrase, objectNumber = "singular") {
+function resolveObject(object, objectPhrase, objectNumber = "singular", adjective) {
     // Curated phrase wins
     if (objectPhrase) {
         return objectPhrase;
@@ -23,5 +26,5 @@ function resolveObject(object, objectPhrase, objectNumber = "singular") {
     return (0, build_noun_phrase_1.buildNounPhrase)(object, (0, resolve_determiner_1.resolveDeterminer)({
         noun: object,
         objectNumber,
-    }));
+    }), adjective);
 }

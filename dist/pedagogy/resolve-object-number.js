@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getFunctionObjectNumber = getFunctionObjectNumber;
+exports.getFunctionObjectModifierPolicy = getFunctionObjectModifierPolicy;
 exports.resolveObjectNumber = resolveObjectNumber;
 const communicative_functions_1 = require("./communicative-functions");
 /**
@@ -12,6 +13,17 @@ function getFunctionObjectNumber(functionId) {
         return undefined;
     }
     return communicative_functions_1.COMMUNICATIVE_FUNCTION_OBJECT_NUMBERS[functionId];
+}
+/**
+ * Look up the optional Function-level attributive object-modifier policy.
+ * Absent → bare object NP (no objectAdjective).
+ * `ask-information` has none — callers should pass the content function id.
+ */
+function getFunctionObjectModifierPolicy(functionId) {
+    if (functionId == null || functionId === "") {
+        return undefined;
+    }
+    return communicative_functions_1.COMMUNICATIVE_FUNCTION_OBJECT_MODIFIER_POLICIES[functionId];
 }
 /**
  * NLG merge: Function override ?? Verb default ?? "singular".

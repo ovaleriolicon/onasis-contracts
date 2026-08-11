@@ -32,4 +32,10 @@ export type CommunicativeFunctionTurnMetadata = {
 
   /** Which layer supplied objectNumber: function | verb | fallback. */
   objectNumberSource?: ObjectNumberSource;
+
+  /**
+   * Function-level attributive object-modifier policy applied this turn
+   * (observability; generateScene receives it via filters, not this object).
+   */
+  objectModifierPolicy?: "require";
 };

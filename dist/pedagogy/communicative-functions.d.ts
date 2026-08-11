@@ -10,4 +10,11 @@ export declare const COMMUNICATIVE_FUNCTION_DESCRIPTIONS: Record<CommunicativeFu
  * Ask Information has no entry: use the content function id instead.
  */
 export declare const COMMUNICATIVE_FUNCTION_OBJECT_NUMBERS: Partial<Record<CommunicativeFunctionId, ObjectNumber>>;
+/**
+ * Fixed attributive object-modifier policy for the communicative act (v1).
+ * Absent → no objectAdjective (current bare NP behavior).
+ * `"require"` → generateScene must attach a compatible attributive adjective.
+ */
+export type ObjectModifierPolicy = "require";
+export declare const COMMUNICATIVE_FUNCTION_OBJECT_MODIFIER_POLICIES: Partial<Record<CommunicativeFunctionId, ObjectModifierPolicy>>;
 export declare function isCommunicativeFunctionId(value: string): value is CommunicativeFunctionId;

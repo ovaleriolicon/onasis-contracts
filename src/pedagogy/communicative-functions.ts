@@ -74,6 +74,19 @@ export const COMMUNICATIVE_FUNCTION_OBJECT_NUMBERS: Partial<
   // ask-information — inherit content function
 };
 
+/**
+ * Fixed attributive object-modifier policy for the communicative act (v1).
+ * Absent → no objectAdjective (current bare NP behavior).
+ * `"require"` → generateScene must attach a compatible attributive adjective.
+ */
+export type ObjectModifierPolicy = "require";
+
+export const COMMUNICATIVE_FUNCTION_OBJECT_MODIFIER_POLICIES: Partial<
+  Record<CommunicativeFunctionId, ObjectModifierPolicy>
+> = {
+  "express-possession": "require",
+};
+
 export function isCommunicativeFunctionId(
   value: string,
 ): value is CommunicativeFunctionId {

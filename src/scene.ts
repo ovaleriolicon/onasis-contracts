@@ -41,7 +41,14 @@ export type Scene = {
 
   requiresObject?: boolean;
 
+  /** Predicative complement only (to-be-adjective): "The dog is cute". */
   adjective?: AdjectiveEntry;
+
+  /**
+   * Attributive modifier of the object NP: "I have a cute dog".
+   * Distinct from `adjective` — never used as be-complement.
+   */
+  objectAdjective?: AdjectiveEntry;
 
   auxiliary?: string;
 
