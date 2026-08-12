@@ -165,35 +165,50 @@ export function readStudentStructure(user: {
   };
 }
 
-/** Persist shape for User.structureLevelKey (+ optional legacy structureLevel). */
+/** Persist shape: Fase 1 writes only the canonical key (never mirrors legacy). */
 export type StructureLevelWriteFields = {
   structureLevelKey: string;
-  /** Legacy ordinal, or null to unset (key-only Structure Levels). */
-  structureLevel: number | null;
 };
 
 /**
- * Build User write fields from key and/or legacy number.
- * Prefer structureLevelKey. Uses contracts catalog only.
+ * Build User write fields from key and/or legacy number input.
+ * Prefer structureLevelKey. Resolves legacy-only input → key via catalog.
+ * Does **not** include structureLevel — historical field is left untouched.
  */
 export function structureLevelWriteFields(
   input: ResolveStudentStructureInput,
 ): StructureLevelWriteFields {
-  const resolved = resolveStudentStructure(input);
+  // Prefer key alone when present so key-only SLs do not require a legacy pair.
+  const rawKey = normalizeKey(input.structureLevelKey);
+  const resolved = resolveStudentStructure(
+    rawKey
+      ? { structureLevelKey: rawKey }
+      : { structureLevel: input.structureLevel },
+  );
   return {
     structureLevelKey: resolved.key,
-    structureLevel:
-      resolved.legacyLevel !== undefined ? resolved.legacyLevel : null,
   };
 }
 
 /**
  * Curricular position for runtime gates.
- * Valid key → order; legacy-only → derive key → order.
+ * Valid key → order; legacy-only (pre-Fase-2) → derive key → order.
  */
 export function getEffectiveStructureOrder(user: {
   structureLevel?: number | null;
   structureLevelKey?: string | null;
 }): number {
   return readStudentStructure(user).order;
+}
+
+/** Canonical progress payload for APIs (identity + curricular position). */
+export function toStructureProgress(user: {
+  structureLevel?: number | null;
+  structureLevelKey?: string | null;
+}): { structureLevelKey: string; structureOrder: number } {
+  const read = readStudentStructure(user);
+  return {
+    structureLevelKey: read.key,
+    structureOrder: read.order,
+  };
 }

@@ -7,6 +7,7 @@ exports.resolveStudentStructure = resolveStudentStructure;
 exports.readStudentStructure = readStudentStructure;
 exports.structureLevelWriteFields = structureLevelWriteFields;
 exports.getEffectiveStructureOrder = getEffectiveStructureOrder;
+exports.toStructureProgress = toStructureProgress;
 const structure_levels_1 = require("./structure-levels");
 function toResolved(def) {
     const legacy = def.legacyLevel ?? def.level;
@@ -104,20 +105,32 @@ function readStudentStructure(user) {
     };
 }
 /**
- * Build User write fields from key and/or legacy number.
- * Prefer structureLevelKey. Uses contracts catalog only.
+ * Build User write fields from key and/or legacy number input.
+ * Prefer structureLevelKey. Resolves legacy-only input → key via catalog.
+ * Does **not** include structureLevel — historical field is left untouched.
  */
 function structureLevelWriteFields(input) {
-    const resolved = resolveStudentStructure(input);
+    // Prefer key alone when present so key-only SLs do not require a legacy pair.
+    const rawKey = normalizeKey(input.structureLevelKey);
+    const resolved = resolveStudentStructure(rawKey
+        ? { structureLevelKey: rawKey }
+        : { structureLevel: input.structureLevel });
     return {
         structureLevelKey: resolved.key,
-        structureLevel: resolved.legacyLevel !== undefined ? resolved.legacyLevel : null,
     };
 }
 /**
  * Curricular position for runtime gates.
- * Valid key → order; legacy-only → derive key → order.
+ * Valid key → order; legacy-only (pre-Fase-2) → derive key → order.
  */
 function getEffectiveStructureOrder(user) {
     return readStudentStructure(user).order;
+}
+/** Canonical progress payload for APIs (identity + curricular position). */
+function toStructureProgress(user) {
+    const read = readStudentStructure(user);
+    return {
+        structureLevelKey: read.key,
+        structureOrder: read.order,
+    };
 }

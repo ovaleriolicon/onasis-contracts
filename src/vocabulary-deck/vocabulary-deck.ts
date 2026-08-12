@@ -16,7 +16,8 @@ export type CreateVocabularyDeckBody = {
    */
   userId?: string;
 
-  structureLevel?: number;
+  /** Canonical Structure Level identity; server resolves to structureOrder. */
+  structureLevelKey?: string;
 
   /** Legacy; ignored by the generator runtime. */
   vocabularyLevel?: number;

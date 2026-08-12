@@ -119,3 +119,30 @@ describe("resolveStudentStructure (legacy S0–S13)", () => {
     );
   });
 });
+
+describe("structureLevelWriteFields (Fase 1 key-only)", () => {
+  it("writes only structureLevelKey", () => {
+    const {
+      structureLevelWriteFields,
+      toStructureProgress,
+    } = require("../dist");
+    assert.deepEqual(
+      structureLevelWriteFields({
+        structureLevelKey: "to-be-past-affirmative",
+      }),
+      { structureLevelKey: "to-be-past-affirmative" },
+    );
+    assert.deepEqual(structureLevelWriteFields({ structureLevel: 6 }), {
+      structureLevelKey: "to-be-past-affirmative",
+    });
+    assert.deepEqual(
+      toStructureProgress({
+        structureLevelKey: ADJECTIVE_NOUN_PHRASES_KEY,
+      }),
+      {
+        structureLevelKey: ADJECTIVE_NOUN_PHRASES_KEY,
+        structureOrder: 6,
+      },
+    );
+  });
+});

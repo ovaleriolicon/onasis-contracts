@@ -44,22 +44,29 @@ export declare function readStudentStructure(user: {
     structureLevel?: number | null;
     structureLevelKey?: string | null;
 }): StudentStructureRead;
-/** Persist shape for User.structureLevelKey (+ optional legacy structureLevel). */
+/** Persist shape: Fase 1 writes only the canonical key (never mirrors legacy). */
 export type StructureLevelWriteFields = {
     structureLevelKey: string;
-    /** Legacy ordinal, or null to unset (key-only Structure Levels). */
-    structureLevel: number | null;
 };
 /**
- * Build User write fields from key and/or legacy number.
- * Prefer structureLevelKey. Uses contracts catalog only.
+ * Build User write fields from key and/or legacy number input.
+ * Prefer structureLevelKey. Resolves legacy-only input → key via catalog.
+ * Does **not** include structureLevel — historical field is left untouched.
  */
 export declare function structureLevelWriteFields(input: ResolveStudentStructureInput): StructureLevelWriteFields;
 /**
  * Curricular position for runtime gates.
- * Valid key → order; legacy-only → derive key → order.
+ * Valid key → order; legacy-only (pre-Fase-2) → derive key → order.
  */
 export declare function getEffectiveStructureOrder(user: {
     structureLevel?: number | null;
     structureLevelKey?: string | null;
 }): number;
+/** Canonical progress payload for APIs (identity + curricular position). */
+export declare function toStructureProgress(user: {
+    structureLevel?: number | null;
+    structureLevelKey?: string | null;
+}): {
+    structureLevelKey: string;
+    structureOrder: number;
+};
