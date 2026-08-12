@@ -120,11 +120,12 @@ describe("resolveStudentStructure (legacy S0–S13)", () => {
   });
 });
 
-describe("structureLevelWriteFields (Fase 1 key-only)", () => {
-  it("writes only structureLevelKey", () => {
+describe("structureLevelWriteFields (Fase 2 key-only)", () => {
+  it("requires structureLevelKey and rejects number-only", () => {
     const {
       structureLevelWriteFields,
       toStructureProgress,
+      readStudentStructure,
     } = require("../dist");
     assert.deepEqual(
       structureLevelWriteFields({
@@ -132,9 +133,14 @@ describe("structureLevelWriteFields (Fase 1 key-only)", () => {
       }),
       { structureLevelKey: "to-be-past-affirmative" },
     );
-    assert.deepEqual(structureLevelWriteFields({ structureLevel: 6 }), {
-      structureLevelKey: "to-be-past-affirmative",
-    });
+    assert.throws(
+      () => structureLevelWriteFields({ structureLevel: 6 }),
+      /structureLevel number is no longer accepted/,
+    );
+    assert.throws(
+      () => readStudentStructure({ structureLevel: 6 }),
+      /structureLevelKey required/,
+    );
     assert.deepEqual(
       toStructureProgress({
         structureLevelKey: ADJECTIVE_NOUN_PHRASES_KEY,

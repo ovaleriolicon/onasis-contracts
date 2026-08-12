@@ -1,7 +1,8 @@
 "use strict";
 // pedagogy/resolve-student-structure.ts
 //
-// Structure progress: structureLevelKey is canonical; structureLevel is optional legacy.
+// Fase 2: runtime progress is structureLevelKey only.
+// User.structureLevel is historical and must not govern any runtime path.
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.resolveStudentStructure = resolveStudentStructure;
 exports.readStudentStructure = readStudentStructure;
@@ -21,19 +22,17 @@ function normalizeKey(raw) {
     return raw != null ? String(raw).trim() : "";
 }
 /**
- * Resolve student structure from stable key and/or legacy number.
+ * Resolve a Structure Level from catalog key and/or historical legacy number.
  *
- * - Key preferred; must exist in catalog.
- * - Legacy-only derives key from catalog.
- * - Key + incompatible number → throws (writes must not silent-correct).
- * - Key without legacy may not be paired with a structureLevel number.
+ * Operational User/API paths must use structureLevelKey.
+ * Legacy-number resolution remains for catalog/import tooling only (Fase 3).
  */
 function resolveStudentStructure(input) {
     const rawKey = normalizeKey(input.structureLevelKey);
     const hasKey = rawKey !== "";
     const hasLevel = input.structureLevel !== undefined && input.structureLevel !== null;
     if (!hasKey && !hasLevel) {
-        throw new Error("resolveStudentStructure: provide structureLevel and/or structureLevelKey");
+        throw new Error("resolveStudentStructure: provide structureLevelKey (or structureLevel for import tooling)");
     }
     if (hasKey) {
         const byKey = (0, structure_levels_1.getByKey)(rawKey);
@@ -64,64 +63,56 @@ function resolveStudentStructure(input) {
 /**
  * Read Structure Level from a User-like document.
  *
- * Precedence:
- * - Valid key → canonical (order + optional legacy from catalog).
- * - Legacy number only → derive key (legacy users without key).
- * - Valid key + incompatible number → **key wins**; mismatch flagged.
- * - Unknown key + legacy → legacy fallback; mismatch flagged.
+ * Fase 2: requires a valid structureLevelKey. Never derives identity from
+ * User.structureLevel. Historical structureLevel is ignored for gates.
  */
 function readStudentStructure(user) {
+    const rawKey = normalizeKey(user.structureLevelKey);
+    if (!rawKey) {
+        throw new Error("readStudentStructure: structureLevelKey required");
+    }
+    const byKey = (0, structure_levels_1.getByKey)(rawKey);
+    if (!byKey) {
+        throw new Error(`readStudentStructure: unknown structureLevelKey "${rawKey}"`);
+    }
+    const resolved = toResolved(byKey);
     const hasLevel = user.structureLevel !== undefined && user.structureLevel !== null;
     const level = hasLevel ? Number(user.structureLevel) : undefined;
-    const rawKey = normalizeKey(user.structureLevelKey);
-    if (rawKey) {
-        const byKey = (0, structure_levels_1.getByKey)(rawKey);
-        if (!byKey) {
-            if (hasLevel && Number.isFinite(level)) {
-                return {
-                    ...resolveStudentStructure({ structureLevel: level }),
-                    mismatch: true,
-                    ignoredStructureLevelKey: rawKey,
-                };
-            }
-            throw new Error(`readStudentStructure: unknown structureLevelKey "${rawKey}"`);
+    if (hasLevel && Number.isFinite(level)) {
+        const entryLegacy = byKey.legacyLevel ?? byKey.level;
+        if (entryLegacy !== level) {
+            return {
+                ...resolved,
+                mismatch: true,
+                ignoredStructureLevel: level,
+            };
         }
-        const resolved = toResolved(byKey);
-        if (hasLevel && Number.isFinite(level)) {
-            const entryLegacy = byKey.legacyLevel ?? byKey.level;
-            if (entryLegacy !== level) {
-                return {
-                    ...resolved,
-                    mismatch: true,
-                    ignoredStructureLevel: level,
-                };
-            }
-        }
-        return { ...resolved, mismatch: false };
     }
-    return {
-        ...resolveStudentStructure({ structureLevel: level ?? 0 }),
-        mismatch: false,
-    };
+    return { ...resolved, mismatch: false };
 }
 /**
- * Build User write fields from key and/or legacy number input.
- * Prefer structureLevelKey. Resolves legacy-only input → key via catalog.
- * Does **not** include structureLevel — historical field is left untouched.
+ * Build User write fields. Requires structureLevelKey.
+ * Does not accept structureLevel: number (Fase 2).
+ * Does not include or update User.structureLevel.
  */
 function structureLevelWriteFields(input) {
-    // Prefer key alone when present so key-only SLs do not require a legacy pair.
+    if (input.structureLevel !== undefined &&
+        input.structureLevel !== null &&
+        !normalizeKey(input.structureLevelKey)) {
+        throw new Error("structureLevelWriteFields: structureLevel number is no longer accepted; provide structureLevelKey");
+    }
     const rawKey = normalizeKey(input.structureLevelKey);
-    const resolved = resolveStudentStructure(rawKey
-        ? { structureLevelKey: rawKey }
-        : { structureLevel: input.structureLevel });
+    if (!rawKey) {
+        throw new Error("structureLevelWriteFields: structureLevelKey required");
+    }
+    const resolved = resolveStudentStructure({ structureLevelKey: rawKey });
     return {
         structureLevelKey: resolved.key,
     };
 }
 /**
  * Curricular position for runtime gates.
- * Valid key → order; legacy-only (pre-Fase-2) → derive key → order.
+ * Requires structureLevelKey.
  */
 function getEffectiveStructureOrder(user) {
     return readStudentStructure(user).order;
