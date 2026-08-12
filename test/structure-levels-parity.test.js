@@ -69,7 +69,6 @@ describe("structure level catalog (adjective-noun-phrases)", () => {
 
   it("historical past student gets order 7", () => {
     const resolved = resolveStudentStructure({
-      structureLevel: 6,
       structureLevelKey: "to-be-past-affirmative",
     });
     assert.equal(resolved.key, "to-be-past-affirmative");
@@ -78,7 +77,6 @@ describe("structure level catalog (adjective-noun-phrases)", () => {
     assert.equal(
       getEffectiveStructureOrder({
         structureLevelKey: "to-be-past-affirmative",
-        structureLevel: 6,
       }),
       7,
     );
@@ -108,20 +106,19 @@ describe("resolveStudentStructure (legacy S0–S13)", () => {
     }
   });
 
-  it("rejects mismatched key + level", () => {
-    assert.throws(
-      () =>
-        resolveStudentStructure({
-          structureLevel: 5,
-          structureLevelKey: "to-be-past-affirmative",
-        }),
-      /does not match/,
-    );
+  it("key preferred when both key and legacy number provided", () => {
+    const resolved = resolveStudentStructure({
+      structureLevel: 5,
+      structureLevelKey: "to-be-past-affirmative",
+    });
+    assert.equal(resolved.key, "to-be-past-affirmative");
+    assert.equal(resolved.order, 7);
+    assert.equal(resolved.legacyLevel, 6);
   });
 });
 
-describe("structureLevelWriteFields (Fase 2 key-only)", () => {
-  it("requires structureLevelKey and rejects number-only", () => {
+describe("structureLevelWriteFields (Fase 3a key-only)", () => {
+  it("requires structureLevelKey", () => {
     const {
       structureLevelWriteFields,
       toStructureProgress,
@@ -134,11 +131,11 @@ describe("structureLevelWriteFields (Fase 2 key-only)", () => {
       { structureLevelKey: "to-be-past-affirmative" },
     );
     assert.throws(
-      () => structureLevelWriteFields({ structureLevel: 6 }),
-      /structureLevel number is no longer accepted/,
+      () => structureLevelWriteFields({}),
+      /structureLevelKey required/,
     );
     assert.throws(
-      () => readStudentStructure({ structureLevel: 6 }),
+      () => readStudentStructure({}),
       /structureLevelKey required/,
     );
     assert.deepEqual(
