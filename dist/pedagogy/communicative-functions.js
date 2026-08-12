@@ -66,11 +66,11 @@ exports.COMMUNICATIVE_FUNCTION_MIN_STRUCTURE_KEYS = {
     "ask-information": "present-questions-affirmative",
 };
 /**
- * Resolve a Function's minimum unlock (key preferred; legacy number accepted).
+ * Resolve a Function's minimum unlock from its catalog key.
  */
-function resolveCommunicativeFunctionMinOrder(functionId, legacyOverride) {
-    if (legacyOverride !== undefined && legacyOverride !== null && legacyOverride !== "") {
-        return (0, resolve_structure_unlock_1.resolveStructureUnlockOrder)(legacyOverride);
+function resolveCommunicativeFunctionMinOrder(functionId, keyOverride) {
+    if (keyOverride != null && String(keyOverride).trim() !== "") {
+        return (0, resolve_structure_unlock_1.resolveStructureUnlockOrder)(String(keyOverride).trim());
     }
     return (0, resolve_structure_unlock_1.resolveStructureUnlockOrder)(exports.COMMUNICATIVE_FUNCTION_MIN_STRUCTURE_KEYS[functionId]);
 }
@@ -82,21 +82,21 @@ function isCommunicativeFunctionAvailableAt(functionId, studentOrder) {
     return (0, resolve_structure_unlock_1.isStructureUnlockedAt)(exports.COMMUNICATIVE_FUNCTION_MIN_STRUCTURE_KEYS[functionId], studentOrder);
 }
 /**
- * Resolve appliesWhen.minStructureLevelKey | minStructureLevel → order.
- * Returns null when neither is set.
+ * Resolve appliesWhen.minStructureLevelKey → order.
+ * Returns null when unset. Numeric minStructureLevel is rejected.
  */
 function resolveAppliesWhenMinOrder(appliesWhen) {
     if (!appliesWhen)
         return null;
+    if (appliesWhen.minStructureLevel !== undefined &&
+        appliesWhen.minStructureLevel !== null) {
+        throw new Error("resolveAppliesWhenMinOrder: minStructureLevel number is no longer accepted; use minStructureLevelKey");
+    }
     const key = appliesWhen.minStructureLevelKey != null
         ? String(appliesWhen.minStructureLevelKey).trim()
         : "";
     if (key) {
         return (0, resolve_structure_unlock_1.resolveStructureUnlockOrder)(key);
-    }
-    if (appliesWhen.minStructureLevel !== undefined &&
-        appliesWhen.minStructureLevel !== null) {
-        return (0, resolve_structure_unlock_1.resolveStructureUnlockOrder)(appliesWhen.minStructureLevel);
     }
     return null;
 }

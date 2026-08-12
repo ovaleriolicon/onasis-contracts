@@ -7,7 +7,6 @@
 // Array order on an Ecosystem is an editorial hint only (not selection weights).
 
 import type { ObjectNumber } from "../grammar/object-number";
-import type { StructureUnlockRef } from "./resolve-structure-unlock";
 import {
   isStructureUnlockedAt,
   resolveStructureUnlockOrder,
@@ -86,14 +85,14 @@ export const COMMUNICATIVE_FUNCTION_MIN_STRUCTURE_KEYS: Record<
 };
 
 /**
- * Resolve a Function's minimum unlock (key preferred; legacy number accepted).
+ * Resolve a Function's minimum unlock from its catalog key.
  */
 export function resolveCommunicativeFunctionMinOrder(
   functionId: CommunicativeFunctionId,
-  legacyOverride?: StructureUnlockRef | null,
+  keyOverride?: string | null,
 ): number {
-  if (legacyOverride !== undefined && legacyOverride !== null && legacyOverride !== "") {
-    return resolveStructureUnlockOrder(legacyOverride);
+  if (keyOverride != null && String(keyOverride).trim() !== "") {
+    return resolveStructureUnlockOrder(String(keyOverride).trim());
   }
   return resolveStructureUnlockOrder(
     COMMUNICATIVE_FUNCTION_MIN_STRUCTURE_KEYS[functionId],
@@ -115,26 +114,29 @@ export function isCommunicativeFunctionAvailableAt(
 }
 
 /**
- * Resolve appliesWhen.minStructureLevelKey | minStructureLevel → order.
- * Returns null when neither is set.
+ * Resolve appliesWhen.minStructureLevelKey → order.
+ * Returns null when unset. Numeric minStructureLevel is rejected.
  */
 export function resolveAppliesWhenMinOrder(appliesWhen: {
   minStructureLevelKey?: string | null;
-  minStructureLevel?: number | null;
+  /** @deprecated Rejected — use minStructureLevelKey. */
+  minStructureLevel?: unknown;
 } | null | undefined): number | null {
   if (!appliesWhen) return null;
+  if (
+    appliesWhen.minStructureLevel !== undefined &&
+    appliesWhen.minStructureLevel !== null
+  ) {
+    throw new Error(
+      "resolveAppliesWhenMinOrder: minStructureLevel number is no longer accepted; use minStructureLevelKey",
+    );
+  }
   const key =
     appliesWhen.minStructureLevelKey != null
       ? String(appliesWhen.minStructureLevelKey).trim()
       : "";
   if (key) {
     return resolveStructureUnlockOrder(key);
-  }
-  if (
-    appliesWhen.minStructureLevel !== undefined &&
-    appliesWhen.minStructureLevel !== null
-  ) {
-    return resolveStructureUnlockOrder(appliesWhen.minStructureLevel);
   }
   return null;
 }

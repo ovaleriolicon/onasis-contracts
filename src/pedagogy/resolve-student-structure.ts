@@ -1,40 +1,25 @@
 // pedagogy/resolve-student-structure.ts
 //
-// Fase 3a: User progress is structureLevelKey only.
-// Catalog legacyLevel / import tooling may still resolve by historical number
-// via resolveStudentStructure — never via User.structureLevel.
+// User / API progress: structureLevelKey → orderOf(key) → structureOrder.
 
 import {
   getByKey,
-  getByLegacyLevel,
   type StructureLevelDefinition,
 } from "./structure-levels";
 
 export type ResolveStudentStructureInput = {
-  /**
-   * Catalog/import tooling only (Fase 3b may remove).
-   * Not a User field.
-   */
-  structureLevel?: number | null;
   structureLevelKey?: string | null;
 };
 
 export type ResolvedStudentStructure = {
   key: string;
   order: number;
-  /**
-   * Frozen catalog legacy ordinal (S0–S13) when the entry has one.
-   * Absent for key-only Structure Levels (e.g. adjective-noun-phrases).
-   */
-  legacyLevel?: number;
 };
 
 function toResolved(def: StructureLevelDefinition): ResolvedStudentStructure {
-  const legacy = def.legacyLevel ?? def.level;
   return {
     key: def.key,
     order: def.order,
-    ...(legacy !== undefined ? { legacyLevel: legacy } : {}),
   };
 }
 
@@ -43,74 +28,37 @@ function normalizeKey(raw: string | null | undefined): string {
 }
 
 /**
- * Resolve a Structure Level from catalog key and/or historical legacy number.
- *
- * User/API paths use structureLevelKey only.
- * Legacy-number resolution remains for catalog/import tooling (Fase 3b).
+ * Resolve a Structure Level from catalog key.
  */
 export function resolveStudentStructure(
   input: ResolveStudentStructureInput,
 ): ResolvedStudentStructure {
   const rawKey = normalizeKey(input.structureLevelKey);
-  const hasKey = rawKey !== "";
-  const hasLevel =
-    input.structureLevel !== undefined && input.structureLevel !== null;
+  if (!rawKey) {
+    throw new Error("resolveStudentStructure: structureLevelKey required");
+  }
 
-  if (!hasKey && !hasLevel) {
+  const byKey = getByKey(rawKey);
+  if (!byKey) {
     throw new Error(
-      "resolveStudentStructure: provide structureLevelKey (or structureLevel for import tooling)",
+      `resolveStudentStructure: unknown structureLevelKey "${rawKey}"`,
     );
   }
-
-  if (hasKey) {
-    const byKey = getByKey(rawKey);
-    if (!byKey) {
-      throw new Error(
-        `resolveStudentStructure: unknown structureLevelKey "${rawKey}"`,
-      );
-    }
-    return toResolved(byKey);
-  }
-
-  const legacy = Number(input.structureLevel);
-  if (!Number.isFinite(legacy)) {
-    throw new Error(
-      `resolveStudentStructure: invalid structureLevel ${input.structureLevel}`,
-    );
-  }
-
-  const byLevel = getByLegacyLevel(legacy);
-  if (!byLevel) {
-    throw new Error(
-      `resolveStudentStructure: unknown structureLevel ${legacy}`,
-    );
-  }
-
-  return toResolved(byLevel);
+  return toResolved(byKey);
 }
 
 export type StudentStructureRead = ResolvedStudentStructure;
 
 /**
  * Read Structure Level from a User-like document.
- * Requires structureLevelKey. Ignores any other fields.
+ * Requires structureLevelKey.
  */
 export function readStudentStructure(user: {
   structureLevelKey?: string | null;
 }): StudentStructureRead {
-  const rawKey = normalizeKey(user.structureLevelKey);
-  if (!rawKey) {
-    throw new Error("readStudentStructure: structureLevelKey required");
-  }
-
-  const byKey = getByKey(rawKey);
-  if (!byKey) {
-    throw new Error(
-      `readStudentStructure: unknown structureLevelKey "${rawKey}"`,
-    );
-  }
-
-  return toResolved(byKey);
+  return resolveStudentStructure({
+    structureLevelKey: user.structureLevelKey,
+  });
 }
 
 /** Persist shape: structureLevelKey only. */
@@ -124,12 +72,7 @@ export type StructureLevelWriteFields = {
 export function structureLevelWriteFields(input: {
   structureLevelKey?: string | null;
 }): StructureLevelWriteFields {
-  const rawKey = normalizeKey(input.structureLevelKey);
-  if (!rawKey) {
-    throw new Error("structureLevelWriteFields: structureLevelKey required");
-  }
-
-  const resolved = resolveStudentStructure({ structureLevelKey: rawKey });
+  const resolved = resolveStudentStructure(input);
   return {
     structureLevelKey: resolved.key,
   };

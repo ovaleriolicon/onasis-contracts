@@ -1,16 +1,13 @@
-// F0/F1/F4b — Structure Level catalog with adjective-noun-phrases insert.
+// Structure Level catalog — key + order only (Fase 3b).
 
 const { describe, it } = require("node:test");
 const assert = require("node:assert/strict");
 
 const {
   structureLevels,
-  getStructureLevel,
   getByKey,
-  getByLegacyLevel,
   getByOrder,
   orderOf,
-  legacyLevelOf,
   ADJECTIVE_NOUN_PHRASES_KEY,
   assertStructureLevelCatalogParity,
   assertStructureLevelCatalogIntegrity,
@@ -18,112 +15,75 @@ const {
   resolveStructureUnlockOrder,
   getEffectiveStructureOrder,
   isStructureUnlockedAt,
+  structureLevelWriteFields,
+  toStructureProgress,
+  readStudentStructure,
 } = require("../dist");
 
-describe("structure level catalog (adjective-noun-phrases)", () => {
+describe("structure level catalog (key + order)", () => {
   it("assertStructureLevelCatalogIntegrity passes", () => {
     assert.doesNotThrow(() => assertStructureLevelCatalogIntegrity());
     assert.doesNotThrow(() => assertStructureLevelCatalogParity());
   });
 
-  it("inserts adjective-noun-phrases at order 6 without legacy", () => {
+  it("has unique keys and orders; length 15", () => {
     assert.equal(structureLevels.length, 15);
+    const keys = new Set(structureLevels.map((d) => d.key));
+    const orders = new Set(structureLevels.map((d) => d.order));
+    assert.equal(keys.size, 15);
+    assert.equal(orders.size, 15);
+    for (const def of structureLevels) {
+      assert.equal(def.legacyLevel, undefined);
+      assert.equal(def.level, undefined);
+      assert.equal(orderOf(def.key), def.order);
+      assert.equal(getByKey(def.key)?.order, def.order);
+      assert.equal(getByOrder(def.order)?.key, def.key);
+    }
+  });
+
+  it("adjective-noun-phrases is order 6", () => {
     const adj = getByKey(ADJECTIVE_NOUN_PHRASES_KEY);
     assert.ok(adj);
     assert.equal(adj.order, 6);
-    assert.equal(adj.legacyLevel, undefined);
-    assert.equal(adj.level, undefined);
     assert.equal(adj.name, "Adjective + Noun");
     assert.equal(getByOrder(6)?.key, ADJECTIVE_NOUN_PHRASES_KEY);
   });
 
-  it("keeps S0–S5 orders; shifts S6–S13 orders only", () => {
-    for (let n = 0; n <= 5; n++) {
-      const def = getByLegacyLevel(n);
-      assert.equal(def.order, n);
-      assert.equal(def.legacyLevel, n);
-    }
-    for (let n = 6; n <= 13; n++) {
-      const def = getByLegacyLevel(n);
-      assert.ok(def, `missing legacy ${n}`);
-      assert.equal(def.legacyLevel, n);
-      assert.equal(def.level, n);
-      assert.equal(def.order, n + 1);
-      assert.equal(orderOf(def.key), n + 1);
-      assert.equal(legacyLevelOf(def.key), n);
-    }
+  it("to-be-past-affirmative is order 7", () => {
+    const past = getByKey("to-be-past-affirmative");
+    assert.ok(past);
+    assert.equal(past.order, 7);
+    assert.equal(orderOf("to-be-past-affirmative"), 7);
   });
 
-  it("legacy lookups still resolve historical identity", () => {
-    assert.equal(getStructureLevel(6)?.key, "to-be-past-affirmative");
-    assert.equal(resolveStructureUnlockOrder(6), 7);
-    assert.equal(
-      resolveStructureUnlockOrder("to-be-past-affirmative"),
-      7,
-    );
-    assert.equal(
-      resolveStructureUnlockOrder(ADJECTIVE_NOUN_PHRASES_KEY),
-      6,
-    );
-  });
-
-  it("historical past student gets order 7", () => {
-    const resolved = resolveStudentStructure({
-      structureLevelKey: "to-be-past-affirmative",
-    });
-    assert.equal(resolved.key, "to-be-past-affirmative");
-    assert.equal(resolved.legacyLevel, 6);
-    assert.equal(resolved.order, 7);
-    assert.equal(
-      getEffectiveStructureOrder({
-        structureLevelKey: "to-be-past-affirmative",
-      }),
-      7,
+  it("key → order unlocks", () => {
+    assert.equal(resolveStructureUnlockOrder("to-be-past-affirmative"), 7);
+    assert.equal(resolveStructureUnlockOrder(ADJECTIVE_NOUN_PHRASES_KEY), 6);
+    assert.throws(
+      () => resolveStructureUnlockOrder(6),
+      /numeric unlock refs are no longer accepted/,
     );
     assert.ok(isStructureUnlockedAt(ADJECTIVE_NOUN_PHRASES_KEY, 7));
     assert.ok(isStructureUnlockedAt("to-be-past-affirmative", 7));
     assert.ok(!isStructureUnlockedAt("to-be-past-affirmative", 6));
   });
 
-  it("key-only adjective-noun-phrases resolves without legacy", () => {
+  it("resolveStudentStructure is key-only", () => {
     const resolved = resolveStudentStructure({
-      structureLevelKey: ADJECTIVE_NOUN_PHRASES_KEY,
-    });
-    assert.equal(resolved.key, ADJECTIVE_NOUN_PHRASES_KEY);
-    assert.equal(resolved.order, 6);
-    assert.equal(resolved.legacyLevel, undefined);
-  });
-});
-
-describe("resolveStudentStructure (legacy S0–S13)", () => {
-  it("legacy input → key → shifted order for S6–S13", () => {
-    for (let n = 0; n <= 13; n++) {
-      const resolved = resolveStudentStructure({ structureLevel: n });
-      const catalog = getStructureLevel(n);
-      assert.equal(resolved.legacyLevel, n);
-      assert.equal(resolved.key, catalog.key);
-      assert.equal(resolved.order, catalog.order);
-    }
-  });
-
-  it("key preferred when both key and legacy number provided", () => {
-    const resolved = resolveStudentStructure({
-      structureLevel: 5,
       structureLevelKey: "to-be-past-affirmative",
     });
     assert.equal(resolved.key, "to-be-past-affirmative");
     assert.equal(resolved.order, 7);
-    assert.equal(resolved.legacyLevel, 6);
+    assert.equal(resolved.legacyLevel, undefined);
+    assert.throws(
+      () => resolveStudentStructure({ structureLevel: 6 }),
+      /structureLevelKey required/,
+    );
   });
 });
 
-describe("structureLevelWriteFields (Fase 3a key-only)", () => {
-  it("requires structureLevelKey", () => {
-    const {
-      structureLevelWriteFields,
-      toStructureProgress,
-      readStudentStructure,
-    } = require("../dist");
+describe("structureLevelWriteFields / progress (key-only)", () => {
+  it("writes and reads structureLevelKey → order", () => {
     assert.deepEqual(
       structureLevelWriteFields({
         structureLevelKey: "to-be-past-affirmative",
@@ -146,6 +106,12 @@ describe("structureLevelWriteFields (Fase 3a key-only)", () => {
         structureLevelKey: ADJECTIVE_NOUN_PHRASES_KEY,
         structureOrder: 6,
       },
+    );
+    assert.equal(
+      getEffectiveStructureOrder({
+        structureLevelKey: "to-be-past-affirmative",
+      }),
+      7,
     );
   });
 });

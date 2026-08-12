@@ -1,18 +1,15 @@
 // pedagogy/resolve-structure-unlock.ts
 //
-// Resolve Pattern unlock refs (stable key or legacy number) → curricular order.
-// F3: Patterns prefer keys; numeric refs remain valid for legacy definitions.
+// Resolve Pattern unlock refs (stable key) → curricular order.
 
-import { getByKey, getByLegacyLevel, orderOf } from "./structure-levels";
+import { orderOf } from "./structure-levels";
 
-/** Unlock threshold: catalog key or frozen legacy ordinal. */
-export type StructureUnlockRef = string | number;
+/** Unlock threshold: catalog key only. */
+export type StructureUnlockRef = string;
 
 /**
  * Resolve an unlock ref to curricular order.
- *
- * - string → orderOf(key)
- * - number → legacyLevel → catalog.order (unknown numbers pass through as-is)
+ * Accepts catalog keys only.
  */
 export function resolveStructureUnlockOrder(
   ref: StructureUnlockRef | null | undefined,
@@ -21,16 +18,10 @@ export function resolveStructureUnlockOrder(
     return 0;
   }
 
-  if (typeof ref === "number") {
-    if (!Number.isFinite(ref)) {
-      throw new Error(`resolveStructureUnlockOrder: invalid number ${ref}`);
-    }
-    const byLegacy = getByLegacyLevel(ref);
-    if (byLegacy) {
-      return byLegacy.order;
-    }
-    // Accept unknown legacy numbers as-is (pre-F3 / out-of-catalog).
-    return ref;
+  if (typeof ref !== "string") {
+    throw new Error(
+      `resolveStructureUnlockOrder: numeric unlock refs are no longer accepted (got ${typeof ref})`,
+    );
   }
 
   const key = String(ref).trim();
@@ -48,7 +39,7 @@ export function resolveStructureUnlockOrder(
 }
 
 /**
- * Cumulative unlock: studentOrder >= unlock order (same as legacy `unlock <= level`).
+ * Cumulative unlock: studentOrder >= unlock order.
  */
 export function isStructureUnlockedAt(
   unlockRef: StructureUnlockRef | null | undefined,
@@ -58,11 +49,10 @@ export function isStructureUnlockedAt(
 }
 
 /**
- * Pattern-level unlock: prefer unlockedAtStructureKey, else unlockedAtStructureLevel.
+ * Pattern-level unlock via unlockedAtStructureKey.
  */
 export function resolvePatternUnlockOrder(pattern: {
   unlockedAtStructureKey?: string | null;
-  unlockedAtStructureLevel?: number | null;
 }): number {
   const key =
     pattern.unlockedAtStructureKey != null
@@ -73,20 +63,12 @@ export function resolvePatternUnlockOrder(pattern: {
     return resolveStructureUnlockOrder(key);
   }
 
-  if (
-    pattern.unlockedAtStructureLevel !== undefined &&
-    pattern.unlockedAtStructureLevel !== null
-  ) {
-    return resolveStructureUnlockOrder(pattern.unlockedAtStructureLevel);
-  }
-
   return 0;
 }
 
 export function isPatternUnlockedAt(
   pattern: {
     unlockedAtStructureKey?: string | null;
-    unlockedAtStructureLevel?: number | null;
   },
   studentOrder: number,
 ): boolean {
@@ -95,31 +77,16 @@ export function isPatternUnlockedAt(
 
 /**
  * Map entry unlock with fallback to pattern root unlock.
- * Prefers string/number value in the map; missing → pattern root.
+ * Prefers string value in the map; missing → pattern root.
  */
 export function resolveMappedUnlockOrder(
   mapValue: StructureUnlockRef | null | undefined,
   pattern: {
     unlockedAtStructureKey?: string | null;
-    unlockedAtStructureLevel?: number | null;
   },
 ): number {
   if (mapValue !== undefined && mapValue !== null && mapValue !== "") {
     return resolveStructureUnlockOrder(mapValue);
   }
   return resolvePatternUnlockOrder(pattern);
-}
-
-/** Catalog key for a legacy level, if defined. */
-export function structureKeyForLegacyLevel(
-  level: number,
-): string | undefined {
-  return getByLegacyLevel(level)?.key;
-}
-
-/** Legacy level for a key, if defined. */
-export function legacyLevelForStructureKey(
-  key: string,
-): number | undefined {
-  return getByKey(key)?.legacyLevel ?? getByKey(key)?.level;
 }

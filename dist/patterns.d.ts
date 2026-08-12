@@ -7,22 +7,14 @@ export type PatternType = "verb-object" | "verb-place" | "to-be-adjective";
 export type Pattern = {
     id: PatternType;
     /**
-     * Preferred stable unlock identity (catalog key).
-     * When set, runtime resolves key → order.
+     * Stable unlock identity (catalog key).
+     * Runtime resolves key → order.
      */
     unlockedAtStructureKey?: string;
-    /**
-     * Legacy numeric unlock (S0–S13). Used when key is absent.
-     * Prefer unlockedAtStructureKey for new definitions.
-     */
-    unlockedAtStructureLevel?: number;
     sentenceTypeUnlocks?: Partial<Record<SentenceType, StructureUnlockRef>>;
     tenseUnlocks?: Partial<Record<Tense, StructureUnlockRef>>;
     polarityUnlocks?: Partial<Record<Polarity, StructureUnlockRef>>;
-    /**
-     * Subject form unlocks (pronoun/name). Prefer catalog keys;
-     * legacy numbers still resolve via resolveStructureUnlockOrder.
-     */
+    /** Subject form unlocks (pronoun/name) — catalog keys only. */
     subjectUnlocks?: Partial<Record<"pronoun" | "name", StructureUnlockRef>>;
     structure: {
         verbBehavior: VerbBehavior;

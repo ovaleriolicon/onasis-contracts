@@ -1,5 +1,4 @@
 import type { ObjectNumber } from "../grammar/object-number";
-import type { StructureUnlockRef } from "./resolve-structure-unlock";
 export declare const COMMUNICATIVE_FUNCTIONS: readonly ["describe", "express-preference", "express-desire", "express-need", "express-possession", "report-result", "report-activities", "ask-information"];
 export type CommunicativeFunctionId = (typeof COMMUNICATIVE_FUNCTIONS)[number];
 export declare function isCommunicativeFunctionId(value: string): value is CommunicativeFunctionId;
@@ -12,18 +11,19 @@ export declare const COMMUNICATIVE_FUNCTION_DESCRIPTIONS: Record<CommunicativeFu
  */
 export declare const COMMUNICATIVE_FUNCTION_MIN_STRUCTURE_KEYS: Record<CommunicativeFunctionId, string>;
 /**
- * Resolve a Function's minimum unlock (key preferred; legacy number accepted).
+ * Resolve a Function's minimum unlock from its catalog key.
  */
-export declare function resolveCommunicativeFunctionMinOrder(functionId: CommunicativeFunctionId, legacyOverride?: StructureUnlockRef | null): number;
+export declare function resolveCommunicativeFunctionMinOrder(functionId: CommunicativeFunctionId, keyOverride?: string | null): number;
 /** True when studentOrder unlocks the Function's minimum Structure Level. */
 export declare function isCommunicativeFunctionAvailableAt(functionId: string, studentOrder: number): boolean;
 /**
- * Resolve appliesWhen.minStructureLevelKey | minStructureLevel → order.
- * Returns null when neither is set.
+ * Resolve appliesWhen.minStructureLevelKey → order.
+ * Returns null when unset. Numeric minStructureLevel is rejected.
  */
 export declare function resolveAppliesWhenMinOrder(appliesWhen: {
     minStructureLevelKey?: string | null;
-    minStructureLevel?: number | null;
+    /** @deprecated Rejected — use minStructureLevelKey. */
+    minStructureLevel?: unknown;
 } | null | undefined): number | null;
 /**
  * Optional object-number override for the communicative act (global catalog).
