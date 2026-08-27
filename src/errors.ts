@@ -7,6 +7,7 @@ export type ErrorId =
   | "doesnt_with_non_third_person"
   | "missing_dont_doesnt"
   | "doesnt_with_s_verb"
+  | "subject_verb_agreement"
 
   // To be
   | "wrong_be_form"
