@@ -15,6 +15,7 @@ export type ErrorId =
   | "missing_be"
   | "be_with_do"
   | "wrong_be_negation"
+  | "be_do_confusion"
 
   // Generic
   | "missing_object"
