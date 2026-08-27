@@ -67,6 +67,33 @@ export type SentenceStructure = {
   sentenceType: "statement" | "question";
 };
 
+/**
+ * Minimal object NP IR (PR-NP1).
+ * Does not replace SentenceStructure.object (still a surface blob).
+ *
+ * `modifierOrder` preserves attributive adjective vs noun order so
+ * "a fast computer" and "a computer fast" are distinguishable without
+ * re-parsing the original string. Null when no adjective slot is filled.
+ */
+export type ObjectNpModifierOrder = "before_noun" | "after_noun";
+
+export type ObjectNpStructure = {
+  determiner: string | null;
+
+  adjective: string | null;
+
+  noun: string | null;
+
+  /** Relative order of adjective vs noun when both are non-null. */
+  modifierOrder: ObjectNpModifierOrder | null;
+
+  /**
+   * True when segmentation abstained (unknown tokens / unsupported shape).
+   * Detectors must not invent errors from ambiguous structures.
+   */
+  ambiguous: boolean;
+};
+
 //
 // CONTEXT
 //
@@ -85,6 +112,18 @@ export type EvaluatorContext = {
 
   /** Answer slots projected from ParsedInput (inherits parser quirks). */
   answerStructure: SentenceStructure;
+
+  /**
+   * Expected object NP from Scene + NLG determiner policy (PR-NP1).
+   * Null when Scene has no object. Unused by detectors until NP2+.
+   */
+  expectedObjectNp: ObjectNpStructure | null;
+
+  /**
+   * Answer object NP segmented from ParsedInput.object with Scene guidance (PR-NP1).
+   * Null when no object blob. Unused by detectors until NP2+.
+   */
+  answerObjectNp: ObjectNpStructure | null;
 };
 
 //

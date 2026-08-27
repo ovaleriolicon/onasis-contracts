@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.resolveObject = resolveObject;
+exports.resolveObjectDeterminerToken = resolveObjectDeterminerToken;
 const resolve_determiner_1 = require("./resolve-determiner");
 const build_noun_phrase_1 = require("./build-noun-phrase");
 /**
@@ -27,4 +28,33 @@ function resolveObject(object, objectPhrase, objectNumber = "singular", adjectiv
         noun: object,
         objectNumber,
     }), adjective);
+}
+/**
+ * Surface determiner token for an object NP (a/an/the/some/any), or null
+ * when the NLG policy yields a bare noun (none / plural).
+ * Same policy path as resolveObject → buildNounPhrase.
+ */
+function resolveObjectDeterminerToken(noun, objectNumber = "singular", adjective) {
+    const policy = (0, resolve_determiner_1.resolveDeterminer)({ noun, objectNumber });
+    const adjBase = adjective && typeof adjective.base === "string"
+        ? adjective.base.trim()
+        : "";
+    const articleHead = adjBase.length > 0 ? adjBase : noun.lemma;
+    const startsWithVowel = /^[aeiou]/i.test(articleHead.trim());
+    switch (policy) {
+        case "none":
+            return null;
+        case "definite":
+            return "the";
+        case "indefinite":
+            return startsWithVowel ? "an" : "a";
+        case "plural":
+            return null;
+        case "some":
+            return "some";
+        case "any":
+            return "any";
+        default:
+            return null;
+    }
 }

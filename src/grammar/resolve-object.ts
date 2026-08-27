@@ -42,3 +42,39 @@ export function resolveObject(
     adjective,
   );
 }
+
+/**
+ * Surface determiner token for an object NP (a/an/the/some/any), or null
+ * when the NLG policy yields a bare noun (none / plural).
+ * Same policy path as resolveObject → buildNounPhrase.
+ */
+export function resolveObjectDeterminerToken(
+  noun: NounEntry,
+  objectNumber: ObjectNumber = "singular",
+  adjective?: AdjectiveEntry,
+): string | null {
+  const policy = resolveDeterminer({ noun, objectNumber });
+  const adjBase =
+    adjective && typeof adjective.base === "string"
+      ? adjective.base.trim()
+      : "";
+  const articleHead = adjBase.length > 0 ? adjBase : noun.lemma;
+  const startsWithVowel = /^[aeiou]/i.test(articleHead.trim());
+
+  switch (policy) {
+    case "none":
+      return null;
+    case "definite":
+      return "the";
+    case "indefinite":
+      return startsWithVowel ? "an" : "a";
+    case "plural":
+      return null;
+    case "some":
+      return "some";
+    case "any":
+      return "any";
+    default:
+      return null;
+  }
+}
