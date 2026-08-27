@@ -16,11 +16,27 @@ export type ParsedInput = {
     sentenceType: "statement" | "question";
     tokens: string[];
 };
+export type StructureTense = "present" | "past" | "unknown";
+export type SentenceStructure = {
+    subject: string | null;
+    auxiliary: string | null;
+    be: string | null;
+    negation: boolean;
+    verb: string | null;
+    object: string | null;
+    adjective: string | null;
+    tense: StructureTense;
+    sentenceType: "statement" | "question";
+};
 export type EvaluatorContext = {
     scene: Scene;
     parsed: ParsedInput;
     normalizedAnswer: string;
     correctSentence: string;
+    /** Pedagogical expected slots realized from Scene (not from parsing correctSentence). */
+    expectedStructure: SentenceStructure;
+    /** Answer slots projected from ParsedInput (inherits parser quirks). */
+    answerStructure: SentenceStructure;
 };
 export type DetectedError = {
     errorId: ErrorId;
