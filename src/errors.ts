@@ -16,6 +16,7 @@ export type ErrorId =
   | "be_with_do"
   | "wrong_be_negation"
   | "be_do_confusion"
+  | "unexpected_be"
 
   // Object NP
   | "article_determiner"
