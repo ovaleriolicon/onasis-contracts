@@ -39,6 +39,35 @@ export type ParsedInput = {
 };
 
 //
+// STRUCTURAL IR (Path B)
+// Neutral projection of Scene (expected) and ParsedInput (answer).
+// Detectors may ignore these until migrated; evaluateAnswer result
+// must not depend on them until an intentional detector PR.
+//
+
+export type StructureTense = "present" | "past" | "unknown";
+
+export type SentenceStructure = {
+  subject: string | null;
+
+  auxiliary: string | null;
+
+  be: string | null;
+
+  negation: boolean;
+
+  verb: string | null;
+
+  object: string | null;
+
+  adjective: string | null;
+
+  tense: StructureTense;
+
+  sentenceType: "statement" | "question";
+};
+
+//
 // CONTEXT
 //
 
@@ -50,6 +79,12 @@ export type EvaluatorContext = {
   normalizedAnswer: string;
 
   correctSentence: string;
+
+  /** Pedagogical expected slots realized from Scene (not from parsing correctSentence). */
+  expectedStructure: SentenceStructure;
+
+  /** Answer slots projected from ParsedInput (inherits parser quirks). */
+  answerStructure: SentenceStructure;
 };
 
 //
