@@ -19,6 +19,7 @@ export type ErrorId =
 
   // Object NP
   | "article_determiner"
+  | "constituent_order"
 
   // Generic
   | "missing_object"
