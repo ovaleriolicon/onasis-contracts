@@ -17,6 +17,9 @@ export type ErrorId =
   | "wrong_be_negation"
   | "be_do_confusion"
 
+  // Object NP
+  | "article_determiner"
+
   // Generic
   | "missing_object"
   | "missing_negation"
