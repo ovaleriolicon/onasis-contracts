@@ -8,6 +8,7 @@ export type ErrorId =
   | "missing_dont_doesnt"
   | "doesnt_with_s_verb"
   | "subject_verb_agreement"
+  | "auxiliary_agreement"
 
   // To be
   | "wrong_be_form"
