@@ -21,6 +21,7 @@ export type ErrorId =
   | "missing_negation"
   | "unexpected_negation"
   | "wrong_tense"
+  | "wrong_subject"
 
   // Questions
   | "missing_question_auxiliary"
