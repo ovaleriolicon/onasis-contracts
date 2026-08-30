@@ -1,3 +1,4 @@
+import type { PedagogySegment } from "./pedagogy-segment";
 export type ConstructionSlot = "subject" | "be" | "verb" | "object" | "object-adjective" | "place" | "negation" | "adjective" | "auxiliary" | "moved-be";
 export type ConstructionState = {
     subject: string;
@@ -12,6 +13,12 @@ export type ConstructionState = {
     adjective: string;
     negation: string;
 };
+/** Speakable pedagogical steps: segments are canonical; text is display derived from them. */
+type SpeakableConstructionStep = {
+    segments: PedagogySegment[];
+    /** Derived display string — clients may keep reading this field. */
+    text: string;
+};
 export type ConstructionStep = {
     type: "question";
     question: string;
@@ -23,16 +30,14 @@ export type ConstructionStep = {
     correctAnswer: string;
     builderToken: string;
     slot: ConstructionSlot;
-} | {
+} | ({
     type: "explanation";
-    text: string;
-} | {
+} & SpeakableConstructionStep) | ({
     type: "rule";
-    text: string;
-} | {
+} & SpeakableConstructionStep) | {
     type: "result";
     text: string;
-} | {
+} | ({
     type: "transition";
-    text: string;
-};
+} & SpeakableConstructionStep);
+export {};

@@ -15,4 +15,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./construction-mutation"), exports);
+__exportStar(require("./pedagogy-segment"), exports);
 __exportStar(require("./construction-step"), exports);
