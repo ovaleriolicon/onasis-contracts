@@ -43,7 +43,17 @@ export type ConstructionStep =
     }
   | {
       type: "multiple-choice";
+      /**
+       * Display string for the MC prompt. Always derived by Engine from
+       * `promptSegments` via literal concatenation (not `renderDisplay` quotes).
+       */
       question: string;
+
+      /**
+       * Canonical bilingual (or monolingual) speakable prompt for TTS.
+       * Clients must not infer language from `question`.
+       */
+      promptSegments: PedagogySegment[];
 
       options: string[];
 
@@ -52,6 +62,19 @@ export type ConstructionStep =
       builderToken: string;
 
       slot: ConstructionSlot;
+
+      /**
+       * Optional Engine-authored feedback for incorrect options, keyed by option
+       * value (never by shuffled index). Absent for correctAnswer. Clients look up
+       * by option value — they must not infer grammar from scene.
+       */
+      incorrectFeedbackByOption?: {
+        [option: string]: {
+          segments: PedagogySegment[];
+          /** Derived display string from segments. */
+          text: string;
+        };
+      };
     }
   | ({
       type: "explanation";
