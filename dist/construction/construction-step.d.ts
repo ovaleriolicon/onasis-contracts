@@ -1,5 +1,7 @@
 import type { PedagogySegment } from "./pedagogy-segment";
 export type ConstructionSlot = "subject" | "be" | "verb" | "object" | "object-adjective" | "place" | "negation" | "adjective" | "auxiliary" | "moved-be";
+/** Narrative role on MC lead-ins — telemetry/tests only; not for pedagogy gates. */
+export type NarrativeRole = "intro" | "continuity";
 export type ConstructionState = {
     subject: string;
     be: string;
@@ -51,6 +53,17 @@ export type ConstructionStep = {
             text: string;
         };
     };
+    /**
+     * Optional narrative lead-in (Engine-authored). Separate from pedagogical
+     * `promptSegments`. Clients concatenate for TTS when present (Phase 3+).
+     */
+    leadInSegments?: PedagogySegment[];
+    /** Derived display string from `leadInSegments`. */
+    leadInText?: string;
+    /**
+     * Narrative role for telemetry/tests. Clients must not use for pedagogy.
+     */
+    narrativeRole?: NarrativeRole;
 } | ({
     type: "explanation";
 } & SpeakableConstructionStep) | ({
