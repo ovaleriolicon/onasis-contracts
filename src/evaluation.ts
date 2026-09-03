@@ -31,6 +31,12 @@ export type ParsedInput = {
 
   negation?: boolean;
 
+  /** Present when the learner produced "to" before verb2 (Double Verb). */
+  infinitiveMarker?: "to";
+
+  /** Observed verb2 base/form after "to" (Double Verb). */
+  infinitiveVerb?: string;
+
   tense: "present" | "past" | "unknown";
 
   sentenceType: "statement" | "question";
@@ -61,6 +67,15 @@ export type SentenceStructure = {
   object: string | null;
 
   adjective: string | null;
+
+  /**
+   * Expected/observed "to" before verb2. Null on single-verb structures.
+   * Derived for expected IR from pattern; not stored on Scene.
+   */
+  infinitiveMarker: "to" | null;
+
+  /** verb2 surface (base). Null on single-verb structures. */
+  infinitiveVerb: string | null;
 
   tense: StructureTense;
 

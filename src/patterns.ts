@@ -4,7 +4,12 @@ import type { ComplementType } from "./grammar/complement-type";
 import type { Tense, Polarity, SentenceType } from "./scene";
 import type { StructureUnlockRef } from "./pedagogy/resolve-structure-unlock";
 
-export type PatternType = "verb-object" | "verb-place" | "to-be-adjective";
+export type PatternType =
+  | "verb-object"
+  | "verb-place"
+  | "to-be-adjective"
+  | "verb-infinitive-object"
+  | "verb-infinitive-place";
 
 export type Pattern = {
   id: PatternType;

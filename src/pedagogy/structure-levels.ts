@@ -17,6 +17,12 @@ export type StructureLevelDefinition = {
 /** Stable key for attributive adjective + noun (objectAdjective). */
 export const ADJECTIVE_NOUN_PHRASES_KEY = "adjective-noun-phrases";
 
+/**
+ * Reserved unlock for Double Verb V1 (verb1 + to + verb2).
+ * Patterns are catalogued but gated until a later phase wires generation.
+ */
+export const DOUBLE_VERB_INFINITIVE_KEY = "double-verb-infinitive";
+
 function entry(
   order: number,
   key: string,
@@ -56,6 +62,12 @@ export const structureLevels: StructureLevelDefinition[] = [
     "possessive-pronouns",
     "Possessive Pronouns",
     "Placeholder: Structure Level reserved for possessive pronouns. Not implemented in the engine yet.",
+  ),
+  entry(
+    15,
+    DOUBLE_VERB_INFINITIVE_KEY,
+    "Double Verb (to-infinitive)",
+    "Reserved: verb1 + to + verb2. Patterns registered; generation gated until Phase 2+.",
   ),
 ];
 

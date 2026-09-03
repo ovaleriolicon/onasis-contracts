@@ -8,6 +8,11 @@ export type StructureLevelDefinition = {
 };
 /** Stable key for attributive adjective + noun (objectAdjective). */
 export declare const ADJECTIVE_NOUN_PHRASES_KEY = "adjective-noun-phrases";
+/**
+ * Reserved unlock for Double Verb V1 (verb1 + to + verb2).
+ * Patterns are catalogued but gated until a later phase wires generation.
+ */
+export declare const DOUBLE_VERB_INFINITIVE_KEY = "double-verb-infinitive";
 export declare const structureLevels: StructureLevelDefinition[];
 /** Lookup by stable key. */
 export declare function getByKey(key: string): StructureLevelDefinition | undefined;

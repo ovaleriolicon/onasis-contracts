@@ -7,9 +7,15 @@
 // (patterns.ts). Esta es ahora la única fuente de verdad.
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.COMPLEMENT_TYPE_LABELS = exports.COMPLEMENT_TYPES = void 0;
-exports.COMPLEMENT_TYPES = ["object", "place", "adjective"];
+exports.COMPLEMENT_TYPES = [
+    "object",
+    "place",
+    "adjective",
+    "infinitive",
+];
 exports.COMPLEMENT_TYPE_LABELS = {
     object: "Objeto",
     place: "Lugar",
     adjective: "Adjetivo",
+    infinitive: "Infinitivo",
 };

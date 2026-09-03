@@ -9,6 +9,7 @@ const {
   getByOrder,
   orderOf,
   ADJECTIVE_NOUN_PHRASES_KEY,
+  DOUBLE_VERB_INFINITIVE_KEY,
   assertStructureLevelCatalogParity,
   assertStructureLevelCatalogIntegrity,
   resolveStudentStructure,
@@ -26,12 +27,12 @@ describe("structure level catalog (key + order)", () => {
     assert.doesNotThrow(() => assertStructureLevelCatalogParity());
   });
 
-  it("has unique keys and orders; length 15", () => {
-    assert.equal(structureLevels.length, 15);
+  it("has unique keys and orders; length 16", () => {
+    assert.equal(structureLevels.length, 16);
     const keys = new Set(structureLevels.map((d) => d.key));
     const orders = new Set(structureLevels.map((d) => d.order));
-    assert.equal(keys.size, 15);
-    assert.equal(orders.size, 15);
+    assert.equal(keys.size, 16);
+    assert.equal(orders.size, 16);
     for (const def of structureLevels) {
       assert.equal(def.legacyLevel, undefined);
       assert.equal(def.level, undefined);
@@ -54,6 +55,17 @@ describe("structure level catalog (key + order)", () => {
     assert.ok(past);
     assert.equal(past.order, 7);
     assert.equal(orderOf("to-be-past-affirmative"), 7);
+  });
+
+  it("double-verb-infinitive is order 15 (generation gate)", () => {
+    const level = getByKey(DOUBLE_VERB_INFINITIVE_KEY);
+    assert.ok(level);
+    assert.equal(level.order, 15);
+    assert.equal(orderOf(DOUBLE_VERB_INFINITIVE_KEY), 15);
+    assert.equal(getByOrder(15)?.key, DOUBLE_VERB_INFINITIVE_KEY);
+    // Current curricular max before this gate is order 14.
+    assert.ok(!isStructureUnlockedAt(DOUBLE_VERB_INFINITIVE_KEY, 14));
+    assert.ok(isStructureUnlockedAt(DOUBLE_VERB_INFINITIVE_KEY, 15));
   });
 
   it("key → order unlocks", () => {

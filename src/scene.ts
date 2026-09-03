@@ -35,6 +35,15 @@ export type Scene = {
 
   verb: VerbEntry;
 
+  /**
+   * Catenative complement (Double Verb V1): to + verb2.
+   * Absent on single-verb scenes. `verb` remains the finite main verb (verb1).
+   * Marker "to" is implied by patternId; not stored on Scene.
+   */
+  infinitive?: {
+    verb: VerbEntry;
+  };
+
   object?: NounEntry;
 
   place?: NounEntry;

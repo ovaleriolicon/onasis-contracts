@@ -32,7 +32,13 @@ export type ErrorId =
   // Questions
   | "missing_question_auxiliary"
   | "question_word_order"
-  | "question_with_conjugated_main_verb";
+  | "question_with_conjugated_main_verb"
+
+  // Double Verb V1 (to-infinitive)
+  | "missing_infinitive_marker"
+  | "missing_infinitive_verb"
+  | "conjugated_infinitive_verb"
+  | "wrong_infinitive_verb";
 
 export type EngineError = {
   errorId: ErrorId;

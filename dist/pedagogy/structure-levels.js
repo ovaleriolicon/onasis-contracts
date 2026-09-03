@@ -3,7 +3,7 @@
 //
 // Structure Level identity = key; curricular position = order.
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.structureLevels = exports.ADJECTIVE_NOUN_PHRASES_KEY = void 0;
+exports.structureLevels = exports.DOUBLE_VERB_INFINITIVE_KEY = exports.ADJECTIVE_NOUN_PHRASES_KEY = void 0;
 exports.getByKey = getByKey;
 exports.getByOrder = getByOrder;
 exports.orderOf = orderOf;
@@ -11,6 +11,11 @@ exports.assertStructureLevelCatalogIntegrity = assertStructureLevelCatalogIntegr
 exports.assertStructureLevelCatalogParity = assertStructureLevelCatalogParity;
 /** Stable key for attributive adjective + noun (objectAdjective). */
 exports.ADJECTIVE_NOUN_PHRASES_KEY = "adjective-noun-phrases";
+/**
+ * Reserved unlock for Double Verb V1 (verb1 + to + verb2).
+ * Patterns are catalogued but gated until a later phase wires generation.
+ */
+exports.DOUBLE_VERB_INFINITIVE_KEY = "double-verb-infinitive";
 function entry(order, key, name, description) {
     return {
         key,
@@ -35,6 +40,7 @@ exports.structureLevels = [
     entry(12, "present-progressive", "Present Progressive"),
     entry(13, "past-progressive", "Past Progressive"),
     entry(14, "possessive-pronouns", "Possessive Pronouns", "Placeholder: Structure Level reserved for possessive pronouns. Not implemented in the engine yet."),
+    entry(15, exports.DOUBLE_VERB_INFINITIVE_KEY, "Double Verb (to-infinitive)", "Reserved: verb1 + to + verb2. Patterns registered; generation gated until Phase 2+."),
 ];
 /** Lookup by stable key. */
 function getByKey(key) {
