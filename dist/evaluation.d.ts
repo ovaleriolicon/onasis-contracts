@@ -1,5 +1,6 @@
 import type { Scene } from "./scene";
 import type { ErrorId } from "./errors";
+import type { ConstructionStep } from "./construction/construction-step";
 export type EvaluateInput = {
     scene: Scene;
     answer: string;
@@ -103,6 +104,18 @@ export type EvaluateResult = {
     success: boolean;
     correct: boolean;
     detectedErrors: DetectedError[];
+    /**
+     * Priority V2 selection — the single error Correction should repair first.
+     * Null when correct, when there are no detected errors, or when Priority
+     * produces no selection. Same decision as evaluateAnswer uses for feedback.
+     */
+    primaryError: DetectedError | null;
+    /**
+     * Correction Tutor V1 steps for `primaryError` (MINIMUM NECESSARY REPAIR).
+     * Empty when correct, when there is no primary, or when the primary ErrorId
+     * is not yet supported by Correction Core. Never falls back to Construction 0→100.
+     */
+    correctionExplanation: ConstructionStep[];
     correctSentence: string;
     feedback: string;
 };
@@ -113,6 +126,7 @@ export type EvaluateDebugResult = {
     checks: DebugCheckResult[];
     detectedErrors: DetectedError[];
     primaryError: DetectedError | null;
+    correctionExplanation: ConstructionStep[];
     correctSentence: string;
     feedback: string;
 };
