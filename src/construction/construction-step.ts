@@ -6,6 +6,8 @@ export type ConstructionSlot =
   | "subject"
   | "be"
   | "verb"
+  /** Double Verb: "to" + verb2 as a single builder token ("to eat"). */
+  | "infinitive"
   | "object"
   | "object-adjective"
   | "place"
@@ -23,6 +25,8 @@ export type ConstructionState = {
   movedBe: string;
   auxiliary: string;
   verb: string;
+  /** Double Verb tail: "to" + verb2, accumulated as one token. */
+  infinitive: string;
   object: string;
   /** Attributive modifier of the object NP (not predicative `adjective`). */
   objectAdjective: string;

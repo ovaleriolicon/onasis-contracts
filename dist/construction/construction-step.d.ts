@@ -1,5 +1,7 @@
 import type { PedagogySegment } from "./pedagogy-segment";
-export type ConstructionSlot = "subject" | "be" | "verb" | "object" | "object-adjective" | "place" | "negation" | "adjective" | "auxiliary" | "moved-be";
+export type ConstructionSlot = "subject" | "be" | "verb"
+/** Double Verb: "to" + verb2 as a single builder token ("to eat"). */
+ | "infinitive" | "object" | "object-adjective" | "place" | "negation" | "adjective" | "auxiliary" | "moved-be";
 /** Narrative role on MC lead-ins — telemetry/tests only; not for pedagogy gates. */
 export type NarrativeRole = "intro" | "continuity";
 export type ConstructionState = {
@@ -8,6 +10,8 @@ export type ConstructionState = {
     movedBe: string;
     auxiliary: string;
     verb: string;
+    /** Double Verb tail: "to" + verb2, accumulated as one token. */
+    infinitive: string;
     object: string;
     /** Attributive modifier of the object NP (not predicative `adjective`). */
     objectAdjective: string;
