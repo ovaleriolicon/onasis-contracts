@@ -1,0 +1,19 @@
+---
+description: Onasis documentation governance — consult the central index before architectural changes
+alwaysApply: true
+---
+
+# Onasis documentation governance
+
+Central index: `../onasis-core/docs/README.md` (sibling repo). In a multi-root workspace: `onasis-core/docs/README.md`.
+
+Before completing a change that modifies architecture, contracts, canonical states, data models, APIs, workflows, or domain behavior:
+
+1. Read the index.
+2. Identify the affected domain and its canonical source.
+3. If the documented truth changed, update that canonical source in the same task.
+
+Do not update docs for trivial edits, formatting, internal fixes with no contractual change, or behavior-preserving refactors.
+
+Do not implement current behavior from documents marked `STALE`, `SUPERSEDED`, or `HISTORICAL`.
+Do not invent new specification documents when the index already points to a source (including CODE-ONLY).
