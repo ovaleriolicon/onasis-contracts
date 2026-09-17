@@ -7,7 +7,11 @@ import type { ObjectNumber } from "./object-number";
  * Verb, Function, Ecosystem, or Exponent.
  *
  * - "generic" → kind-reading: countable bare plural; uncountable bare
- * - "singular" | "plural" | other → noun.grammar.defaultDeterminer
+ * - "singular" + countable → never `none`; explicit valid defaultDeterminer
+ *   is preserved; missing/`none` falls back to indefinite
+ * - "singular" + uncountable → noun.grammar.defaultDeterminer (bare `none`
+ *   stays bare)
+ * - "plural" | other → noun.grammar.defaultDeterminer (reserved)
  */
 export declare function resolveDeterminer({ noun, objectNumber, }: {
     noun: NounEntry;

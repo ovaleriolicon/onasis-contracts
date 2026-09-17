@@ -10,7 +10,9 @@
 //
 // Grammar (resolveDeterminer) only receives the final ObjectNumber:
 // - "generic"  → kind-reading: countable → bare plural; uncountable → bare
-// - "singular" → noun.grammar.defaultDeterminer (typically a/an)
+// - "singular" → countable never `none` (missing/`none` → indefinite;
+//   explicit valid defaultDeterminer preserved); uncountable uses
+//   defaultDeterminer (bare `none` stays bare)
 // - "plural"   → reserved; currently falls through to noun.defaultDeterminer
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OBJECT_NUMBER_LABELS = exports.OBJECT_NUMBERS = void 0;
