@@ -12,9 +12,7 @@ export const LEXICON_PROBE_SCHEMA_VERSION = "1.0.0" as const;
 
 export type DualReadSource =
   | "roles.theme"
-  | "objectTypes"
   | "roles.goal"
-  | "placeTypes"
   | "none";
 
 export type SlotHardPoolEvidence = {

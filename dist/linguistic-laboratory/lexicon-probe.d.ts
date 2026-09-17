@@ -1,7 +1,7 @@
 import type { NounSemanticType } from "../semantics/noun-semantic-type";
 import type { AdjectiveSemanticType } from "../semantics/adjective-semantic-type";
 export declare const LEXICON_PROBE_SCHEMA_VERSION: "1.0.0";
-export type DualReadSource = "roles.theme" | "objectTypes" | "roles.goal" | "placeTypes" | "none";
+export type DualReadSource = "roles.theme" | "roles.goal" | "none";
 export type SlotHardPoolEvidence = {
     source: DualReadSource;
     classes: NounSemanticType[];

@@ -107,7 +107,7 @@ export type VerbEntry = {
 
     /**
      * Semantic Ontology v2 role selection.
-     * Optional; absent on all v1 documents. Runtime must ignore until dual-read.
+     * Engine generation authority for Theme, Goal, Attribute, and Agent.
      */
     roles?: VerbRoles;
 

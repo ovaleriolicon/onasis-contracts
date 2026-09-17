@@ -13,8 +13,10 @@ Before completing a change that modifies architecture, contracts, canonical stat
 2. Identify the affected domain and its canonical source.
 3. If the change introduces a new architectural domain that has no index row and no dedicated document, explicitly decide in the same task whether to add a `CODE-ONLY` row pointing at the code that is now the source of truth. Do not invent a specification, map, snapshot, or history to fill the gap.
 4. If the documented truth changed, update that canonical source in the same task.
+5. If the change closes a migration or flips runtime authority (fallback retirement, TARGET → live, or a domain marked CLOSED), update the index notes and the canonical source's status/runtime-authority in the same task — even when production behavior is unchanged.
 
 Do not update docs for trivial edits, formatting, internal fixes with no contractual change, or behavior-preserving refactors.
+A zero-delta production change that retires a fallback or makes a documented target live is not a behavior-preserving refactor.
 
 Do not implement current behavior from documents marked `STALE`, `SUPERSEDED`, or `HISTORICAL`.
 Do not invent new specification documents when the index already points to a source (including CODE-ONLY).
