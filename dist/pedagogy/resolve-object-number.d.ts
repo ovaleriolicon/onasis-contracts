@@ -31,7 +31,8 @@ export declare function resolveObjectModifierPolicy(functionId?: CommunicativeFu
  */
 export declare function getFunctionObjectModifierPolicy(functionId?: CommunicativeFunctionId | string | null): ObjectModifierPolicy | undefined;
 /**
- * NLG merge: Function override ?? Verb default ?? "singular".
+ * NLG reading merge: Function ?? Verb ?? "singular".
+ * Noun lexical number is not a reading and is not merged here.
  * Grammar never calls this — only the orchestrator / generateScene border.
  */
 export declare function resolveObjectNumber({ functionObjectNumber, verb, }: {

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.resolveDeterminer = resolveDeterminer;
+const object_number_1 = require("./object-number");
 const determiner_policy_1 = require("./determiner-policy");
 const SINGULAR_COUNTABLE_PRESERVED = new Set(determiner_policy_1.DETERMINER_POLICIES.filter((policy) => policy !== "none"));
 function preservedSingularCountableDeterminer(value) {
@@ -13,19 +14,27 @@ function preservedSingularCountableDeterminer(value) {
 /**
  * Realize determiner/number policy for a noun object.
  *
- * Pure Grammar: receives an already-resolved `objectNumber`. Does not read
- * Verb, Function, Ecosystem, or Exponent.
+ * Pure Grammar: receives an already-resolved reading (`objectNumber`) and
+ * the noun. Does not read Verb, Function, Ecosystem, or Exponent.
  *
- * - "generic" → kind-reading: countable bare plural; uncountable bare
+ * - reading "generic" → kind-reading: countable bare plural; uncountable bare
+ *   (Determiner V1; noun lexical number does not override kind-reading)
+ * - instance + noun lexical "plural" + countable → bare plural
  * - "singular" + countable → never `none`; explicit valid defaultDeterminer
  *   is preserved; missing/`none` falls back to indefinite
  * - "singular" + uncountable → noun.grammar.defaultDeterminer (bare `none`
  *   stays bare)
- * - "plural" | other → noun.grammar.defaultDeterminer (reserved)
+ * - reading "plural" | other → noun.grammar.defaultDeterminer (reserved)
  */
 function resolveDeterminer({ noun, objectNumber, }) {
     if (objectNumber === "generic") {
         return noun.grammar?.countable ? "plural" : "none";
+    }
+    const lexical = noun.pedagogy?.preferredObjectNumber;
+    if ((0, object_number_1.isNounLexicalObjectNumber)(lexical) &&
+        lexical === "plural" &&
+        noun.grammar?.countable) {
+        return "plural";
     }
     if (objectNumber === "singular" && noun.grammar?.countable) {
         return (preservedSingularCountableDeterminer(noun.grammar?.defaultDeterminer) ??

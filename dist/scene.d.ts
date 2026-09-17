@@ -36,8 +36,8 @@ export type Scene = {
     target: {
         index: number;
     };
-    /** Final object-number used for object NP realization (NLG observability). */
+    /** Reading (kind vs instance) from Function/verb/fallback. Noun lexical number is on the noun. */
     objectNumber?: ObjectNumber;
-    /** Which layer supplied objectNumber: function | verb | fallback. */
+    /** Which layer supplied the reading: function | verb | fallback. */
     objectNumberSource?: ObjectNumberSource;
 };

@@ -1,5 +1,6 @@
 import type { VerbEntry } from "../lexicon";
 import type { ObjectNumber, ObjectNumberSource } from "../grammar/object-number";
+import { isObjectNumber } from "../grammar/object-number";
 import type {
   CommunicativeFunctionId,
   ObjectModifierPolicy,
@@ -111,7 +112,8 @@ export function getFunctionObjectModifierPolicy(
 }
 
 /**
- * NLG merge: Function override ?? Verb default ?? "singular".
+ * NLG reading merge: Function ?? Verb ?? "singular".
+ * Noun lexical number is not a reading and is not merged here.
  * Grammar never calls this — only the orchestrator / generateScene border.
  */
 export function resolveObjectNumber({
@@ -121,20 +123,12 @@ export function resolveObjectNumber({
   functionObjectNumber?: ObjectNumber | null;
   verb?: Pick<VerbEntry, "pedagogy"> | null;
 }): ResolvedObjectNumber {
-  if (
-    functionObjectNumber === "generic" ||
-    functionObjectNumber === "singular" ||
-    functionObjectNumber === "plural"
-  ) {
+  if (isObjectNumber(functionObjectNumber)) {
     return { objectNumber: functionObjectNumber, source: "function" };
   }
 
   const fromVerb = verb?.pedagogy?.preferredObjectNumber;
-  if (
-    fromVerb === "generic" ||
-    fromVerb === "singular" ||
-    fromVerb === "plural"
-  ) {
+  if (isObjectNumber(fromVerb)) {
     return { objectNumber: fromVerb, source: "verb" };
   }
 

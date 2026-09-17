@@ -5,6 +5,7 @@ exports.getFunctionObjectModifierPolicies = getFunctionObjectModifierPolicies;
 exports.resolveObjectModifierPolicy = resolveObjectModifierPolicy;
 exports.getFunctionObjectModifierPolicy = getFunctionObjectModifierPolicy;
 exports.resolveObjectNumber = resolveObjectNumber;
+const object_number_1 = require("../grammar/object-number");
 const communicative_functions_1 = require("./communicative-functions");
 const structure_levels_1 = require("./structure-levels");
 const resolve_structure_unlock_1 = require("./resolve-structure-unlock");
@@ -79,19 +80,16 @@ function getFunctionObjectModifierPolicy(functionId) {
     return policies?.[0];
 }
 /**
- * NLG merge: Function override ?? Verb default ?? "singular".
+ * NLG reading merge: Function ?? Verb ?? "singular".
+ * Noun lexical number is not a reading and is not merged here.
  * Grammar never calls this — only the orchestrator / generateScene border.
  */
 function resolveObjectNumber({ functionObjectNumber, verb, }) {
-    if (functionObjectNumber === "generic" ||
-        functionObjectNumber === "singular" ||
-        functionObjectNumber === "plural") {
+    if ((0, object_number_1.isObjectNumber)(functionObjectNumber)) {
         return { objectNumber: functionObjectNumber, source: "function" };
     }
     const fromVerb = verb?.pedagogy?.preferredObjectNumber;
-    if (fromVerb === "generic" ||
-        fromVerb === "singular" ||
-        fromVerb === "plural") {
+    if ((0, object_number_1.isObjectNumber)(fromVerb)) {
         return { objectNumber: fromVerb, source: "verb" };
     }
     return { objectNumber: "singular", source: "fallback" };

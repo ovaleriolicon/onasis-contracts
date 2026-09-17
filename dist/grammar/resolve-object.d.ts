@@ -3,8 +3,8 @@ import type { ObjectNumber } from "./object-number";
 /**
  * Build the object surface string.
  *
- * `objectNumber` must already be resolved by NLG (Function ?? Verb ?? singular).
- * Grammar does not inspect Verb pedagogy here.
+ * `objectNumber` is the NLG reading (Function ?? Verb ?? singular).
+ * Noun lexical number is read from the noun in resolveDeterminer.
  *
  * Optional `adjective` is attributive only when the caller supplies it —
  * Grammar never selects adjectives.

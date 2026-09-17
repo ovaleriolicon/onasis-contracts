@@ -1,5 +1,6 @@
 import type { NounEntry } from "../lexicon";
 import type { ObjectNumber } from "./object-number";
+import { isNounLexicalObjectNumber } from "./object-number";
 import {
   DETERMINER_POLICIES,
   type DeterminerPolicy,
@@ -24,15 +25,17 @@ function preservedSingularCountableDeterminer(
 /**
  * Realize determiner/number policy for a noun object.
  *
- * Pure Grammar: receives an already-resolved `objectNumber`. Does not read
- * Verb, Function, Ecosystem, or Exponent.
+ * Pure Grammar: receives an already-resolved reading (`objectNumber`) and
+ * the noun. Does not read Verb, Function, Ecosystem, or Exponent.
  *
- * - "generic" → kind-reading: countable bare plural; uncountable bare
+ * - reading "generic" → kind-reading: countable bare plural; uncountable bare
+ *   (Determiner V1; noun lexical number does not override kind-reading)
+ * - instance + noun lexical "plural" + countable → bare plural
  * - "singular" + countable → never `none`; explicit valid defaultDeterminer
  *   is preserved; missing/`none` falls back to indefinite
  * - "singular" + uncountable → noun.grammar.defaultDeterminer (bare `none`
  *   stays bare)
- * - "plural" | other → noun.grammar.defaultDeterminer (reserved)
+ * - reading "plural" | other → noun.grammar.defaultDeterminer (reserved)
  */
 export function resolveDeterminer({
   noun,
@@ -43,6 +46,15 @@ export function resolveDeterminer({
 }): string {
   if (objectNumber === "generic") {
     return noun.grammar?.countable ? "plural" : "none";
+  }
+
+  const lexical = noun.pedagogy?.preferredObjectNumber;
+  if (
+    isNounLexicalObjectNumber(lexical) &&
+    lexical === "plural" &&
+    noun.grammar?.countable
+  ) {
+    return "plural";
   }
 
   if (objectNumber === "singular" && noun.grammar?.countable) {

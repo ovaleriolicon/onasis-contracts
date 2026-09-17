@@ -2,7 +2,7 @@ import type { NounSemanticType, SubjectSemanticType, VerbSemanticType, Adjective
 import type { DeterminerPolicy } from "./grammar/determiner-policy";
 import type { VerbBehavior } from "./grammar/verb-behavior";
 import type { ComplementType } from "./grammar/complement-type";
-import type { ObjectNumber } from "./grammar/object-number";
+import type { NounLexicalObjectNumber, ObjectNumber } from "./grammar/object-number";
 import type { Topic } from "./topics";
 /**
  * @deprecated Usa `NounSemanticType`, `VerbSemanticType` o
@@ -52,6 +52,12 @@ export type NounEntry = {
         unlockedAtVocabularyLevel: number;
         interests?: string[];
         topics?: Topic[];
+        /**
+         * Lexical number only: "singular" | "plural". Omit when unset.
+         * Not a reading — nouns must not store "generic".
+         * Composed with the Function/verb reading in resolveDeterminer.
+         */
+        preferredObjectNumber?: NounLexicalObjectNumber;
     };
 };
 export type VerbEntry = {

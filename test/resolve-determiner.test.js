@@ -24,13 +24,16 @@ function verb(base, preferredObjectNumber) {
   };
 }
 
-function noun(lemma, { countable, defaultDeterminer, type }) {
+function noun(lemma, { countable, defaultDeterminer, type, preferredObjectNumber }) {
   return {
     id: `noun:${lemma}`,
     lemma,
     translations: { es: lemma },
     grammar: { countable, defaultDeterminer },
     semantics: { type, animate: false },
+    ...(preferredObjectNumber
+      ? { pedagogy: { preferredObjectNumber } }
+      : {}),
   };
 }
 
@@ -333,6 +336,158 @@ describe("Determiner Resolution V1", () => {
     assert.equal(
       resolveObjectDeterminerToken(menuNone, "singular", old),
       "an",
+    );
+  });
+});
+
+describe("Object Number Resolution V1", () => {
+  const apple = noun("apple", {
+    countable: true,
+    defaultDeterminer: "indefinite",
+    type: "food",
+  });
+  const movie = noun("movie", {
+    countable: true,
+    defaultDeterminer: "indefinite",
+    type: "activity",
+  });
+
+  it("noun lexical number does not override Function reading", () => {
+    const { objectNumber, source } = resolveObjectNumber({
+      functionObjectNumber: getFunctionObjectNumber("express-desire"),
+      verb: verb("want", "generic"),
+    });
+    assert.equal(source, "function");
+    assert.equal(objectNumber, "singular");
+    assert.equal(
+      affirmative("I", "want", apple, "express-desire"),
+      "I want an apple.",
+    );
+  });
+
+  it("absent Function falls through to verb", () => {
+    const { objectNumber, source } = resolveObjectNumber({
+      functionObjectNumber: undefined,
+      verb: verb("watch", "generic"),
+    });
+    assert.equal(source, "verb");
+    assert.equal(objectNumber, "generic");
+    assert.equal(resolveObject(movie, undefined, objectNumber), "movies");
+  });
+
+  it("complete absence falls back to singular", () => {
+    const { objectNumber, source } = resolveObjectNumber({});
+    assert.equal(source, "fallback");
+    assert.equal(objectNumber, "singular");
+  });
+});
+
+describe("reading × lexical number composition", () => {
+  const cookie = noun("cookie", {
+    countable: true,
+    defaultDeterminer: "none",
+    type: "food",
+  });
+  const combo = noun("combo", {
+    countable: true,
+    defaultDeterminer: "none",
+    type: "food",
+  });
+  const menu = noun("menu", {
+    countable: true,
+    defaultDeterminer: "none",
+    type: "object",
+  });
+  const nugget = noun("nugget", {
+    countable: true,
+    defaultDeterminer: "none",
+    type: "food",
+    preferredObjectNumber: "plural",
+  });
+  const leftoverGeneric = noun("combo", {
+    countable: true,
+    defaultDeterminer: "none",
+    type: "food",
+    preferredObjectNumber: "generic",
+  });
+  const medium = {
+    id: "adj:medium",
+    base: "medium",
+    unlockedAtVocabularyLevel: 0,
+    semantics: {},
+  };
+
+  it("Desire + cookie unset → a cookie", () => {
+    assert.equal(
+      affirmative("I", "want", cookie, "express-desire"),
+      "I want a cookie.",
+    );
+  });
+
+  it("Desire + combo/menu unset → indefinite singular", () => {
+    assert.equal(
+      affirmative("I", "want", combo, "express-desire"),
+      "I want a combo.",
+    );
+    assert.equal(
+      affirmative("I", "want", menu, "express-desire"),
+      "I want a menu.",
+    );
+  });
+
+  it("Desire + medium + cookie unset → a medium cookie", () => {
+    const { objectNumber } = resolveObjectNumber({
+      functionObjectNumber: getFunctionObjectNumber("express-desire"),
+      verb: verb("want", "singular"),
+    });
+    assert.equal(objectNumber, "singular");
+    assert.equal(
+      resolveObject(cookie, undefined, objectNumber, medium),
+      "a medium cookie",
+    );
+  });
+
+  it("Desire + nugget lexical plural → nuggets", () => {
+    const { objectNumber, source } = resolveObjectNumber({
+      functionObjectNumber: getFunctionObjectNumber("express-desire"),
+      verb: verb("want", "singular"),
+    });
+    assert.equal(source, "function");
+    assert.equal(objectNumber, "singular");
+    assert.equal(resolveObject(nugget, undefined, objectNumber), "nuggets");
+    assert.equal(
+      affirmative("I", "want", nugget, "express-desire"),
+      "I want nuggets.",
+    );
+  });
+
+  it("Desire + adjective + nugget lexical plural → bare plural NP", () => {
+    const { objectNumber } = resolveObjectNumber({
+      functionObjectNumber: getFunctionObjectNumber("express-desire"),
+      verb: verb("want", "singular"),
+    });
+    assert.equal(
+      resolveObject(nugget, undefined, objectNumber, medium),
+      "medium nuggets",
+    );
+  });
+
+  it("Generic Function + countable cookie → cookies", () => {
+    assert.equal(
+      affirmative("I", "like", cookie, "express-preference"),
+      "I like cookies.",
+    );
+  });
+
+  it("leftover noun generic does not override Desire instance reading", () => {
+    const { objectNumber } = resolveObjectNumber({
+      functionObjectNumber: getFunctionObjectNumber("express-desire"),
+      verb: verb("want", "singular"),
+    });
+    assert.equal(objectNumber, "singular");
+    assert.equal(
+      resolveObject(leftoverGeneric, undefined, objectNumber),
+      "a combo",
     );
   });
 });

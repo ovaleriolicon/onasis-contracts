@@ -10,7 +10,10 @@ import type {
 import type { DeterminerPolicy } from "./grammar/determiner-policy";
 import type { VerbBehavior } from "./grammar/verb-behavior";
 import type { ComplementType } from "./grammar/complement-type";
-import type { ObjectNumber } from "./grammar/object-number";
+import type {
+  NounLexicalObjectNumber,
+  ObjectNumber,
+} from "./grammar/object-number";
 import type { Topic } from "./topics";
 
 /**
@@ -90,6 +93,13 @@ export type NounEntry = {
     interests?: string[];
 
     topics?: Topic[];
+
+    /**
+     * Lexical number only: "singular" | "plural". Omit when unset.
+     * Not a reading — nouns must not store "generic".
+     * Composed with the Function/verb reading in resolveDeterminer.
+     */
+    preferredObjectNumber?: NounLexicalObjectNumber;
   };
 };
 
