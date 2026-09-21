@@ -12,8 +12,9 @@ import {
   resolveStructureUnlockOrder,
 } from "./resolve-structure-unlock";
 
-// Foundations catalog (8).
-// `report-activities` covers the speaker act of saying what you do / perform.
+// Foundations catalog (9).
+// `report-activities` = habitual / kind of practice.
+// `report-event` = a specific performed action or occurred event.
 // Former draft id `talk-about-activities` was withdrawn (content-like naming);
 // do not revive it as an alias.
 export const COMMUNICATIVE_FUNCTIONS = [
@@ -24,6 +25,7 @@ export const COMMUNICATIVE_FUNCTIONS = [
   "express-possession",
   "report-result",
   "report-activities",
+  "report-event",
   "ask-information",
 ] as const;
 
@@ -47,6 +49,7 @@ export const COMMUNICATIVE_FUNCTION_LABELS: Record<
   "express-possession": "Express Possession",
   "report-result": "Report Result",
   "report-activities": "Report Activities",
+  "report-event": "Report Event",
   "ask-information": "Ask Information",
 };
 
@@ -63,6 +66,8 @@ export const COMMUNICATIVE_FUNCTION_DESCRIPTIONS: Record<
   "report-result": "Report an outcome or result.",
   "report-activities":
     "Say what you do or what activities you perform.",
+  "report-event":
+    "Say that you performed a specific action or that a specific event happened.",
   "ask-information": "Ask a question about authorized content acts.",
 };
 
@@ -81,6 +86,7 @@ export const COMMUNICATIVE_FUNCTION_MIN_STRUCTURE_KEYS: Record<
   "express-possession": "present-actions-affirmative",
   "report-result": "present-actions-affirmative",
   "report-activities": "present-actions-affirmative",
+  "report-event": "present-actions-affirmative",
   "ask-information": "present-questions-affirmative",
 };
 
@@ -155,6 +161,7 @@ export const COMMUNICATIVE_FUNCTION_OBJECT_NUMBERS: Partial<
   "express-possession": "singular",
   "report-result": "singular",
   "report-activities": "generic",
+  "report-event": "singular",
   // describe — inherit verb
   // ask-information — inherit content function
 };

@@ -197,6 +197,57 @@ describe("objectNumber: Function ?? Verb ?? singular", () => {
       "I share photos.",
     );
   });
+
+  it("report-event → singular instance (same verb as activities stays generic there)", () => {
+    const reaction = noun("reaction", {
+      countable: true,
+      defaultDeterminer: "indefinite",
+      type: "object",
+      preferredObjectNumber: "singular",
+    });
+    const sample = noun("sample", {
+      countable: true,
+      defaultDeterminer: "indefinite",
+      type: "object",
+    });
+    const water = noun("water", {
+      countable: false,
+      defaultDeterminer: "none",
+      type: "object",
+    });
+
+    assert.equal(getFunctionObjectNumber("report-event"), "singular");
+    assert.equal(getFunctionObjectNumber("report-activities"), "generic");
+
+    assert.equal(
+      affirmative("I", "observe", reaction, "report-event"),
+      "I observe a reaction.",
+    );
+    assert.equal(
+      affirmative("I", "observe", reaction, "report-activities"),
+      "I observe reactions.",
+    );
+    assert.equal(
+      affirmative("I", "test", sample, "report-event"),
+      "I test a sample.",
+    );
+    assert.equal(
+      affirmative("I", "heat", water, "report-event"),
+      "I heat water.",
+    );
+
+    const functionObjectNumber = getFunctionObjectNumber("report-event");
+    const { objectNumber, source } = resolveObjectNumber({
+      functionObjectNumber,
+      verb: verb("observe", "generic"),
+    });
+    assert.equal(source, "function");
+    assert.equal(objectNumber, "singular");
+    assert.equal(
+      `I observed ${resolveObject(reaction, undefined, objectNumber)}.`,
+      "I observed a reaction.",
+    );
+  });
 });
 
 describe("Determiner Resolution V1", () => {

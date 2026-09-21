@@ -1,5 +1,5 @@
 import type { ObjectNumber } from "../grammar/object-number";
-export declare const COMMUNICATIVE_FUNCTIONS: readonly ["describe", "express-preference", "express-desire", "express-need", "express-possession", "report-result", "report-activities", "ask-information"];
+export declare const COMMUNICATIVE_FUNCTIONS: readonly ["describe", "express-preference", "express-desire", "express-need", "express-possession", "report-result", "report-activities", "report-event", "ask-information"];
 export type CommunicativeFunctionId = (typeof COMMUNICATIVE_FUNCTIONS)[number];
 export declare function isCommunicativeFunctionId(value: string): value is CommunicativeFunctionId;
 export declare const COMMUNICATIVE_FUNCTION_LABELS: Record<CommunicativeFunctionId, string>;

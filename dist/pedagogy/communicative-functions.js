@@ -13,8 +13,9 @@ exports.resolveCommunicativeFunctionMinOrder = resolveCommunicativeFunctionMinOr
 exports.isCommunicativeFunctionAvailableAt = isCommunicativeFunctionAvailableAt;
 exports.resolveAppliesWhenMinOrder = resolveAppliesWhenMinOrder;
 const resolve_structure_unlock_1 = require("./resolve-structure-unlock");
-// Foundations catalog (8).
-// `report-activities` covers the speaker act of saying what you do / perform.
+// Foundations catalog (9).
+// `report-activities` = habitual / kind of practice.
+// `report-event` = a specific performed action or occurred event.
 // Former draft id `talk-about-activities` was withdrawn (content-like naming);
 // do not revive it as an alias.
 exports.COMMUNICATIVE_FUNCTIONS = [
@@ -25,6 +26,7 @@ exports.COMMUNICATIVE_FUNCTIONS = [
     "express-possession",
     "report-result",
     "report-activities",
+    "report-event",
     "ask-information",
 ];
 function isCommunicativeFunctionId(value) {
@@ -38,6 +40,7 @@ exports.COMMUNICATIVE_FUNCTION_LABELS = {
     "express-possession": "Express Possession",
     "report-result": "Report Result",
     "report-activities": "Report Activities",
+    "report-event": "Report Event",
     "ask-information": "Ask Information",
 };
 /** Short blurbs for editorial / lab UI (not selection weights). */
@@ -49,6 +52,7 @@ exports.COMMUNICATIVE_FUNCTION_DESCRIPTIONS = {
     "express-possession": "Say what you have.",
     "report-result": "Report an outcome or result.",
     "report-activities": "Say what you do or what activities you perform.",
+    "report-event": "Say that you performed a specific action or that a specific event happened.",
     "ask-information": "Ask a question about authorized content acts.",
 };
 /**
@@ -63,6 +67,7 @@ exports.COMMUNICATIVE_FUNCTION_MIN_STRUCTURE_KEYS = {
     "express-possession": "present-actions-affirmative",
     "report-result": "present-actions-affirmative",
     "report-activities": "present-actions-affirmative",
+    "report-event": "present-actions-affirmative",
     "ask-information": "present-questions-affirmative",
 };
 /**
@@ -112,6 +117,7 @@ exports.COMMUNICATIVE_FUNCTION_OBJECT_NUMBERS = {
     "express-possession": "singular",
     "report-result": "singular",
     "report-activities": "generic",
+    "report-event": "singular",
     // describe — inherit verb
     // ask-information — inherit content function
 };
