@@ -523,6 +523,24 @@ describe("reading × lexical number composition", () => {
     );
   });
 
+  it("ice cream mass and sprinkle lexical plural keep one surface on desire and preference", () => {
+    const iceCream = noun("ice cream", {
+      countable: false,
+      defaultDeterminer: "none",
+      type: "food",
+    });
+    const sprinkle = noun("sprinkle", {
+      countable: true,
+      defaultDeterminer: "indefinite",
+      type: "food",
+      preferredObjectNumber: "plural",
+    });
+    assert.equal(affirmative("I", "want", iceCream, "express-desire"), "I want ice cream.");
+    assert.equal(affirmative("I", "like", iceCream, "express-preference"), "I like ice cream.");
+    assert.equal(affirmative("I", "want", sprinkle, "express-desire"), "I want sprinkles.");
+    assert.equal(affirmative("I", "like", sprinkle, "express-preference"), "I like sprinkles.");
+  });
+
   it("Generic Function + countable cookie → cookies", () => {
     assert.equal(
       affirmative("I", "like", cookie, "express-preference"),
