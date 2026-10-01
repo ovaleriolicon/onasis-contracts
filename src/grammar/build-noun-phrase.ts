@@ -47,7 +47,11 @@ export function buildNounPhrase(
     }
 
     case "plural": {
-      const pluralNoun = pluralize(lemma);
+      const attested = noun.grammar?.attestedPlural;
+      const pluralNoun =
+        typeof attested === "string" && attested.trim()
+          ? attested.trim()
+          : pluralize(lemma);
       return hasAdjective ? `${adjBase} ${pluralNoun}` : pluralNoun;
     }
 

@@ -72,6 +72,13 @@ export type NounEntry = {
 
     defaultDeterminer: DeterminerPolicy;
 
+    /**
+     * Explicit plural surface of this citation lemma.
+     * Present only when a human Apply stored it. buildNounPhrase uses it
+     * instead of pluralize(lemma).
+     */
+    attestedPlural?: string;
+
     defaultPreposition?: string;
 
     /**

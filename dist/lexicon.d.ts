@@ -37,6 +37,12 @@ export type NounEntry = {
     grammar: {
         countable: boolean;
         defaultDeterminer: DeterminerPolicy;
+        /**
+         * Explicit plural surface of this citation lemma.
+         * Present only when a human Apply stored it. buildNounPhrase uses it
+         * instead of pluralize(lemma).
+         */
+        attestedPlural?: string;
         defaultPreposition?: string;
         /**
          * When true, place phrases stay bare (e.g. "home") even if the verb

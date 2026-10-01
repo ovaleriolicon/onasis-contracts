@@ -29,7 +29,10 @@ function buildNounPhrase(noun, determinerOverride, adjective) {
             return `${startsWithVowel ? "an" : "a"} ${nounCore}`;
         }
         case "plural": {
-            const pluralNoun = (0, pluralize_1.pluralize)(lemma);
+            const attested = noun.grammar?.attestedPlural;
+            const pluralNoun = typeof attested === "string" && attested.trim()
+                ? attested.trim()
+                : (0, pluralize_1.pluralize)(lemma);
             return hasAdjective ? `${adjBase} ${pluralNoun}` : pluralNoun;
         }
         case "some":

@@ -69,6 +69,18 @@ describe("buildNounPhrase: optional attributive adjective", () => {
     assert.equal(resolveObject(apple, undefined, "generic"), "apples");
   });
 
+  it("attested plural is the plural surface", () => {
+    const movie = noun("movie", { countable: true, defaultDeterminer: "indefinite" });
+    movie.grammar.attestedPlural = "movies";
+    assert.equal(buildNounPhrase(movie, "plural"), "movies");
+    assert.equal(resolveObject(movie, undefined, "generic"), "movies");
+    const person = noun("person", { countable: true, defaultDeterminer: "indefinite" });
+    person.grammar.attestedPlural = "people";
+    assert.equal(buildNounPhrase(person, "plural"), "people");
+    const ticket = noun("ticket", { countable: true, defaultDeterminer: "indefinite" });
+    assert.equal(buildNounPhrase(ticket, "plural"), "tickets");
+  });
+
   it("generic/plural with adjective keeps bare plural shape", () => {
     const apple = noun("apple", { countable: true, defaultDeterminer: "indefinite" });
     assert.equal(buildNounPhrase(apple, "plural", cute), "cute apples");
