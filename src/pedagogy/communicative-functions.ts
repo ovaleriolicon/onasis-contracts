@@ -7,6 +7,8 @@
 // Array order on an Ecosystem is an editorial hint only (not selection weights).
 
 import type { ObjectNumber } from "../grammar/object-number";
+import type { VerbSemanticType } from "../semantics/verb-semantic-type";
+import { VERB_SEMANTIC_TYPES } from "../semantics/verb-semantic-type";
 import {
   isStructureUnlockedAt,
   resolveStructureUnlockOrder,
@@ -179,3 +181,94 @@ export const COMMUNICATIVE_FUNCTION_OBJECT_MODIFIER_POLICIES: Partial<
 > = {
   "express-possession": ["omit", "require"],
 };
+
+/**
+ * Coarse lexical classes that may govern a Function which does not name
+ * governing verbs. `VerbSemanticType` is not sufficient admission when
+ * `COMMUNICATIVE_FUNCTION_GOVERNING_VERBS` names lemmas for that Function.
+ * `ask-information` asks about authorized content acts, so any declared verb
+ * semantic type may head it.
+ */
+const ACTIVITY_ACTS = [
+  "movement",
+  "consumption",
+  "communication",
+  "perception",
+  "creation",
+  "change",
+] as const satisfies readonly VerbSemanticType[];
+
+export const COMMUNICATIVE_FUNCTION_GOVERNING_ACTS: Record<
+  CommunicativeFunctionId,
+  readonly VerbSemanticType[]
+> = {
+  describe: ["state", "existence"],
+  "express-preference": ["preference"],
+  "express-desire": ["preference"],
+  "express-need": ["necessity"],
+  "express-possession": ["possession"],
+  "report-result": ["change", "creation"],
+  "report-activities": ACTIVITY_ACTS,
+  "report-event": ACTIVITY_ACTS,
+  "ask-information": VERB_SEMANTIC_TYPES,
+};
+
+/** True when the verb's semantic act is one this Function accepts as verb1. */
+export function verbGoverningActFitsFunction(
+  functionId: string,
+  verbSemanticType: unknown,
+): boolean {
+  if (!isCommunicativeFunctionId(functionId)) return false;
+  if (typeof verbSemanticType !== "string" || !verbSemanticType.trim()) return false;
+  return (
+    COMMUNICATIVE_FUNCTION_GOVERNING_ACTS[functionId] as readonly string[]
+  ).includes(verbSemanticType.trim());
+}
+
+/**
+ * Editorial governing verbs. A Function in this map admits a verb1 only when
+ * the lemma is listed. `VerbSemanticType` does not admit or reject that
+ * Function. A Function absent from this map admits a verb1 only through
+ * `verbGoverningActFitsFunction`.
+ */
+export const COMMUNICATIVE_FUNCTION_GOVERNING_VERBS: Partial<
+  Record<CommunicativeFunctionId, readonly string[]>
+> = {
+  describe: ["be"],
+  "express-preference": ["like"],
+  "express-desire": ["want"],
+  "express-need": ["need"],
+  "express-possession": ["have"],
+};
+
+function governingVerbLemma(value: unknown): string {
+  return typeof value === "string" ? value.trim().toLowerCase() : "";
+}
+
+/** Lemmas that may govern the Function, or null when admission is the coarse type filter. */
+export function communicativeFunctionGoverningVerbs(
+  functionId: string,
+): readonly string[] | null {
+  if (!isCommunicativeFunctionId(functionId)) return null;
+  const listed = COMMUNICATIVE_FUNCTION_GOVERNING_VERBS[functionId];
+  return listed && listed.length > 0 ? listed : null;
+}
+
+/**
+ * Final Function ↔ verb1 admission.
+ * A named governing-verb list is the authority. Otherwise the coarse
+ * `VerbSemanticType` filter is the authority.
+ */
+export function verbGovernsFunction(
+  functionId: string,
+  lemma: unknown,
+  verbSemanticType: unknown,
+): boolean {
+  if (!isCommunicativeFunctionId(functionId)) return false;
+  const listed = communicativeFunctionGoverningVerbs(functionId);
+  if (listed) {
+    const key = governingVerbLemma(lemma);
+    return key !== "" && listed.some((item) => governingVerbLemma(item) === key);
+  }
+  return verbGoverningActFitsFunction(functionId, verbSemanticType);
+}

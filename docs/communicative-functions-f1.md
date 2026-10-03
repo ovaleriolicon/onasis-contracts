@@ -22,6 +22,12 @@ Withdrawn (do not revive as aliases): `talk-about-activities`.
 
 `report-activities` (generic / kind) is independent of `report-event` (instance / episodic), `report-result` (outcome), `express-preference`, `express-possession`, and `describe`. The Ecosystem authorizes which of these acts are available; Object Number follows the selected Function. Nouns do not override Function reading.
 
+## Governing verb
+
+`COMMUNICATIVE_FUNCTION_GOVERNING_VERBS` is the editorial assignment of which lemmas may be a Function's verb1. `verbGovernsFunction` is the check. A Function in that map admits a lemma on the list and does not admit any other lemma, even when `semantics.type` matches another Function's class. `express-preference` admits `like`. `express-desire` admits `want`. `express-need` admits `need`. `express-possession` admits `have`. `describe` admits `be`.
+
+`VerbSemanticType` stays a coarse filter and is not sufficient admission. `COMMUNICATIVE_FUNCTION_GOVERNING_ACTS` and `verbGoverningActFitsFunction` apply only when the Function names no governing lemmas. `ask-information` accepts every declared verb semantic type, because it asks about authorized content acts. `report-activities` and `report-event` accept the activity acts (`movement`, `consumption`, `communication`, `perception`, `creation`, `change`). Preference, necessity, possession, state, and existence do not govern them. `report-result` accepts `change` and `creation`.
+
 ## Ecosystem.functions
 
 ```ts

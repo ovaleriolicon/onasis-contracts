@@ -1,4 +1,5 @@
 import type { ObjectNumber } from "../grammar/object-number";
+import type { VerbSemanticType } from "../semantics/verb-semantic-type";
 export declare const COMMUNICATIVE_FUNCTIONS: readonly ["describe", "express-preference", "express-desire", "express-need", "express-possession", "report-result", "report-activities", "report-event", "ask-information"];
 export type CommunicativeFunctionId = (typeof COMMUNICATIVE_FUNCTIONS)[number];
 export declare function isCommunicativeFunctionId(value: string): value is CommunicativeFunctionId;
@@ -39,3 +40,21 @@ export declare const COMMUNICATIVE_FUNCTION_OBJECT_NUMBERS: Partial<Record<Commu
  */
 export type ObjectModifierPolicy = "omit" | "require";
 export declare const COMMUNICATIVE_FUNCTION_OBJECT_MODIFIER_POLICIES: Partial<Record<CommunicativeFunctionId, readonly ObjectModifierPolicy[]>>;
+export declare const COMMUNICATIVE_FUNCTION_GOVERNING_ACTS: Record<CommunicativeFunctionId, readonly VerbSemanticType[]>;
+/** True when the verb's semantic act is one this Function accepts as verb1. */
+export declare function verbGoverningActFitsFunction(functionId: string, verbSemanticType: unknown): boolean;
+/**
+ * Editorial governing verbs. A Function in this map admits a verb1 only when
+ * the lemma is listed. `VerbSemanticType` does not admit or reject that
+ * Function. A Function absent from this map admits a verb1 only through
+ * `verbGoverningActFitsFunction`.
+ */
+export declare const COMMUNICATIVE_FUNCTION_GOVERNING_VERBS: Partial<Record<CommunicativeFunctionId, readonly string[]>>;
+/** Lemmas that may govern the Function, or null when admission is the coarse type filter. */
+export declare function communicativeFunctionGoverningVerbs(functionId: string): readonly string[] | null;
+/**
+ * Final Function ↔ verb1 admission.
+ * A named governing-verb list is the authority. Otherwise the coarse
+ * `VerbSemanticType` filter is the authority.
+ */
+export declare function verbGovernsFunction(functionId: string, lemma: unknown, verbSemanticType: unknown): boolean;

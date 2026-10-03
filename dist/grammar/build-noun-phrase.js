@@ -6,6 +6,18 @@ function startsWithVowelSound(word) {
     return /^[aeiou]/i.test(word.trim());
 }
 /**
+ * Plural NP surface. An attested plural wins. A plural-only lemma is already
+ * that surface. Otherwise the lemma is a singular citation and pluralize runs.
+ */
+function pluralSurface(noun) {
+    const attested = noun.grammar?.attestedPlural;
+    if (typeof attested === "string" && attested.trim())
+        return attested.trim();
+    if (noun.grammar?.pluralOnly === true)
+        return noun.lemma;
+    return (0, pluralize_1.pluralize)(noun.lemma);
+}
+/**
  * Build a noun phrase surface: determiner + optional attributive adjective + noun.
  * When `adjective` is omitted, behavior is identical to the determiner-only path.
  * `a`/`an` uses the first pronounced word (adjective if present, else noun lemma).
@@ -29,10 +41,7 @@ function buildNounPhrase(noun, determinerOverride, adjective) {
             return `${startsWithVowel ? "an" : "a"} ${nounCore}`;
         }
         case "plural": {
-            const attested = noun.grammar?.attestedPlural;
-            const pluralNoun = typeof attested === "string" && attested.trim()
-                ? attested.trim()
-                : (0, pluralize_1.pluralize)(lemma);
+            const pluralNoun = pluralSurface(noun);
             return hasAdjective ? `${adjBase} ${pluralNoun}` : pluralNoun;
         }
         case "some":

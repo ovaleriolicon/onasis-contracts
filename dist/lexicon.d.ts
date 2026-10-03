@@ -43,6 +43,12 @@ export type NounEntry = {
          * instead of pluralize(lemma).
          */
         attestedPlural?: string;
+        /**
+         * The stored lemma is already the plural surface (plural-only).
+         * buildNounPhrase uses the lemma for a plural noun phrase and does not
+         * call pluralize. Absent means the lemma is a singular citation form.
+         */
+        pluralOnly?: boolean;
         defaultPreposition?: string;
         /**
          * When true, place phrases stay bare (e.g. "home") even if the verb
