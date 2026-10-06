@@ -140,7 +140,17 @@ export type VerbEntry = {
      */
     requiresAnimateSubject?: boolean;
 
-    requiresPreposition?: string;
+    /**
+     * Place preposition this verb licenses.
+     * A string is one preposition for every use.
+     * `{ location, destination }` licenses both; the Function selects one.
+     */
+    requiresPreposition?:
+      | string
+      | {
+          location: string;
+          destination: string;
+        };
 
     /**
      * @deprecated Use `roles.theme.selection.classes` (Semantic Ontology v2).

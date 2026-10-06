@@ -198,6 +198,17 @@ describe("objectNumber: Function ?? Verb ?? singular", () => {
     );
   });
 
+  it("report-activities renders uncountable soccer as I play soccer", () => {
+    const soccer = noun("soccer", {
+      countable: false,
+      defaultDeterminer: "none",
+      type: "activity",
+    });
+    const sentence = affirmative("I", "play", soccer, "report-activities");
+    assert.equal(getFunctionObjectNumber("report-activities"), "generic");
+    assert.equal(sentence, "I play soccer.");
+  });
+
   it("report-event → singular instance (same verb as activities stays generic there)", () => {
     const reaction = noun("reaction", {
       countable: true,

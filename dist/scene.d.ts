@@ -20,6 +20,11 @@ export type Scene = {
     };
     object?: NounEntry;
     place?: NounEntry;
+    /**
+     * Goal relation selected for this scene's place licensor.
+     * Present only when the verb licenses both location and destination.
+     */
+    goalRelation?: "location" | "destination";
     requiresObject?: boolean;
     /** Predicative complement only (to-be-adjective): "The dog is cute". */
     adjective?: AdjectiveEntry;
