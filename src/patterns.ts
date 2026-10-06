@@ -5,9 +5,11 @@ import type { Tense, Polarity, SentenceType } from "./scene";
 import type { StructureUnlockRef } from "./pedagogy/resolve-structure-unlock";
 
 export type PatternType =
+  | "verb"
   | "verb-object"
   | "verb-place"
   | "to-be-adjective"
+  | "verb-infinitive"
   | "verb-infinitive-object"
   | "verb-infinitive-place";
 

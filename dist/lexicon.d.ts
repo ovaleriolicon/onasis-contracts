@@ -76,6 +76,12 @@ export type VerbEntry = {
     base: string;
     behavior: VerbBehavior;
     complements: ComplementType[];
+    /**
+     * Fail-closed opt-in for the complement-less finite pattern.
+     * Absent or false keeps the verb off that pattern.
+     * `complements` stays a capability list and does not imply this use.
+     */
+    finiteWithoutComplement?: boolean;
     transitive: boolean;
     semantics: {
         type: VerbSemanticType;
