@@ -37,8 +37,11 @@ export declare const COMMUNICATIVE_FUNCTION_OBJECT_NUMBERS: Partial<Record<Commu
  * Absent → bare object NP (no objectAdjective).
  * List length 1 → always that policy.
  * List length >1 → orchestrator advances deterministically via lastObjectModifierPolicy.
+ * `optional` is not a catalog policy. An Exponent flag selects it for one
+ * Function: attach an adjective only when the chosen pattern already has an
+ * object and a compatible adjective.
  */
-export type ObjectModifierPolicy = "omit" | "require";
+export type ObjectModifierPolicy = "omit" | "require" | "optional";
 export declare const COMMUNICATIVE_FUNCTION_OBJECT_MODIFIER_POLICIES: Partial<Record<CommunicativeFunctionId, readonly ObjectModifierPolicy[]>>;
 export declare const COMMUNICATIVE_FUNCTION_GOVERNING_ACTS: Record<CommunicativeFunctionId, readonly VerbSemanticType[]>;
 /** True when the verb's semantic act is one this Function accepts as verb1. */

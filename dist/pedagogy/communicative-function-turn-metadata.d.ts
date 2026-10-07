@@ -25,5 +25,5 @@ export type CommunicativeFunctionTurnMetadata = {
      * (observability; generateScene receives it via filters, not this object).
      * Sticky client cursor: only overwrite lastObjectModifierPolicy when present.
      */
-    objectModifierPolicy?: "omit" | "require";
+    objectModifierPolicy?: "omit" | "require" | "optional";
 };
