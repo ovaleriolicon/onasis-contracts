@@ -17,8 +17,11 @@ function preservedSingularCountableDeterminer(value) {
  * Pure Grammar: receives an already-resolved reading (`objectNumber`) and
  * the noun. Does not read Verb, Function, Ecosystem, or Exponent.
  *
- * - reading "generic" → kind-reading: countable bare plural; uncountable bare
- *   (Determiner V1; noun lexical number does not override kind-reading)
+ * - reading "generic" → kind-reading: countable bare plural; uncountable bare.
+ *   Exception: a countable noun that stores lexical "singular" and
+ *   defaultDeterminer "definite" realizes "the" + the singular lemma.
+ *   Lexical singular with any other determiner does not override kind-reading.
+ *   Lexical "plural" stays bare plural.
  * - instance + noun lexical "plural" + countable → bare plural
  * - "singular" + countable → never `none`; explicit valid defaultDeterminer
  *   is preserved; missing/`none` falls back to indefinite
@@ -27,16 +30,21 @@ function preservedSingularCountableDeterminer(value) {
  * - reading "plural" | other → noun.grammar.defaultDeterminer (reserved)
  */
 function resolveDeterminer({ noun, objectNumber, }) {
-    if (objectNumber === "generic") {
-        return noun.grammar?.countable ? "plural" : "none";
-    }
     const lexical = noun.pedagogy?.preferredObjectNumber;
+    const countable = noun.grammar?.countable === true;
+    const lexicalSingular = (0, object_number_1.isNounLexicalObjectNumber)(lexical) && lexical === "singular" && countable;
+    if (objectNumber === "generic") {
+        if (lexicalSingular && noun.grammar?.defaultDeterminer === "definite") {
+            return "definite";
+        }
+        return countable ? "plural" : "none";
+    }
     if ((0, object_number_1.isNounLexicalObjectNumber)(lexical) &&
         lexical === "plural" &&
-        noun.grammar?.countable) {
+        countable) {
         return "plural";
     }
-    if (objectNumber === "singular" && noun.grammar?.countable) {
+    if (objectNumber === "singular" && countable) {
         return (preservedSingularCountableDeterminer(noun.grammar?.defaultDeterminer) ??
             "indefinite");
     }

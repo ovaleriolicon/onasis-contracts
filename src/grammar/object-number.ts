@@ -17,6 +17,9 @@
 //
 // Grammar (resolveDeterminer) receives the reading and the noun:
 // - reading "generic" → kind-reading: countable → bare plural; uncountable → bare
+//   except a countable noun with lexical "singular" and defaultDeterminer
+//   "definite", which realizes "the" + the singular lemma. Lexical singular
+//   with any other determiner does not override kind-reading.
 // - instance + noun lexical "plural" + countable → bare plural
 // - reading "singular" + countable → never `none` (missing/`none` → indefinite;
 //   explicit valid defaultDeterminer preserved); uncountable uses

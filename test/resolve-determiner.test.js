@@ -24,12 +24,16 @@ function verb(base, preferredObjectNumber) {
   };
 }
 
-function noun(lemma, { countable, defaultDeterminer, type, preferredObjectNumber }) {
+function noun(lemma, { countable, defaultDeterminer, type, preferredObjectNumber, pluralOnly }) {
   return {
     id: `noun:${lemma}`,
     lemma,
     translations: { es: lemma },
-    grammar: { countable, defaultDeterminer },
+    grammar: {
+      countable,
+      defaultDeterminer,
+      ...(pluralOnly ? { pluralOnly: true } : {}),
+    },
     semantics: { type, animate: false },
     ...(preferredObjectNumber
       ? { pedagogy: { preferredObjectNumber } }
@@ -557,6 +561,71 @@ describe("reading × lexical number composition", () => {
       affirmative("I", "like", cookie, "express-preference"),
       "I like cookies.",
     );
+  });
+
+  it("lexical singular + definite precedes generic kind-reading for I and They", () => {
+    const treadmill = noun("treadmill", {
+      countable: true,
+      defaultDeterminer: "definite",
+      type: "object",
+      preferredObjectNumber: "singular",
+    });
+    const exerciseBike = noun("exercise bike", {
+      countable: true,
+      defaultDeterminer: "definite",
+      type: "object",
+      preferredObjectNumber: "singular",
+    });
+    const { objectNumber, source } = resolveObjectNumber({
+      functionObjectNumber: getFunctionObjectNumber("report-activities"),
+      verb: verb("use", "singular"),
+    });
+    assert.equal(objectNumber, "generic");
+    assert.equal(source, "function");
+    assert.equal(resolveObject(treadmill, undefined, objectNumber), "the treadmill");
+    assert.equal(resolveObject(exerciseBike, undefined, objectNumber), "the exercise bike");
+    for (const subject of ["I", "They"]) {
+      assert.equal(
+        affirmative(subject, "use", treadmill, "report-activities"),
+        `${subject} use the treadmill.`,
+      );
+      assert.equal(
+        affirmative(subject, "use", exerciseBike, "report-activities"),
+        `${subject} use the exercise bike.`,
+      );
+    }
+  });
+
+  it("definite without lexical singular still follows generic bare plural", () => {
+    const menu = noun("menu", {
+      countable: true,
+      defaultDeterminer: "definite",
+      type: "object",
+    });
+    assert.equal(resolveObject(menu, undefined, "generic"), "menus");
+  });
+
+  it("pluralOnly dumbbells stays dumbbells for singular and plural subjects", () => {
+    const dumbbells = noun("dumbbells", {
+      countable: true,
+      defaultDeterminer: "none",
+      type: "object",
+      preferredObjectNumber: "plural",
+      pluralOnly: true,
+    });
+    for (const subject of ["I", "They"]) {
+      assert.equal(
+        affirmative(subject, "use", dumbbells, "report-activities"),
+        `${subject} use dumbbells.`,
+      );
+      assert.equal(
+        affirmative(subject, "use", dumbbells, "express-desire"),
+        `${subject} use dumbbells.`,
+      );
+    }
+    assert.equal(resolveObject(dumbbells, undefined, "generic"), "dumbbells");
+    assert.equal(resolveObject(dumbbells, undefined, "singular"), "dumbbells");
+    assert.equal(String(resolveObject(dumbbells, undefined, "generic")).includes("dumbbellses"), false);
   });
 
   it("leftover noun generic does not override Desire instance reading", () => {
