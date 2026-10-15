@@ -22,8 +22,8 @@
 //   with any other determiner does not override kind-reading.
 // - instance + noun lexical "plural" + countable → bare plural
 // - reading "singular" + countable → never `none` (missing/`none` → indefinite;
-//   explicit valid defaultDeterminer preserved); uncountable uses
-//   defaultDeterminer (bare `none` stays bare)
+//   explicit valid defaultDeterminer preserved); uncountable keeps explicit
+//   `some`, `definite`, and `any`, and missing or `indefinite` realizes bare `none`
 // - reading "plural" (reserved) → noun.defaultDeterminer unless lexical plural applies
 
 export const OBJECT_NUMBERS = ["generic", "singular", "plural"] as const;

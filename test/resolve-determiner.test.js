@@ -348,6 +348,70 @@ describe("Determiner Resolution V1", () => {
     assert.equal(resolveObject(someSoup, undefined, "singular"), "some soup");
   });
 
+  it("singular uncountable without an article stays bare, and countable keeps a", () => {
+    const takeoutMissing = {
+      id: "noun:takeout-missing",
+      lemma: "takeout",
+      translations: { es: "comida para llevar" },
+      grammar: { countable: false },
+      semantics: { type: "food", animate: false },
+    };
+    const takeoutIndefinite = noun("takeout", {
+      countable: false,
+      defaultDeterminer: "indefinite",
+      type: "food",
+    });
+    const water = noun("water", {
+      countable: false,
+      defaultDeterminer: "none",
+      type: "beverage",
+    });
+    const someWater = noun("water", {
+      countable: false,
+      defaultDeterminer: "some",
+      type: "beverage",
+    });
+    const napkin = noun("napkin", {
+      countable: true,
+      defaultDeterminer: "indefinite",
+      type: "object",
+    });
+    const theWater = noun("water", {
+      countable: false,
+      defaultDeterminer: "definite",
+      type: "beverage",
+    });
+    const anyWater = noun("water", {
+      countable: false,
+      defaultDeterminer: "any",
+      type: "beverage",
+    });
+    assert.equal(
+      resolveDeterminer({ noun: takeoutMissing, objectNumber: "singular" }),
+      "none",
+    );
+    assert.equal(
+      resolveDeterminer({ noun: takeoutIndefinite, objectNumber: "singular" }),
+      "none",
+    );
+    assert.equal(
+      affirmative("I", "want", takeoutMissing, "express-desire"),
+      "I want takeout.",
+    );
+    assert.equal(
+      affirmative("I", "want", takeoutIndefinite, "express-desire"),
+      "I want takeout.",
+    );
+    assert.equal(affirmative("I", "want", water, "express-desire"), "I want water.");
+    assert.equal(affirmative("I", "want", napkin, "express-desire"), "I want a napkin.");
+    assert.equal(
+      affirmative("I", "want", someWater, "express-desire"),
+      "I want some water.",
+    );
+    assert.equal(resolveObject(theWater, undefined, "singular"), "the water");
+    assert.equal(resolveObject(anyWater, undefined, "singular"), "any water");
+  });
+
   it("singular uncountable + none → bare", () => {
     assert.equal(
       resolveDeterminer({ noun: coffee, objectNumber: "singular" }),

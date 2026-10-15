@@ -25,9 +25,9 @@ function preservedSingularCountableDeterminer(value) {
  * - instance + noun lexical "plural" + countable → bare plural
  * - "singular" + countable → never `none`; explicit valid defaultDeterminer
  *   is preserved; missing/`none` falls back to indefinite
- * - "singular" + uncountable → noun.grammar.defaultDeterminer (bare `none`
- *   stays bare)
- * - reading "plural" | other → noun.grammar.defaultDeterminer (reserved)
+ * - uncountable → explicit `some`, `definite`, and `any` stay; missing or
+ *   `indefinite` realizes bare `none`
+ * - reading "plural" | other on a countable noun → noun.grammar.defaultDeterminer (reserved)
  */
 function resolveDeterminer({ noun, objectNumber, }) {
     const lexical = noun.pedagogy?.preferredObjectNumber;
@@ -48,5 +48,8 @@ function resolveDeterminer({ noun, objectNumber, }) {
         return (preservedSingularCountableDeterminer(noun.grammar?.defaultDeterminer) ??
             "indefinite");
     }
-    return noun.grammar?.defaultDeterminer ?? "indefinite";
+    const stored = noun.grammar?.defaultDeterminer;
+    if (!countable && (stored == null || stored === "indefinite"))
+        return "none";
+    return stored ?? "indefinite";
 }
