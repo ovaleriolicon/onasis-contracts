@@ -51,10 +51,17 @@ export type NounEntry = {
         pluralOnly?: boolean;
         defaultPreposition?: string;
         /**
-         * When true, place phrases stay bare (e.g. "home") even if the verb
-         * declares semantics.requiresPreposition.
+         * Bare adverbial on the destination reading only (e.g. "go home", "run home").
+         * A location reading still takes the verb preposition, or locationPreposition
+         * when this noun sets one.
          */
         omitPlacePreposition?: boolean;
+        /**
+         * Location preposition for this noun. On a location reading it replaces the
+         * verb preposition ("at home" when the verb's location preposition is "in").
+         * Absent keeps the verb preposition.
+         */
+        locationPreposition?: string;
     };
     semantics: {
         type: NounSemanticType;
