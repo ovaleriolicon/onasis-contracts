@@ -2,6 +2,7 @@ import type { SubjectEntry, VerbEntry, NounEntry, AdjectiveEntry } from "./lexic
 import type { PatternType } from "./patterns";
 import type { VerbBehavior } from "./grammar/verb-behavior";
 import type { ObjectNumber, ObjectNumberSource } from "./grammar/object-number";
+import type { DegreeModifier } from "./grammar/degree-modifier";
 export type Polarity = "affirmative" | "negative";
 export type SentenceType = "statement" | "question";
 export type Tense = "present" | "past" | "present-progressive" | "past-progressive";
@@ -28,6 +29,11 @@ export type Scene = {
     requiresObject?: boolean;
     /** Predicative complement only (to-be-adjective): "The dog is cute". */
     adjective?: AdjectiveEntry;
+    /**
+     * Optional degree on `adjective`. Absent keeps the bare predicative.
+     * V1 is only `{ lemma: "very", position: "before" }`.
+     */
+    degreeModifier?: DegreeModifier;
     /**
      * Attributive modifier of the object NP: "I have a cute dog".
      * Distinct from `adjective` — never used as be-complement.

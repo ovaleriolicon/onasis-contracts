@@ -25,3 +25,4 @@ __exportStar(require("./complement-type"), exports);
 __exportStar(require("./object-number"), exports);
 __exportStar(require("./verb-behavior"), exports);
 __exportStar(require("./determiner-policy"), exports);
+__exportStar(require("./degree-modifier"), exports);

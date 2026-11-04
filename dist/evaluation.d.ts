@@ -1,5 +1,6 @@
 import type { Scene } from "./scene";
 import type { ErrorId } from "./errors";
+import type { DegreeModifierLemma } from "./grammar/degree-modifier";
 import type { ConstructionStep } from "./construction/construction-step";
 export type EvaluateInput = {
     scene: Scene;
@@ -11,6 +12,8 @@ export type ParsedInput = {
     verb?: string;
     object?: string;
     adjective?: string;
+    /** Catalog lemma peeled from the front of a predicative complement. */
+    degreeModifier?: DegreeModifierLemma;
     be?: string;
     negation?: boolean;
     /** Present when the learner produced "to" before verb2 (Double Verb). */
@@ -30,6 +33,11 @@ export type SentenceStructure = {
     verb: string | null;
     object: string | null;
     adjective: string | null;
+    /**
+     * Predicative degree lemma. Null when the scene and the answer have none.
+     * V1 observes only the catalog lemma "very".
+     */
+    degreeModifier: DegreeModifierLemma | null;
     /**
      * Expected/observed "to" before verb2. Null on single-verb structures.
      * Derived for expected IR from pattern; not stored on Scene.

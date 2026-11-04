@@ -258,5 +258,11 @@ export type AdjectiveEntry = {
      * (e.g. "is favorite"). Optional; absent means false for v1 docs.
      */
     requiresDeterminer?: boolean;
+
+    /**
+     * Degree Modifier V1. Only `true` authorizes a predicative degree
+     * modifier. Absent is not gradable and needs no migration.
+     */
+    gradable?: boolean;
   };
 };

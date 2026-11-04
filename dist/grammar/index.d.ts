@@ -9,3 +9,4 @@ export * from "./complement-type";
 export * from "./object-number";
 export * from "./verb-behavior";
 export * from "./determiner-policy";
+export * from "./degree-modifier";

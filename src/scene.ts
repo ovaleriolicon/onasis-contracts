@@ -15,6 +15,7 @@ import type { PatternType } from "./patterns";
 // barrel de grammar/, así que ningún consumidor existente se rompe.
 import type { VerbBehavior } from "./grammar/verb-behavior";
 import type { ObjectNumber, ObjectNumberSource } from "./grammar/object-number";
+import type { DegreeModifier } from "./grammar/degree-modifier";
 
 export type Polarity = "affirmative" | "negative";
 
@@ -58,6 +59,12 @@ export type Scene = {
 
   /** Predicative complement only (to-be-adjective): "The dog is cute". */
   adjective?: AdjectiveEntry;
+
+  /**
+   * Optional degree on `adjective`. Absent keeps the bare predicative.
+   * V1 is only `{ lemma: "very", position: "before" }`.
+   */
+  degreeModifier?: DegreeModifier;
 
   /**
    * Attributive modifier of the object NP: "I have a cute dog".

@@ -2,6 +2,8 @@ import type { Scene } from "./scene";
 
 import type { ErrorId } from "./errors";
 
+import type { DegreeModifierLemma } from "./grammar/degree-modifier";
+
 import type { ConstructionStep } from "./construction/construction-step";
 
 //
@@ -28,6 +30,9 @@ export type ParsedInput = {
   object?: string;
 
   adjective?: string;
+
+  /** Catalog lemma peeled from the front of a predicative complement. */
+  degreeModifier?: DegreeModifierLemma;
 
   be?: string;
 
@@ -69,6 +74,12 @@ export type SentenceStructure = {
   object: string | null;
 
   adjective: string | null;
+
+  /**
+   * Predicative degree lemma. Null when the scene and the answer have none.
+   * V1 observes only the catalog lemma "very".
+   */
+  degreeModifier: DegreeModifierLemma | null;
 
   /**
    * Expected/observed "to" before verb2. Null on single-verb structures.

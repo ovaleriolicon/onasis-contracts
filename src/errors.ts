@@ -34,6 +34,10 @@ export type ErrorId =
   | "question_word_order"
   | "question_with_conjugated_main_verb"
 
+  // Degree Modifier V1 (predicative "very")
+  | "missing_degree_modifier"
+  | "unexpected_degree_modifier"
+
   // Double Verb V1 (to-infinitive)
   | "missing_infinitive_marker"
   | "missing_infinitive_verb"
